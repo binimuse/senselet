@@ -287,6 +287,7 @@ class SigninView extends GetView<SigninController> {
             child: ElevatedButton(
               onPressed: () {
                 KeyboardUtil.hideKeyboard(context);
+                Get.toNamed(Routes.HOME);
                 //     controller.checkLogin(context);
               },
               style: ElevatedButton.styleFrom(
@@ -344,7 +345,6 @@ class SigninView extends GetView<SigninController> {
       right: 0,
       bottom: -25.h,
       child: Image.asset(
-        
         opacity: const AlwaysStoppedAnimation(.1),
         'assets/images/doc.png',
         height: 65.h,

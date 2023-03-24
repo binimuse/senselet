@@ -33,18 +33,9 @@ dev_dependencies:
 flutter:
   assets:
 
-    - assets/images/doc.png
-    - assets/images/p.png
-    - assets/images/no.png
-    - assets/images/pin.png
-    - assets/images/me.png
-    - assets/images/pharma.png
-    - assets/images/logo.png
-    - assets/images/logo_green.png
-    - assets/images/sucess.png
-    - assets/images/map.png
-    - assets/images/drug.jpg
+    - assets/images/
     - assets/lottie/
+    - assets/icons/
 
   uses-material-design: true
   fonts:

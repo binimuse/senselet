@@ -31,19 +31,32 @@ class SplashView extends GetView<SplashController> {
                   children: [
                     Image.asset(
                       'assets/images/logo.png',
-                      height: 220,
+                      height: 200,
                       width: 220,
                     ),
                     //  Image.asset("assets/images/name.gif")
-                    Text(
-                      controller.appName,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40.sp,
-                        letterSpacing: 2.5,
-                        height: 0.18.h,
-                        fontWeight: FontWeight.normal,
-                      ),
+                    Column(
+                      children: [
+                        Text(
+                          controller.appName,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 40.sp,
+                            letterSpacing: 2.5,
+                            height: 0.18.h,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Dry Cargo Services",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30.sp,
+                            fontFamily: 'WorkSans',
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

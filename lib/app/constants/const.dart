@@ -11,6 +11,7 @@ const String APP_NAME = 'pharma';
 // color for apps
 const themeColor = Color(0xff00BA63);
 const themeColorFaded = Color(0xff008579);
+const themeColorgray = Color(0xFFaaaaaa);
 
 const Color BLACK21 = Color(0xFF212121);
 const Color BLACK55 = Color(0xFF555555);
@@ -38,3 +39,5 @@ const String IMAGE_URL = 'http://139.59.151.145:8055/assets/';
 
 const String LOGIN_API = SERVER_URL + "/authentication/login";
 const String PRODUCT_API = SERVER_URL + "/example/getProduct";
+
+enum MenuState { home, order, profile, book }
