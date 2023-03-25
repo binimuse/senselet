@@ -23,7 +23,7 @@ class SplashController extends GetxController {
   void showSplash() async {
     print("object");
     Future.delayed(const Duration(seconds: 4), () {
-      Get.offAndToNamed(Routes.MAIN_PAGE);
+      Get.offAndToNamed(Routes.SIGNIN);
     });
 
 // when

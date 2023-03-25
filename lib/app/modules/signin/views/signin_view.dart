@@ -287,7 +287,7 @@ class SigninView extends GetView<SigninController> {
             child: ElevatedButton(
               onPressed: () {
                 KeyboardUtil.hideKeyboard(context);
-                Get.toNamed(Routes.HOME);
+                Get.toNamed(Routes.MAIN_PAGE);
                 //     controller.checkLogin(context);
               },
               style: ElevatedButton.styleFrom(

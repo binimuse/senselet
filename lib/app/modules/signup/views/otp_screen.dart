@@ -31,8 +31,8 @@ class OtpScreen extends GetView<SignupController> {
                   radius: 60.0,
                   backgroundColor: Colors.transparent,
                   child: ClipRRect(
-                    child: Image.asset('assets/images/logo_green.png'),
                     borderRadius: BorderRadius.circular(4.0),
+                    child: Image.asset('assets/images/logo_green.png'),
                   ),
                 ),
                 const SizedBox(height: 20),

@@ -17,7 +17,7 @@ class SignupView extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: buildAppBar(),
+        appBar: controller.reusableWidget.buildAppBarforAll(context),
         resizeToAvoidBottomInset: true,
         backgroundColor: const Color(0xffF6FBFB),
         body: Container(
@@ -137,7 +137,6 @@ class SignupView extends GetView<SignupController> {
       right: 0,
       bottom: -25.h,
       child: Image.asset(
-        
         opacity: const AlwaysStoppedAnimation(.1),
         'assets/images/doc.png',
         height: 65.h,
@@ -234,48 +233,6 @@ class SignupView extends GetView<SignupController> {
           ],
         ),
       ],
-    );
-  }
-
-  buildAppBar() {
-    return AppBar(
-      elevation: 0,
-      toolbarHeight: 11.h,
-      leading: IconButton(
-        onPressed: () {
-          Get.back();
-        },
-        icon: const Icon(
-          Icons.arrow_back,
-          color: Colors.black87,
-        ),
-      ),
-      title: Row(
-        children: [
-          CircleAvatar(
-            radius: 25.0,
-            backgroundColor: Colors.white,
-            child: ClipRRect(
-              child: Image.asset('assets/images/logo_green.png'),
-              borderRadius: BorderRadius.circular(4.0),
-            ),
-          ),
-          SizedBox(
-            width: 2.w,
-          ),
-          Text(
-            "LIVELY",
-            style: TextStyle(
-                color: const Color(0xff129797),
-                fontWeight: FontWeight.w400,
-                fontSize: 18.sp,
-                letterSpacing: 1.4.sp),
-          ),
-        ],
-      ),
-      centerTitle: false,
-      backgroundColor: const Color(0xffF6FBFB),
-      shadowColor: Colors.transparent,
     );
   }
 

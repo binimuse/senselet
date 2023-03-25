@@ -12,9 +12,8 @@ class ForgotpasswordView extends GetView<ForgotpasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: controller.reusableWidget.buildAppBar(),
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xffF6FBFB),
       body: Container(
         color: const Color(0xffF6FBFB),
         height: double.infinity,
@@ -55,48 +54,6 @@ class ForgotpasswordView extends GetView<ForgotpasswordController> {
           ],
         ),
       ),
-    );
-  }
-
-  buildAppBar() {
-    return AppBar(
-      elevation: 0,
-      toolbarHeight: 11.h,
-      leading: IconButton(
-        onPressed: () {
-          Get.back();
-        },
-        icon: const Icon(
-          Icons.arrow_back,
-          color: Colors.black87,
-        ),
-      ),
-      title: Row(
-        children: [
-          CircleAvatar(
-            radius: 25.0,
-            backgroundColor: const Color(0xffF6FBFB),
-            child: ClipRRect(
-              child: Image.asset('assets/images/logo_green.png'),
-              borderRadius: BorderRadius.circular(4.0),
-            ),
-          ),
-          SizedBox(
-            width: 3.w,
-          ),
-          Text(
-            "LIVELY",
-            style: TextStyle(
-              color: const Color(0xff129797),
-              fontWeight: FontWeight.w400,
-              fontSize: 20.sp,
-            ),
-          ),
-        ],
-      ),
-      centerTitle: false,
-      backgroundColor: const Color(0xffF6FBFB),
-      shadowColor: Colors.transparent,
     );
   }
 

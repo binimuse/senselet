@@ -25,7 +25,7 @@ class MainPageView extends GetView<MainPageController> {
             index: controller.currentPageIndex.value,
             // ignore: prefer_const_literals_to_create_immutables
             children: [
-              const HomeView(),
+              HomeView(),
               const ProfilePageView(),
             ],
           );
@@ -34,41 +34,53 @@ class MainPageView extends GetView<MainPageController> {
     );
   }
 
-  FloatingActionButton buildFloatingActionButton(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {
-        // Get.toNamed(Routes.CART);
-      },
-      backgroundColor: themeColorFaded,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(CustomSizes.radius_7),
+  buildFloatingActionButton(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            offset: const Offset(0, 1),
+            blurRadius: 2,
+          ),
+        ],
+        gradient: LinearGradient(
+          colors: [themeColor, themeColorFaded],
         ),
+        borderRadius: BorderRadius.circular(10),
       ),
-      child: SizedBox.fromSize(
-        size: const Size(30, 50), // button width and height
-        child: InkWell(
-          onTap: () {}, // button pressed
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Icon(
-                FontAwesomeIcons.truck,
-                color: Colors.white,
-                size: CustomSizes.icon_size_8 * 0.8,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                "Order",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: Colors.white),
-              ), // text
-            ],
+      child: FloatingActionButton(
+        isExtended: true,
+        elevation: 0,
+        onPressed: () {
+          // Get.toNamed(Routes.CART);
+        },
+        backgroundColor: Colors.transparent,
+        child: SizedBox.fromSize(
+          size: const Size(30, 50), // button width and height
+          child: InkWell(
+            onTap: () {}, // button pressed
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Icon(
+                  FontAwesomeIcons.truck,
+                  color: Colors.white,
+                  size: CustomSizes.icon_size_6,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "Order",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(color: Colors.white),
+                ), // text
+              ],
+            ),
           ),
         ),
       ),

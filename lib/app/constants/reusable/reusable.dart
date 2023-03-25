@@ -302,8 +302,50 @@ class ReusableWidget {
             radius: 25.0,
             backgroundColor: Colors.white,
             child: ClipRRect(
-              child: Image.asset('assets/images/logo_green.png'),
               borderRadius: BorderRadius.circular(4.0),
+              child: Image.asset('assets/images/logo_green.png'),
+            ),
+          ),
+          SizedBox(
+            width: 3.w,
+          ),
+          Text(
+            "SENSELET",
+            style: TextStyle(
+              color: const Color(0xff129797),
+              fontWeight: FontWeight.w400,
+              fontSize: 20.sp,
+            ),
+          ),
+        ],
+      ),
+      centerTitle: false,
+      backgroundColor: const Color(0xffF6FBFB),
+      shadowColor: Colors.transparent,
+    );
+  }
+
+  buildAppBarforAll(BuildContext context) {
+    return AppBar(
+      elevation: 0,
+      toolbarHeight: 11.h,
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(
+          Icons.arrow_back,
+          color: Colors.black,
+        ),
+      ),
+      title: Row(
+        children: [
+          CircleAvatar(
+            radius: 25.0,
+            backgroundColor: Colors.white,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4.0),
+              child: Image.asset('assets/images/logo_green.png'),
             ),
           ),
           SizedBox(

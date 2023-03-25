@@ -27,7 +27,6 @@ class SplashView extends GetView<SplashController> {
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
                       'assets/images/logo.png',
@@ -51,7 +50,7 @@ class SplashView extends GetView<SplashController> {
                           "Dry Cargo Services",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 30.sp,
+                            fontSize: 15.sp,
                             fontFamily: 'WorkSans',
                             fontWeight: FontWeight.normal,
                           ),
