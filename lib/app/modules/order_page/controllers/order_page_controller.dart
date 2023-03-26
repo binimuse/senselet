@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../routes/app_pages.dart';
+
 class OrderPageController extends GetxController {
   //TODO: Implement OrderPageController
 
@@ -59,7 +61,16 @@ class OrderPageController extends GetxController {
       actions: [
         IconButton(
             onPressed: () {
-              //  Get.toNamed(Routes.FAVORITE_PAGE);
+              //  Get.toNamed(Routes.NOTIFICATION_PAGE);
+            },
+            icon: const Icon(
+              FontAwesomeIcons.clockRotateLeft,
+              size: 20,
+              color: Colors.black,
+            )),
+        IconButton(
+            onPressed: () {
+              //  Get.toNamed(Routes.NOTIFICATION_PAGE);
             },
             icon: const Icon(
               FontAwesomeIcons.bell,

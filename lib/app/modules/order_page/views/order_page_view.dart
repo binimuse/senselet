@@ -26,7 +26,7 @@ class OrderPageView extends GetView<OrderPageController> {
               children: <Widget>[
                 Container(
                   padding:
-                      EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+                      const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(10.0),

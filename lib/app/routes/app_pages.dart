@@ -6,6 +6,10 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/main_page/bindings/main_page_binding.dart';
 import '../modules/main_page/views/main_page_view.dart';
+import '../modules/notification_page/bindings/notification_page_binding.dart';
+import '../modules/notification_page/views/notification_page_view.dart';
+import '../modules/order_history/bindings/order_history_binding.dart';
+import '../modules/order_history/views/order_history_view.dart';
 import '../modules/order_page/bindings/order_page_binding.dart';
 import '../modules/order_page/views/order_page_view.dart';
 import '../modules/profile_page/bindings/profile_page_binding.dart';
@@ -57,13 +61,23 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROFILE_PAGE,
-      page: () => const ProfilePageView(),
+      page: () => ProfilePageView(),
       binding: ProfilePageBinding(),
     ),
     GetPage(
       name: _Paths.ORDER_PAGE,
-      page: () =>  OrderPageView(),
+      page: () => OrderPageView(),
       binding: OrderPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATION_PAGE,
+      page: () => const NotificationPageView(),
+      binding: NotificationPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.ORDER_HISTORY,
+      page: () => const OrderHistoryView(),
+      binding: OrderHistoryBinding(),
     ),
   ];
 }

@@ -26,7 +26,7 @@ class MainPageView extends GetView<MainPageController> {
             // ignore: prefer_const_literals_to_create_immutables
             children: [
               HomeView(),
-              const ProfilePageView(),
+              ProfilePageView(),
             ],
           );
         }),
