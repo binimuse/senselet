@@ -1,13 +1,9 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geocoding/geocoding.dart';
 
 import 'package:get/get.dart';
-import 'package:senselet/app/modules/home/views/widget/wallet_card.dart';
 import 'package:sizer/sizer.dart';
 import '../../../constants/const.dart';
 import '../../../theme/custom_sizes.dart';
@@ -15,28 +11,20 @@ import '../controllers/home_controller.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeView extends GetView<HomeController> {
-  late GoogleMapController mapcController;
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-  late LatLng latLng = const LatLng(37.43296265331129, -122.08832357078792);
-  final Completer<GoogleMapController> _controller = Completer();
-  // final Location _location = Location(
-  //     latitude: 37.43296265331129,
-  //     longitude: -122.08832357078792,
-  //     timestamp: DateTime.now());
   HomeView({Key? key}) : super(key: key);
+  @override
+  final HomeController controller = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: controller.reusableWidget.buildAppforpages(context),
       body: Column(
         children: [
           Expanded(
             child: Stack(
               children: [
                 googlemap(),
-                appBarandTonePrice(context),
+                tonePrice(context),
                 flotingButoon(),
               ],
             ),
@@ -49,13 +37,13 @@ class HomeView extends GetView<HomeController> {
   googlemap() {
     return GoogleMap(
       mapType: MapType.terrain,
-      initialCameraPosition: _kGooglePlex,
+      initialCameraPosition: HomeController.kGooglePlex,
       myLocationEnabled: true,
       zoomControlsEnabled: false,
       circles: {
         Circle(
           circleId: const CircleId('currentCircle'),
-          center: latLng,
+          center: controller.latLng,
           radius: 80,
           fillColor: themeColor.withOpacity(0.5),
           strokeColor: themeColor.withOpacity(0.2),
@@ -63,54 +51,20 @@ class HomeView extends GetView<HomeController> {
       },
       myLocationButtonEnabled: true,
       compassEnabled: false,
-      onMapCreated: (GoogleMapController controller) {
-        _controller.complete(controller);
-        mapcController = controller;
+      onMapCreated: (GoogleMapController thiscontroller) {
+        controller.gcontroller.complete(thiscontroller);
+        controller.mapController = thiscontroller;
       },
     );
   }
 
-  appBarandTonePrice(BuildContext context) {
+  tonePrice(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(45.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              border:
-                  Border.all(width: 1, color: Colors.white.withOpacity(0.2)),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 20.0,
-                  backgroundColor: Colors.white,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(4.0),
-                    child: Image.asset('assets/images/logo_green.png'),
-                  ),
-                ),
-                SizedBox(
-                  width: 3.w,
-                ),
-                Text(
-                  "SENSELET",
-                  style: TextStyle(
-                    color: const Color(0xff129797),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20.sp,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 2.h,
-          ),
           Stack(children: [
             Container(
               height: 12.h,
@@ -223,7 +177,7 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             Positioned(
-              left: 260,
+              left: 250,
               right: 0,
               top: 16,
               bottom: 16,
@@ -264,11 +218,12 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             child: FloatingActionButton(
+              heroTag: "button1",
               isExtended: true,
               elevation: 0,
               onPressed: () {},
               backgroundColor: Colors.transparent,
-              child: Icon(Icons.call),
+              child: const Icon(Icons.call),
             ),
           )
         ],
@@ -358,7 +313,7 @@ class HomeView extends GetView<HomeController> {
                         color: Colors.white,
                         borderRadius:
                             BorderRadius.circular(CustomSizes.radius_4),
-                        child: SizedBox()),
+                        child: const SizedBox()),
                     SizedBox(
                       width: CustomSizes.mp_w_6,
                     ),
@@ -367,7 +322,7 @@ class HomeView extends GetView<HomeController> {
                         color: Colors.white,
                         borderRadius:
                             BorderRadius.circular(CustomSizes.radius_4),
-                        child: SizedBox()),
+                        child: const SizedBox()),
                   ],
                 ),
               ),

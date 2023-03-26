@@ -44,7 +44,7 @@ class MainPageView extends GetView<MainPageController> {
             blurRadius: 2,
           ),
         ],
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [themeColor, themeColorFaded],
         ),
         borderRadius: BorderRadius.circular(10),
@@ -52,14 +52,14 @@ class MainPageView extends GetView<MainPageController> {
       child: FloatingActionButton(
         isExtended: true,
         elevation: 0,
-        onPressed: () {
-          // Get.toNamed(Routes.CART);
-        },
+        onPressed: () {},
         backgroundColor: Colors.transparent,
         child: SizedBox.fromSize(
           size: const Size(30, 50), // button width and height
           child: InkWell(
-            onTap: () {}, // button pressed
+            onTap: () {
+              Get.toNamed(Routes.ORDER_PAGE);
+            }, // button pressed
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,

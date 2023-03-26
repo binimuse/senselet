@@ -12,7 +12,7 @@ const String APP_NAME = 'pharma';
 const themeColor = Color(0xff00BA63);
 const themeColorFaded = Color(0xff008579);
 const themeColorgray = Color(0xFFaaaaaa);
-
+const themebackground = Color.fromARGB(255, 232, 247, 246);
 const Color BLACK21 = Color(0xFF212121);
 const Color BLACK55 = Color(0xFF555555);
 const Color BLACK77 = Color(0xFF777777);
