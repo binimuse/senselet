@@ -6,18 +6,15 @@ import 'package:sizer/sizer.dart';
 import '../../../routes/app_pages.dart';
 
 class OrderPageController extends GetxController {
-  //TODO: Implement OrderPageController
-
   final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  var location = ''.obs;
+  var locationlat = ''.obs;
+  var locationlng = ''.obs;
+  var address = ''.obs;
+  var addressName = 'Home'.obs;
+  var loadAddressubmited = false.obs;
+  var loadAddress = false.obs;
 
   buildAppforpages(BuildContext context) {
     return AppBar(
@@ -61,7 +58,7 @@ class OrderPageController extends GetxController {
       actions: [
         IconButton(
             onPressed: () {
-              //  Get.toNamed(Routes.NOTIFICATION_PAGE);
+              Get.toNamed(Routes.ORDER_HISTORY);
             },
             icon: const Icon(
               FontAwesomeIcons.clockRotateLeft,

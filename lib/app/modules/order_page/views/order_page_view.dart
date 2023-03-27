@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:senselet/app/constants/const.dart';
+import 'package:senselet/app/modules/order_page/views/widget/map_pin_my_address.dart';
+import 'package:senselet/app/modules/order_page/views/widget/order_sucess.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constants/reusable/keyboard.dart';
@@ -25,8 +27,8 @@ class OrderPageView extends GetView<OrderPageController> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 24.0),
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(10.0),
@@ -35,7 +37,7 @@ class OrderPageView extends GetView<OrderPageController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Icon(Icons.help_outline, color: Colors.grey[600]),
-                      SizedBox(width: 16.0),
+                      const SizedBox(width: 16.0),
                       Expanded(
                         child: Text(
                           'Help text to explain the page and how to fill the form. Make sure to provide clear and concise instructions to help the user fill out the form correctly.',
@@ -49,74 +51,86 @@ class OrderPageView extends GetView<OrderPageController> {
                   ),
                 ),
                 SizedBox(height: 2.h),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'PickUp From ',
-                    labelStyle: const TextStyle(color: Colors.black),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(
-                        color: Colors.black12,
-                        width: 2.0,
+                InkWell(
+                  onTap: () {
+                    Get.to(MapMyAddressPickers());
+                  },
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'PickUp From ',
+                      enabled: false,
+                      labelStyle: const TextStyle(color: Colors.black),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: const BorderSide(
+                          color: Colors.black12,
+                          width: 2.0,
+                        ),
                       ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(
-                        color: Colors.grey,
-                        width: 2.0,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: const BorderSide(
+                          color: Colors.grey,
+                          width: 2.0,
+                        ),
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(
-                        color: themeColor,
-                        width: 2.0,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: const BorderSide(
+                          color: themeColor,
+                          width: 2.0,
+                        ),
                       ),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 12.0,
-                    ),
-                    prefixIcon: const Icon(
-                      Icons.location_pin,
-                      color: themeColorFaded,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 12.0,
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.location_pin,
+                        color: themeColorFaded,
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(height: 2.h),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Drop Off to',
-                    labelStyle: const TextStyle(color: Colors.black),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(
-                        color: Colors.black12,
-                        width: 2.0,
+                InkWell(
+                  onTap: () {
+                    Get.to(MapMyAddressPickers());
+                  },
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      enabled: false,
+                      labelText: 'DropOff To',
+                      labelStyle: const TextStyle(color: Colors.black),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: const BorderSide(
+                          color: Colors.black12,
+                          width: 2.0,
+                        ),
                       ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(
-                        color: Colors.grey,
-                        width: 2.0,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: const BorderSide(
+                          color: Colors.grey,
+                          width: 2.0,
+                        ),
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: const BorderSide(
-                        color: themeColor,
-                        width: 2.0,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: const BorderSide(
+                          color: themeColor,
+                          width: 2.0,
+                        ),
                       ),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 12.0,
-                    ),
-                    prefixIcon: const Icon(
-                      Icons.location_pin,
-                      color: themeColorFaded,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 12.0,
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.location_pin,
+                        color: themeColorFaded,
+                      ),
                     ),
                   ),
                 ),
@@ -253,22 +267,27 @@ class OrderPageView extends GetView<OrderPageController> {
   }
 
   cardview() {
-    return Card(
-      elevation: 4.0, // Add shadow to the card
-      shape: RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.circular(10.0), // Add border radius to the card
-        side: const BorderSide(
-            color: Colors.grey, width: 0.1), // Add a border around the card
-      ),
-      child: const ListTile(
-        leading: Icon(
-          FontAwesomeIcons.truck,
-          color: themeColorFaded,
-          size: 30,
+    return InkWell(
+      onTap: () {
+        Get.to(OrderSuccessView());
+      },
+      child: Card(
+        elevation: 4.0, // Add shadow to the card
+        shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.circular(10.0), // Add border radius to the card
+          side: const BorderSide(
+              color: Colors.grey, width: 0.1), // Add a border around the card
         ),
-        title: Text('Pickup truck'),
-        subtitle: Text('Greater than 300KG'),
+        child: const ListTile(
+          leading: Icon(
+            FontAwesomeIcons.truck,
+            color: themeColorFaded,
+            size: 30,
+          ),
+          title: Text('Pickup truck'),
+          subtitle: Text('Greater than 300KG'),
+        ),
       ),
     );
   }

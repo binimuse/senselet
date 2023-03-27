@@ -76,7 +76,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ORDER_HISTORY,
-      page: () => const OrderHistoryView(),
+      page: () =>  OrderHistoryView(),
       binding: OrderHistoryBinding(),
     ),
   ];
