@@ -69,15 +69,13 @@ class MainPageView extends GetView<MainPageController> {
                   color: Colors.white,
                   size: CustomSizes.icon_size_6,
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
+
                 Text(
                   "Order",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall
-                      ?.copyWith(color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 8,
+                    color: Colors.white,
+                  ),
                 ), // text
               ],
             ),
@@ -120,7 +118,7 @@ class MainPageView extends GetView<MainPageController> {
                   }, // button pressed
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Icon(
                         FontAwesomeIcons.house,
@@ -190,7 +188,7 @@ class MainPageView extends GetView<MainPageController> {
                   }, // button pressed
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Icon(
                         FontAwesomeIcons.user,
