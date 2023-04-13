@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-
 import '../../constants/const.dart';
 import '../../theme/custom_sizes.dart';
 import 'custom_normal_button.dart';
@@ -76,6 +75,8 @@ class CustomErrorWidget extends StatelessWidget {
                 vertical: CustomSizes.mp_v_2,
               ),
               onPressed: onRetry,
+              buttoncolor: themeColor,
+              textcolor: Colors.white,
             ),
           ],
         ),

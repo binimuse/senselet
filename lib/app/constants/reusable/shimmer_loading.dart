@@ -25,6 +25,7 @@ class ShimmerLoading {
               child: Shimmer.fromColors(
                 highlightColor: Colors.white,
                 baseColor: _shimmerColor,
+                period: const Duration(milliseconds: 1000),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,7 +114,6 @@ class ShimmerLoading {
                     ),
                   ],
                 ),
-                period: const Duration(milliseconds: 1000),
               ),
             ),
             Container(
@@ -139,6 +139,7 @@ class ShimmerLoading {
           child: Shimmer.fromColors(
             highlightColor: Colors.white,
             baseColor: _shimmerColor,
+            period: const Duration(milliseconds: 1000),
             child: ClipRRect(
               borderRadius: const BorderRadius.all(
                 Radius.circular(10),
@@ -149,7 +150,6 @@ class ShimmerLoading {
                 color: _shimmerColor,
               ),
             ),
-            period: const Duration(milliseconds: 1000),
           ),
         );
       },
@@ -489,12 +489,12 @@ class ShimmerLoading {
         Shimmer.fromColors(
           highlightColor: Colors.white,
           baseColor: _shimmerColor,
+          period: const Duration(milliseconds: 1000),
           child: Container(
             width: bannerWidth,
             height: bannerHeight,
             color: _shimmerColor,
           ),
-          period: const Duration(milliseconds: 1000),
         ),
         Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -518,12 +518,12 @@ class ShimmerLoading {
     return Shimmer.fromColors(
       highlightColor: Colors.white,
       baseColor: _shimmerColor,
+      period: const Duration(milliseconds: 1000),
       child: Container(
         width: bannerWidth,
         height: bannerHeight,
         color: _shimmerColor,
       ),
-      period: const Duration(milliseconds: 1000),
     );
   }
 

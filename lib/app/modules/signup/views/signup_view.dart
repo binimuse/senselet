@@ -197,7 +197,7 @@ class SignupView extends GetView<SignupController> {
                   () => controller.signingUp.value == true
                       ? const CircularProgressIndicator(color: Colors.white)
                       : Text(
-                          'Sign Up',
+                          'Sign Up'.tr,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16.sp,
@@ -210,7 +210,7 @@ class SignupView extends GetView<SignupController> {
         Row(
           children: [
             Text(
-              "Already Have an Account ?",
+              "Already Have an Account ?".tr,
               style: TextStyle(
                 color: const Color(0xff020E1B),
                 fontSize: 10.sp,
@@ -219,7 +219,7 @@ class SignupView extends GetView<SignupController> {
             ),
             TextButton(
               child: Text(
-                "Sign In",
+                "Sign In".tr,
                 style: TextStyle(
                   color: themeColor,
                   fontSize: 10.sp,
@@ -258,7 +258,7 @@ class SignupView extends GetView<SignupController> {
             decoration: TextDecoration.none,
           ),
           decoration: InputDecoration(
-            hintText: "First Name",
+            hintText: "First Name".tr,
             hintStyle: TextStyle(
               color: const Color(0xff757A80),
               fontSize: 13.sp,
@@ -312,7 +312,7 @@ class SignupView extends GetView<SignupController> {
             decoration: TextDecoration.none,
           ),
           decoration: InputDecoration(
-            hintText: "Last Name",
+            hintText: "Last Name".tr,
             hintStyle: TextStyle(
               color: const Color(0xff757A80),
               fontSize: 13.sp,
@@ -368,7 +368,7 @@ class SignupView extends GetView<SignupController> {
                 decoration: TextDecoration.none,
               ),
               decoration: InputDecoration(
-                hintText: "Phone Number",
+                hintText: "Phone Number".tr,
                 hintStyle: TextStyle(
                   color: const Color(0xff757A80),
                   fontSize: 13.sp,
@@ -455,7 +455,7 @@ class SignupView extends GetView<SignupController> {
           decoration: TextDecoration.none,
         ),
         decoration: InputDecoration(
-          hintText: "Enter Email",
+          hintText: "Enter Email".tr,
           hintStyle: TextStyle(
             color: const Color(0xff757A80),
             fontSize: 13.sp,
@@ -501,7 +501,7 @@ class SignupView extends GetView<SignupController> {
       elevation: 2,
       child: DropdownButtonFormField(
         decoration: InputDecoration(
-          hintText: "Select gender",
+          hintText: "Select gender".tr,
           hintStyle: TextStyle(
             color: const Color(0xffD6D6D6),
             fontSize: 13.sp,
@@ -537,8 +537,8 @@ class SignupView extends GetView<SignupController> {
           ),
         ),
         isExpanded: true,
-        hint: const Text(
-          'Gender',
+        hint: Text(
+          'Gender'.tr,
           style: TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w400,
@@ -558,6 +558,7 @@ class SignupView extends GetView<SignupController> {
         },
         items: controller.gender.map((gender) {
           return DropdownMenuItem(
+            value: gender,
             child: Text(
               gender,
               style: TextStyle(
@@ -566,12 +567,11 @@ class SignupView extends GetView<SignupController> {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            value: gender,
           );
         }).toList(),
         validator: (value) {
           if (value == null) {
-            return "Please select your gender";
+            return "Please select your gender".tr;
           }
           return null;
         },
@@ -627,7 +627,7 @@ class SignupView extends GetView<SignupController> {
         decoration: InputDecoration(
           hintText: controller.realdate.value.toString() != ""
               ? controller.realdate.value.toString()
-              : "Select Birthdate",
+              : "Select Birthdate".tr,
           hintStyle: TextStyle(
             color: const Color.fromARGB(255, 81, 81, 81),
             fontSize: 13.sp,
@@ -685,7 +685,7 @@ class SignupView extends GetView<SignupController> {
             decoration: TextDecoration.none,
           ),
           decoration: InputDecoration(
-            hintText: "Password",
+            hintText: "Password".tr,
             hintStyle: TextStyle(
               color: const Color(0xff757A80),
               fontSize: 13.sp,
@@ -751,7 +751,7 @@ class SignupView extends GetView<SignupController> {
             decoration: TextDecoration.none,
           ),
           decoration: InputDecoration(
-            hintText: "Confirm Password",
+            hintText: "Confirm Password".tr,
             hintStyle: TextStyle(
               color: const Color(0xff757A80),
               fontSize: 13.sp,

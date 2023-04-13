@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:senselet/app/constants/const.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../theme/custom_sizes.dart';
@@ -71,7 +70,7 @@ class MainPageView extends GetView<MainPageController> {
                 ),
 
                 Text(
-                  "Order",
+                  "Order".tr,
                   style: TextStyle(
                     fontSize: 8,
                     color: Colors.white,
@@ -131,7 +130,7 @@ class MainPageView extends GetView<MainPageController> {
                         height: 5,
                       ),
                       Text(
-                        "Home",
+                        "Home".tr,
                         style: Theme.of(context)
                             .textTheme
                             .bodySmall
@@ -201,7 +200,7 @@ class MainPageView extends GetView<MainPageController> {
                         height: 5,
                       ),
                       Text(
-                        "Profile",
+                        "Profile".tr,
                         style: Theme.of(context)
                             .textTheme
                             .bodySmall

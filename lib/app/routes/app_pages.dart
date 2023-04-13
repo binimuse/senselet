@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:get/get.dart';
 
 import '../modules/forgotpassword/bindings/forgotpassword_binding.dart';
@@ -66,7 +68,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ORDER_PAGE,
-      page: () => OrderPageView(),
+      page: () => const OrderPageView(),
       binding: OrderPageBinding(),
     ),
     GetPage(

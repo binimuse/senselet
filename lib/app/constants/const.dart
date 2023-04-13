@@ -37,7 +37,7 @@ const String SERVER_URL = 'http://localhost/devkit/api/';
 const String IMAGE_URL = 'http://139.59.151.145:8055/assets/';
 //const String SERVER_URL = 'http://192.168.0.4/devkit/api';
 
-const String LOGIN_API = SERVER_URL + "/authentication/login";
-const String PRODUCT_API = SERVER_URL + "/example/getProduct";
+const String LOGIN_API = "$SERVER_URL/authentication/login";
+const String PRODUCT_API = "$SERVER_URL/example/getProduct";
 
 enum MenuState { home, order, profile, book }

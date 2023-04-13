@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, library_private_types_in_public_api
 
 import 'dart:async';
 
@@ -113,8 +113,8 @@ class _SmoothStarRatingState extends State<SmoothStarRating> {
                 },
                 onHover: (event) {
                   RenderBox box = context.findRenderObject() as RenderBox;
-                  var _pos = box.globalToLocal(event.position);
-                  var i = _pos.dx / widget.size;
+                  var pos = box.globalToLocal(event.position);
+                  var i = pos.dx / widget.size;
                   var newRating =
                       widget.allowHalfRating ? i : i.round().toDouble();
                   if (newRating > widget.starCount) {
@@ -132,8 +132,8 @@ class _SmoothStarRatingState extends State<SmoothStarRating> {
                     isWidgetTapped = true;
 
                     RenderBox box = context.findRenderObject() as RenderBox;
-                    var _pos = box.globalToLocal(detail.globalPosition);
-                    var i = ((_pos.dx - widget.spacing) / widget.size);
+                    var pos = box.globalToLocal(detail.globalPosition);
+                    var i = ((pos.dx - widget.spacing) / widget.size);
                     var newRating =
                         widget.allowHalfRating ? i : i.round().toDouble();
                     if (newRating > widget.starCount) {
@@ -153,8 +153,8 @@ class _SmoothStarRatingState extends State<SmoothStarRating> {
                     isWidgetTapped = true;
 
                     RenderBox box = context.findRenderObject() as RenderBox;
-                    var _pos = box.globalToLocal(dragDetails.globalPosition);
-                    var i = _pos.dx / widget.size;
+                    var pos = box.globalToLocal(dragDetails.globalPosition);
+                    var i = pos.dx / widget.size;
                     var newRating =
                         widget.allowHalfRating ? i : i.round().toDouble();
                     if (newRating > widget.starCount) {
@@ -181,8 +181,8 @@ class _SmoothStarRatingState extends State<SmoothStarRating> {
             : GestureDetector(
                 onTapDown: (detail) {
                   RenderBox box = context.findRenderObject() as RenderBox;
-                  var _pos = box.globalToLocal(detail.globalPosition);
-                  var i = ((_pos.dx - widget.spacing) / widget.size);
+                  var pos = box.globalToLocal(detail.globalPosition);
+                  var i = ((pos.dx - widget.spacing) / widget.size);
                   var newRating =
                       widget.allowHalfRating ? i : i.round().toDouble();
                   if (newRating > widget.starCount) {
@@ -203,8 +203,8 @@ class _SmoothStarRatingState extends State<SmoothStarRating> {
                 },
                 onHorizontalDragUpdate: (dragDetails) {
                   RenderBox box = context.findRenderObject() as RenderBox;
-                  var _pos = box.globalToLocal(dragDetails.globalPosition);
-                  var i = _pos.dx / widget.size;
+                  var pos = box.globalToLocal(dragDetails.globalPosition);
+                  var i = pos.dx / widget.size;
                   var newRating =
                       widget.allowHalfRating ? i : i.round().toDouble();
                   if (newRating > widget.starCount) {

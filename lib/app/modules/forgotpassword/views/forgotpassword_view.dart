@@ -152,7 +152,7 @@ class ForgotpasswordView extends GetView<ForgotpasswordController> {
               color: themeColor.withOpacity(0.4),
             ),
           ),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(6.0),
             ),

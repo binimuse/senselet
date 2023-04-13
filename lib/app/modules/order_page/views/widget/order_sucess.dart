@@ -9,7 +9,6 @@ import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
 
 import '../../../../constants/const.dart';
-import '../../../order_history/controllers/order_history_controller.dart';
 import '../../controllers/order_page_controller.dart';
 
 class OrderSuccessView extends GetView<OrderPageController> {

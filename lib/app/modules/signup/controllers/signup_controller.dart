@@ -1,8 +1,7 @@
-// ignore_for_file: unnecessary_cast, prefer_function_declarations_over_variables
+// ignore_for_file: unnecessary_cast, prefer_function_declarations_over_variables, use_build_context_synchronously
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -161,9 +160,9 @@ class SignupController extends GetxController {
       if (passwordController.text == passwordConfirmController.text) {
         signingUp(true);
 
-        GraphQLClient _client = graphQLConfiguration.clientToQuery();
+        GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-        QueryResult result = await _client.mutate(
+        QueryResult result = await client.mutate(
           MutationOptions(
             document: gql(SignupQueryMutation.register),
             variables: <String, dynamic>{
@@ -187,7 +186,6 @@ class SignupController extends GetxController {
           Get.to(const OtpScreen());
         } else {
           signingUp(false);
-          print(result.exception.toString());
 
           for (var element in result.exception!.graphqlErrors) {
             if (element.message.contains('email')) {

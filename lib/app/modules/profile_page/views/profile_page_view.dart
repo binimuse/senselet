@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../common/widgets/app_language_picker_dialog.dart';
 import '../../../constants/const.dart';
 import '../../network/controllers/network_controller.dart';
 import '../controllers/profile_page_controller.dart';
@@ -59,22 +60,18 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                   height: 1.4.h,
                                 ),
                                 buildMenuItem(
-                                    FontAwesomeIcons.user, "Edit Profile",
-                                    onTap: () {
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) =>
-                                  //             EditprofieView()));
-                                }),
+                                    FontAwesomeIcons.user, "Edit Profile".tr,
+                                    onTap: () {}),
                                 SizedBox(
                                   height: 1.h,
                                 ),
                                 buildMenuItem(
-                                  FontAwesomeIcons.solidHeart,
-                                  "Your Favorite",
+                                  FontAwesomeIcons.language,
+                                  "Change language".tr,
                                   onTap: () {
-                                    //             Get.toNamed(Routes.FAVORITE_PAGE);
+                                    Get.dialog(
+                                      const AppLanguagePickerDialog(),
+                                    );
                                   },
                                 ),
                                 SizedBox(
@@ -82,7 +79,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                 ),
                                 buildMenuItem(
                                   FontAwesomeIcons.mapPin,
-                                  "Delivery Address",
+                                  "Delivery Address".tr,
                                   onTap: () {
                                     //         Get.toNamed(Routes.DELIVERY_ADDRESS);
                                   },
@@ -91,8 +88,8 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                   height: 1.h,
                                 ),
                                 buildMenuItem(
-                                  FontAwesomeIcons.shieldAlt,
-                                  "Privacy Policy",
+                                  FontAwesomeIcons.shieldHalved,
+                                  "Privacy Policy".tr,
                                   onTap: () {
                                     //            Get.to(const PrivacyPage());
                                   },
@@ -102,7 +99,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                 ),
                                 buildMenuItem(
                                   FontAwesomeIcons.file,
-                                  "Terms and Conditions",
+                                  "Terms and Conditions".tr,
                                   onTap: () {
                                     //         Get.to(const TermsPage());
                                   },
@@ -112,7 +109,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                 ),
                                 buildMenuItem(
                                   FontAwesomeIcons.wrench,
-                                  "Account Setting",
+                                  "Account Setting".tr,
                                   onTap: () {
                                     //       Get.to(const SettingPageView());
                                   },
@@ -122,7 +119,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                 ),
                                 buildMenuItem(
                                   FontAwesomeIcons.info,
-                                  "About us",
+                                  "About us".tr,
                                   onTap: () {
                                     //      Get.to(const AboutView());
                                   },
@@ -132,7 +129,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                 ),
                                 buildMenuItem(
                                   FontAwesomeIcons.question,
-                                  "FAQ",
+                                  "FAQ".tr,
                                   onTap: () {
                                     //    Get.to(const FaQPgae());
                                   },
@@ -141,8 +138,8 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                   height: 1.h,
                                 ),
                                 buildMenuItem(
-                                  FontAwesomeIcons.questionCircle,
-                                  "Contact",
+                                  FontAwesomeIcons.circleQuestion,
+                                  "Contact".tr,
                                   onTap: () {
                                     //    Get.to(const ContactView());
                                   },
@@ -151,8 +148,8 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                   height: 1.h,
                                 ),
                                 buildMenuItem(
-                                  FontAwesomeIcons.signOutAlt,
-                                  "Log out",
+                                  FontAwesomeIcons.arrowRightFromBracket,
+                                  "Log out".tr,
                                   onTap: () {
                                     //  Get.to(LogoutDialogPage());
                                   },

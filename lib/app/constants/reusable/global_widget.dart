@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 
 import '../const.dart';
 
-
 class GlobalWidget {
   final Random _random = Random();
 
@@ -42,11 +41,11 @@ class GlobalWidget {
       centerTitle: true,
       title: Image.asset('assets/images/logo_horizontal.png', height: 24),
       bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1.0),
           child: Container(
             color: Colors.grey[100],
             height: 1.0,
-          ),
-          preferredSize: const Size.fromHeight(1.0)),
+          )),
     );
   }
 
@@ -111,7 +110,7 @@ class GlobalWidget {
       {required BuildContext context,
       required String title,
       required StatefulWidget page}) {
-    Color _color = _getColor();
+    Color color = _getColor();
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
@@ -126,7 +125,7 @@ class GlobalWidget {
             child: Row(
               children: [
                 Icon(_iconList[_random.nextInt(_iconList.length)],
-                    color: _color, size: 26),
+                    color: color, size: 26),
                 const SizedBox(width: 24),
                 Expanded(
                   child: Text(title,
@@ -135,7 +134,7 @@ class GlobalWidget {
                           color: BLACK55,
                           fontWeight: FontWeight.w500)),
                 ),
-                Icon(Icons.chevron_right, size: 30, color: _color),
+                Icon(Icons.chevron_right, size: 30, color: color),
               ],
             ),
           ),
@@ -255,9 +254,9 @@ class GlobalWidget {
       rating = 5;
     }
 
-    bool _absolute = false;
-    int _fullStar = 0;
-    int _emptyStar = 0;
+    bool absolute = false;
+    int fullStar = 0;
+    int emptyStar = 0;
 
     if (rating == 0 ||
         rating == 1 ||
@@ -265,30 +264,30 @@ class GlobalWidget {
         rating == 3 ||
         rating == 4 ||
         rating == 5) {
-      _absolute = true;
+      absolute = true;
     } else {
-      double _dec = (rating - int.parse(rating.toString().substring(0, 1)));
-      if (_dec > 0 && _dec < 1) {
-        if (_dec >= 0.25 && _dec <= 0.75) {
-          _absolute = false;
+      double dec = (rating - int.parse(rating.toString().substring(0, 1)));
+      if (dec > 0 && dec < 1) {
+        if (dec >= 0.25 && dec <= 0.75) {
+          absolute = false;
         } else {
-          _absolute = true;
-          if (_dec < 0.25) {
-            _emptyStar = 1;
-          } else if (_dec > 0.75) {
-            _fullStar = 1;
+          absolute = true;
+          if (dec < 0.25) {
+            emptyStar = 1;
+          } else if (dec > 0.75) {
+            fullStar = 1;
           }
         }
       }
     }
     return Row(
       children: [
-        for (int i = 1; i <= rating + _fullStar; i++)
+        for (int i = 1; i <= rating + fullStar; i++)
           Icon(Icons.star, color: Colors.yellow[700], size: size),
-        !_absolute
+        !absolute
             ? Icon(Icons.star_half, color: Colors.yellow[700], size: size)
             : const SizedBox.shrink(),
-        for (int i = 1; i <= (5 - rating + _emptyStar); i++)
+        for (int i = 1; i <= (5 - rating + emptyStar); i++)
           Icon(Icons.star_border, color: Colors.yellow[700], size: size),
       ],
     );

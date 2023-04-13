@@ -72,7 +72,7 @@ class SigninView extends GetView<SigninController> {
 
   buildHeader() {
     return Text(
-      "Hello Again!\nWelcome\nBack",
+      "Hello Again!\nWelcome\nBack".tr,
       style: TextStyle(
         color: SOFT_BLUE,
         fontSize: 28.sp,
@@ -109,7 +109,7 @@ class SigninView extends GetView<SigninController> {
                 decoration: TextDecoration.none,
               ),
               decoration: InputDecoration(
-                hintText: "Enter Email",
+                hintText: "Enter Email".tr,
                 hintStyle: TextStyle(
                   color: const Color(0xff757A80),
                   fontSize: 13.sp,
@@ -170,7 +170,7 @@ class SigninView extends GetView<SigninController> {
                   decoration: TextDecoration.none,
                 ),
                 decoration: InputDecoration(
-                  hintText: "Password",
+                  hintText: "Password".tr,
                   hintStyle: TextStyle(
                     color: const Color(0xff757A80),
                     fontSize: 13.sp,
@@ -245,7 +245,7 @@ class SigninView extends GetView<SigninController> {
           ),
         ),
         Text(
-          "Remember Me",
+          "Remember Me".tr,
           style: TextStyle(
             color: const Color(0xff020E1B),
             fontSize: 13.sp,
@@ -313,7 +313,7 @@ class SigninView extends GetView<SigninController> {
         Row(
           children: [
             Text(
-              "Not Registered Yet?",
+              "Not Registered Yet?".tr,
               style: TextStyle(
                 color: const Color(0xff020E1B),
                 fontSize: 10.sp,
@@ -322,7 +322,7 @@ class SigninView extends GetView<SigninController> {
             ),
             TextButton(
               child: Text(
-                "Create an Account",
+                "Create an Account".tr,
                 style: TextStyle(
                   color: themeColorFaded,
                   fontSize: 10.sp,

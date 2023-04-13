@@ -1,10 +1,7 @@
 import 'dart:async';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../routes/app_pages.dart';
 
@@ -21,7 +18,6 @@ class SplashController extends GetxController {
   void onClose() {}
 
   void showSplash() async {
-    print("object");
     Future.delayed(const Duration(seconds: 4), () {
       Get.offAndToNamed(Routes.SIGNIN);
     });

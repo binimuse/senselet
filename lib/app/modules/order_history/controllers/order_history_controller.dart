@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -107,10 +109,10 @@ class OrderHistoryController extends GetxController {
 
     GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
 
     if (id != null) {
-      QueryResult result = await _client.query(
+      QueryResult result = await client.query(
         QueryOptions(
           document:
               gql(orderHistoryQueryMutation.getMyOrdersHistory(int.parse(id))),
@@ -170,8 +172,6 @@ class OrderHistoryController extends GetxController {
         }
       } else {
         loading(true);
-        print(result.exception);
-        print("NOoooooooooooooooooo");
       }
     }
   }

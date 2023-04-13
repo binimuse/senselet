@@ -30,40 +30,62 @@ class OrderPageView extends GetView<OrderPageController> {
                   padding: const EdgeInsets.symmetric(
                       vertical: 16.0, horizontal: 24.0),
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(10.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
                   ),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.help_outline, color: Colors.grey[600]),
+                      Icon(
+                        Icons.help_outline,
+                        color: Colors.yellow[600],
+                        size: 20.0,
+                      ),
                       const SizedBox(width: 16.0),
                       Expanded(
                         child: Text(
-                          'Help text to explain the page and how to fill the form. Make sure to provide clear and concise instructions to help the user fill out the form correctly.',
+                          'To send'.tr,
                           style: TextStyle(
                             fontSize: 16.0,
-                            color: Colors.grey[600],
+                            color: Colors.grey[800],
                           ),
+                          textAlign: TextAlign.start,
                         ),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(height: 2.h),
-                InkWell(
-                  onTap: () {
-                    Get.to(MapMyAddressPickers());
+                GestureDetector(
+                  onTap: () async {
+                    final selectedLocation = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => MapMyAddressPickers()),
+                    );
+
+                    //  _pickupLocationController.text = selectedLocation;
                   },
                   child: TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'PickUp From ',
+                      labelText: 'Pickup location'.tr,
                       enabled: false,
-                      labelStyle: const TextStyle(color: Colors.black),
+                      labelStyle: TextStyle(
+                        color: Colors.grey[800],
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                         borderSide: const BorderSide(
-                          color: Colors.black12,
+                          color: Colors.grey,
                           width: 2.0,
                         ),
                       ),
@@ -88,24 +110,34 @@ class OrderPageView extends GetView<OrderPageController> {
                       prefixIcon: const Icon(
                         Icons.location_pin,
                         color: themeColorFaded,
+                        size: 28.0,
                       ),
                     ),
                   ),
                 ),
                 SizedBox(height: 2.h),
-                InkWell(
-                  onTap: () {
-                    Get.to(MapMyAddressPickers());
+                GestureDetector(
+                  onTap: () async {
+                    final selectedLocation = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => MapMyAddressPickers()),
+                    );
+
+                    //  _pickupLocationController.text = selectedLocation;
                   },
                   child: TextFormField(
                     decoration: InputDecoration(
+                      labelText: 'Dropoff location',
                       enabled: false,
-                      labelText: 'DropOff To',
-                      labelStyle: const TextStyle(color: Colors.black),
+                      labelStyle: TextStyle(
+                        color: Colors.grey[800],
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                         borderSide: const BorderSide(
-                          color: Colors.black12,
+                          color: Colors.grey,
                           width: 2.0,
                         ),
                       ),
@@ -130,6 +162,7 @@ class OrderPageView extends GetView<OrderPageController> {
                       prefixIcon: const Icon(
                         Icons.location_pin,
                         color: themeColorFaded,
+                        size: 28.0,
                       ),
                     ),
                   ),
@@ -207,7 +240,7 @@ class OrderPageView extends GetView<OrderPageController> {
                 padding: EdgeInsets.symmetric(vertical: 2.3.h),
               ),
               child: Text(
-                'Select Vehicle',
+                'Select Vehicle'.tr,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16.sp,

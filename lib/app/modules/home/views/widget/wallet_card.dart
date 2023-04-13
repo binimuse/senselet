@@ -96,7 +96,7 @@ class WalletCard extends GetView<HomeController> {
                         color: Colors.white,
                         borderRadius:
                             BorderRadius.circular(CustomSizes.radius_4),
-                        child: SizedBox()),
+                        child: const SizedBox()),
                     SizedBox(
                       width: CustomSizes.mp_w_6,
                     ),
@@ -105,7 +105,7 @@ class WalletCard extends GetView<HomeController> {
                         color: Colors.white,
                         borderRadius:
                             BorderRadius.circular(CustomSizes.radius_4),
-                        child: SizedBox()),
+                        child: const SizedBox()),
                   ],
                 ),
               ),
