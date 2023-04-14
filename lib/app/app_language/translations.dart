@@ -57,7 +57,7 @@ class MainTranslations extends Translations {
 
         'am': {
           'app_title': 'ኤል ኤም አይ ኤስ',
-// sign up
+// sign ups
           "First Name": "ስም",
           "Last Name": "የአባት ስም",
           "Phone Number": "ስልክ ቁጥር",

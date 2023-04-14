@@ -50,9 +50,7 @@ class OrderHistoryController extends GetxController {
       toolbarHeight: 8.h,
       leading: IconButton(
         onPressed: () {
-          Navigator.pop(context);
-          Navigator.pop(context);
-          Navigator.pop(context);
+          Get.back();
         },
         icon: const Icon(
           Icons.arrow_back,
