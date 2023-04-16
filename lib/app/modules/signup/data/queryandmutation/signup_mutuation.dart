@@ -1,22 +1,37 @@
+
+
 class SignupQueryMutation {
-  static const String register = r'''
-mutation SignUp($first_name: String!,$last_name: String!, $email: String!, $phone: String!, $gender: String!,  $dob: String!, $password: String!){
- action: register(
+
+
+
+
+  static const String register = 
+  
+
+  
+  r'''
+mutation SignUp($first_name: String!,$father_name: String!,$roles: String!, $email: String!, $phone_number: String!,  $birthdate: date!, $password: String!,$password_confirmation: String!){
+signup(
     first_name: $first_name, 
-    last_name: $last_name, 
+    father_name: $father_name, 
     email: $email, 
     password: $password,
-    phone: $phone, 
-    gender: $gender, 
-    dob: $dob, 
+    password_confirmation: $password_confirmation,
+    phone_number: $phone_number,  
+  roles: $roles, 
+
+ 		
+    birthdate: $birthdate, 
  
   ) {
-    status
-    authorization {
-      token
-      
+    access_token
+    user
+    {
+      name
     }
   }
 }
  ''';
+
+ 
 }

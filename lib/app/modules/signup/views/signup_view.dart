@@ -368,7 +368,7 @@ class SignupView extends GetView<SignupController> {
                 decoration: TextDecoration.none,
               ),
               decoration: InputDecoration(
-                hintText: "Phone Number".tr,
+                hintText: "9********".tr,
                 hintStyle: TextStyle(
                   color: const Color(0xff757A80),
                   fontSize: 13.sp,
@@ -501,7 +501,7 @@ class SignupView extends GetView<SignupController> {
       elevation: 2,
       child: DropdownButtonFormField(
         decoration: InputDecoration(
-          hintText: "Select gender".tr,
+          hintText: "Gender".tr,
           hintStyle: TextStyle(
             color: const Color(0xffD6D6D6),
             fontSize: 13.sp,

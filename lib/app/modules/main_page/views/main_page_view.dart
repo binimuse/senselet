@@ -59,23 +59,27 @@ class MainPageView extends GetView<MainPageController> {
             onTap: () {
               Get.toNamed(Routes.ORDER_PAGE);
             }, // button pressed
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Stack(
               children: <Widget>[
-                Icon(
-                  FontAwesomeIcons.truck,
-                  color: Colors.white,
-                  size: CustomSizes.icon_size_6,
-                ),
-
-                Text(
-                  "Order".tr,
-                  style: TextStyle(
-                    fontSize: 8,
+                Positioned(
+                  bottom: 14,
+                  child: Icon(
+                    FontAwesomeIcons.truck,
                     color: Colors.white,
+                    size: CustomSizes.icon_size_6,
                   ),
-                ), // text
+                ),
+                Positioned(
+                  bottom: 1,
+                  left: 3,
+                  child: Text(
+                    "Order".tr,
+                    style: const TextStyle(
+                      fontSize: 8,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

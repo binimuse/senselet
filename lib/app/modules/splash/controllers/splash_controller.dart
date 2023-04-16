@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import '../../../routes/app_pages.dart';
@@ -18,23 +19,20 @@ class SplashController extends GetxController {
   void onClose() {}
 
   void showSplash() async {
-    Future.delayed(const Duration(seconds: 4), () {
-      Get.offAndToNamed(Routes.SIGNIN);
-    });
-
+ 
 // when
-    // final prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
-    // final acc = prefs.getString('access_token');
-    // if (acc == null) {
-    //   Future.delayed(const Duration(seconds: 4), () {
-    //     Get.offAndToNamed(Routes.SIGNIN);
-    //   });
-    // } else {
-    //   Future.delayed(const Duration(seconds: 3), () {
-    //     Get.offNamed(Routes.HOME);
-    //   });
-    // }
+    final acc = prefs.getString('access_token');
+    if (acc == null) {
+      Future.delayed(const Duration(seconds: 4), () {
+        Get.offAndToNamed(Routes.SIGNIN);
+      });
+    } else {
+      Future.delayed(const Duration(seconds: 3), () {
+        Get.offNamed(Routes.HOME);
+      });
+    }
   }
 
   Future<void> syncFcmToken() async {

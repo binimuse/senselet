@@ -8,8 +8,8 @@ const bool ENABLE_WEBSOCKETS = false;
 
 class GraphQLConfiguration {
   static HttpLink httpLink =
-      HttpLink("http://139.59.151.145:8002/v1/graphql", defaultHeaders: {
-    'x-hasura-admin-secret': "myadminsecretkey",
+      HttpLink("http://159.223.227.87:8888/v1/graphql", defaultHeaders: {
+    'x-hasura-admin-secret': "ad8sddi6roXj9tmejrWwX992by5S5Q",
   });
 
   static AuthLink authLink = AuthLink(getToken: () async {
@@ -19,10 +19,10 @@ class GraphQLConfiguration {
   });
 
   static WebSocketLink websocketLink = WebSocketLink(
-    'ws://139.59.151.145:8002/v1/graphql',
+    'ws://159.223.227.87:8888/v1/graphql',
     config: const SocketClientConfig(
       headers: {
-        'x-hasura-admin-secret': "myadminsecretkey",
+        'x-hasura-admin-secret': "ad8sddi6roXj9tmejrWwX992by5S5Q",
       },
       autoReconnect: true,
       inactivityTimeout: Duration(seconds: 30),

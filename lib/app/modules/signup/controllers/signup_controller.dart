@@ -167,12 +167,13 @@ class SignupController extends GetxController {
             document: gql(SignupQueryMutation.register),
             variables: <String, dynamic>{
               'first_name': fnameController.text,
-              'last_name': lnameController.text,
-              'phone': phoneController.text,
+              'father_name': lnameController.text,
+              'phone_number': phoneController.text,
               'email': emailController.text,
-              'gender': selectedGender.value,
-              'dob': bitrhController.text,
+              'roles': "user",
+              'birthdate': bitrhController.text,
               'password': passwordController.text,
+              'password_confirmation': passwordConfirmController.text,
             },
           ),
         );
@@ -180,11 +181,12 @@ class SignupController extends GetxController {
         if (!result.hasException) {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString(
-              'access_token', result.data!["action"]["authorization"]["token"]);
+              'access_token', result.data!["action"]["access_token"]);
 
           signingUp(false);
           Get.to(const OtpScreen());
         } else {
+          print(result.exception);
           signingUp(false);
 
           for (var element in result.exception!.graphqlErrors) {
