@@ -6,7 +6,6 @@ import 'package:sizer/sizer.dart';
 
 import '../../../common/widgets/custom_snack_bars.dart';
 import '../../../constants/const.dart';
-import '../../signup/controllers/signup_controller.dart';
 
 class OtpScreen extends GetView<SigninController> {
   const OtpScreen({Key? key}) : super(key: key);

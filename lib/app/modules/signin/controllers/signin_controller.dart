@@ -106,22 +106,20 @@ class SigninController extends GetxController {
           variables: <String, dynamic>{'username': email, 'password': password},
         ),
       );
-
+      final prefs = await SharedPreferences.getInstance();
       if (!result.hasException) {
-        print("45fte 1 ${result.data!["signin"]["email_verified"]}");
+      
         signingIn(false);
         if (result.data!["signin"]["email_verified"] == true) {
-          final prefs = await SharedPreferences.getInstance();
+          signingIn(false);
+
+          Get.offNamed(Routes.MAIN_PAGE);
+        } else {
           await prefs.setString(Constants.userAccessTokenKey,
               result.data!["signin"]["token"]["access_token"]);
 
           await prefs.setString(
               Constants.userId, result.data!["signin"]["user_id"]);
-
-          signingIn(false);
-
-          Get.offNamed(Routes.MAIN_PAGE);
-        } else {
           Get.to(const OtpScreen());
         }
       } else {
@@ -135,42 +133,36 @@ class SigninController extends GetxController {
   }
 
   void verification(BuildContext context) async {
-    if (email.isNotEmpty && password.isNotEmpty) {
-      signingIn(true);
-      // print(int.parse(txtAge.text));
-      GraphQLClient client = graphQLConfiguration.clientToQuery();
+    final prefs = await SharedPreferences.getInstance();
+    print(prefs.getString(Constants.userAccessTokenKey));
+    signingIn(true);
+    // print(int.parse(txtAge.text));
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-      QueryResult result = await client.mutate(
-        MutationOptions(
-          document: gql(OtpMutation.otp),
-          variables: <String, dynamic>{
-            'code': otp.value,
-          },
-        ),
-      );
+    QueryResult result = await client.mutate(
+      MutationOptions(
+        document: gql(OtpMutation.otp),
+        variables: <String, dynamic>{
+          'code': otp.value,
+        },
+      ),
+    );
 
-      if (!result.hasException) {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString(Constants.userAccessTokenKey,
-            result.data!["verifyEmail"]["token"]["access_token"]);
+    if (!result.hasException) {
+      await prefs.setString(Constants.userAccessTokenKey,
+          result.data!["verifyEmail"]["token"]["access_token"]);
 
-        await prefs.setString(
-            Constants.userId, result.data!["verifyEmail"]["user_id"]);
-        await prefs.setString(Constants.verifyEmail, "true");
+      await prefs.setString(Constants.userId, "true");
 
-        print("45fte 1 ${prefs.getString(Constants.userId)}");
-        print("45fte 3${prefs.getString(Constants.verifyEmail)}");
-        print("45fte 2 ${prefs.getString(Constants.userAccessTokenKey)}");
-        signingIn(false);
+      signingIn(false);
 
-        Get.offNamed(Routes.MAIN_PAGE);
-      } else {
-        print(result.exception);
-        signingIn(false);
+      Get.offAllNamed(Routes.MAIN_PAGE);
+    } else {
+      print(result.exception);
+      signingIn(false);
 
-        ShowCommonSnackBar.awesomeSnackbarfailure(
-            "Error", "Invalid OTP", context);
-      }
+      ShowCommonSnackBar.awesomeSnackbarfailure(
+          "Error", "Invalid OTP", context);
     }
   }
 }

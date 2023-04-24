@@ -181,24 +181,21 @@ class SignupController extends GetxController {
         );
 
         if (!result.hasException) {
-          final prefs = await SharedPreferences.getInstance();
-          await prefs.setString(Constants.userAccessTokenKey,
-              result.data!["signup"]["token"]["access_token"]);
-
-          await prefs.setString(
-              Constants.userId, result.data!["signup"]["user_id"]);
-
           signingUp(false);
           Get.toNamed(Routes.SIGNIN);
         } else {
-          print(result.exception!);
+      
 
           signingUp(false);
 
           for (var element in result.exception!.graphqlErrors) {
             if (element.message.contains('Email Address Already Exists!')) {
-              ShowCommonSnackBar.awesomeSnackbarfailure("Error",
-                  "Email or phone number has already been taken", context);
+              ShowCommonSnackBar.awesomeSnackbarfailure(
+                  "Error", "Email  has already been taken", context);
+            } else if (element.message
+                .contains('Phone Number Already Exists')) {
+              ShowCommonSnackBar.awesomeSnackbarfailure(
+                  "Error", " phone number has already been taken", context);
             } else {
               ShowCommonSnackBar.awesomeSnackbarfailure(
                   "Error", "failed, try again later", context);
