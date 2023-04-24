@@ -4,6 +4,8 @@ import "package:flutter/material.dart";
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../utils/constants.dart';
+
 const bool ENABLE_WEBSOCKETS = false;
 
 class GraphQLConfiguration {
@@ -15,7 +17,7 @@ class GraphQLConfiguration {
   static AuthLink authLink = AuthLink(getToken: () async {
     final prefs = await SharedPreferences.getInstance();
 
-    return "Bearer ${prefs.getString('access_token')}";
+    return "Bearer ${prefs.getString(Constants.userAccessTokenKey)}";
   });
 
   static WebSocketLink websocketLink = WebSocketLink(

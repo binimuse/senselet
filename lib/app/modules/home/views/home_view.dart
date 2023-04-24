@@ -177,7 +177,7 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             Positioned(
-              left: 250,
+              left: 223,
               right: 0,
               top: 16,
               bottom: 16,

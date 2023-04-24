@@ -3,10 +3,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:senselet/app/routes/app_pages.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../common/widgets/app_language_picker_dialog.dart';
 import '../../../constants/const.dart';
+import '../../account/controllers/account_controller.dart';
 import '../../network/controllers/network_controller.dart';
 import '../controllers/profile_page_controller.dart';
 
@@ -151,7 +153,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                   FontAwesomeIcons.arrowRightFromBracket,
                                   "Log out".tr,
                                   onTap: () {
-                                    //  Get.to(LogoutDialogPage());
+                                    Get.toNamed(Routes.ACCOUNT);
                                   },
                                 ),
                               ],

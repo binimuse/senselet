@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
+import 'package:senselet/app/modules/signin/controllers/signin_controller.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../common/widgets/custom_snack_bars.dart';
 import '../../../constants/const.dart';
-import '../controllers/signup_controller.dart';
+import '../../signup/controllers/signup_controller.dart';
 
-class OtpScreen extends GetView<SignupController> {
+class OtpScreen extends GetView<SigninController> {
   const OtpScreen({Key? key}) : super(key: key);
 
   @override
@@ -45,7 +47,7 @@ class OtpScreen extends GetView<SignupController> {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  "Enter the OTP send to your phone number",
+                  "Enter the OTP send to your Email Address",
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.black38,
@@ -55,7 +57,7 @@ class OtpScreen extends GetView<SignupController> {
                 ),
                 const SizedBox(height: 20),
                 Pinput(
-                  length: 6,
+                  length: 4,
                   showCursor: true,
                   defaultPinTheme: PinTheme(
                     width: 60,
@@ -70,50 +72,39 @@ class OtpScreen extends GetView<SignupController> {
                     ),
                   ),
                   onCompleted: (value) {
-                    controller.otp = value;
+                    controller.otp.value = value;
                   },
                 ),
                 const SizedBox(height: 25),
                 SizedBox(
-                  width: double.infinity,
-                  child: Container(
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [themeColor, themeColorFaded],
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                      child: ElevatedButton(
-                          onPressed: () {
-                            // if (controller.verificationIds == null) {
-                            //   controller.sendOtp(context);
-                            // } else {
-                            //   controller.verifyOtp(context);
-                            // }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            shadowColor: Colors.transparent,
-                            padding: EdgeInsets.symmetric(vertical: 2.3.h),
+                    width: double.infinity,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [themeColor, themeColorFaded],
                           ),
-                          child: Obx(() => //controller.showprogressBar.isFalse
-                              // ? Text(
-                              //     controller.verificationIds == null
-                              //         ? 'Get code'
-                              //         : "Next",
-                              //     style: TextStyle(
-                              //       color: Colors.white,
-                              //       fontSize: 16.sp,
-                              //       fontWeight: FontWeight.bold,
-                              //     ))
-
-                              Text('Get code',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ))))),
-                ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              if (controller.otp.value != "") {
+                                controller.verification(context);
+                              } else {
+                                ShowCommonSnackBar.awesomeSnackbarfailure(
+                                    "Error", "please Enter OTP", context);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              shadowColor: Colors.transparent,
+                              padding: EdgeInsets.symmetric(vertical: 2.3.h),
+                            ),
+                            child: Text('Submit',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                ))))),
                 const SizedBox(height: 20),
                 const Text(
                   "Didn't receive any code?",

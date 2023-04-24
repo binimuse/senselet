@@ -4,14 +4,15 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:senselet/app/routes/app_pages.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Services/graphql_conf.dart';
 import '../../../common/widgets/custom_snack_bars.dart';
 import '../../../constants/reusable/reusable.dart';
+import '../../../utils/constants.dart';
 import '../data/queryandmutation/signup_mutuation.dart';
-import '../views/otp_screen.dart';
 
 class SignupController extends GetxController {
   final GlobalKey<FormState> regFormKey = GlobalKey<FormState>();
@@ -32,7 +33,7 @@ class SignupController extends GetxController {
   var formattedDates = "".obs;
   var obscureText = true.obs;
   var iconVisible = Icons.visibility_off.obs;
-  late String otp;
+
   var signingUp = false.obs;
   var showprogressBar = false.obs;
   var iscountyvalueseted = false.obs;
@@ -170,6 +171,7 @@ class SignupController extends GetxController {
               'father_name': lnameController.text,
               'phone_number': phoneController.text,
               'email': emailController.text,
+              'gender': selectedGender.value,
               'roles': "user",
               'birthdate': bitrhController.text,
               'password': passwordController.text,
@@ -180,19 +182,23 @@ class SignupController extends GetxController {
 
         if (!result.hasException) {
           final prefs = await SharedPreferences.getInstance();
+          await prefs.setString(Constants.userAccessTokenKey,
+              result.data!["signup"]["token"]["access_token"]);
+
           await prefs.setString(
-              'access_token', result.data!["action"]["access_token"]);
+              Constants.userId, result.data!["signup"]["user_id"]);
 
           signingUp(false);
-          Get.to(const OtpScreen());
+          Get.toNamed(Routes.SIGNIN);
         } else {
-          print(result.exception);
+          print(result.exception!);
+
           signingUp(false);
 
           for (var element in result.exception!.graphqlErrors) {
-            if (element.message.contains('email')) {
-              ShowCommonSnackBar.awesomeSnackbarfailure(
-                  "Error", "Email has already been taken", context);
+            if (element.message.contains('Email Address Already Exists!')) {
+              ShowCommonSnackBar.awesomeSnackbarfailure("Error",
+                  "Email or phone number has already been taken", context);
             } else {
               ShowCommonSnackBar.awesomeSnackbarfailure(
                   "Error", "failed, try again later", context);

@@ -287,8 +287,8 @@ class SigninView extends GetView<SigninController> {
             child: ElevatedButton(
               onPressed: () {
                 KeyboardUtil.hideKeyboard(context);
-                Get.toNamed(Routes.MAIN_PAGE);
-                //     controller.checkLogin(context);
+                //Get.toNamed(Routes.MAIN_PAGE);
+                controller.checkLogin(context);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.transparent,
@@ -330,7 +330,7 @@ class SigninView extends GetView<SigninController> {
                 ),
               ),
               onPressed: () {
-                Get.toNamed("/signup");
+                Get.toNamed(Routes.SIGNUP);
               },
             ),
           ],

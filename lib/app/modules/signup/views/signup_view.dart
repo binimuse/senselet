@@ -539,7 +539,7 @@ class SignupView extends GetView<SignupController> {
         isExpanded: true,
         hint: Text(
           'Gender'.tr,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w400,
             color: Colors.black,
@@ -617,10 +617,14 @@ class SignupView extends GetView<SignupController> {
           if (pickedDate != null) {
             ///DATE HAS BEEN SELECTED
 
-            formattedDates = DateFormat('yyyy-MM-dd').format(selectedDate);
+            formattedDates = DateFormat('yyyy-MM-dd').format(pickedDate);
+
+            //  String timestamp = pickedDate.toUtc().toIso8601String();
 
             ///SET CHANGED DATE TO TEXT FIELD
-            controller.bitrhController.text = formattedDates!.toString();
+            controller.bitrhController.text = formattedDates.toString();
+
+            print(controller.bitrhController.text);
           }
         },
         readOnly: true,

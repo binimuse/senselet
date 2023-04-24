@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +11,9 @@ import '../../../common/widgets/custom_snack_bars.dart';
 import '../../../constants/reusable/reusable.dart';
 import '../../../constants/reusable/shimmer_loading.dart';
 import '../../../routes/app_pages.dart';
+import '../../../utils/constants.dart';
+import '../data/muation/otp_mutation.dart';
+import '../views/otp_screen.dart';
 import '../data/muation/signin_mutation.dart';
 
 class SigninController extends GetxController {
@@ -19,6 +24,7 @@ class SigninController extends GetxController {
   final shimmerLoading = ShimmerLoading();
   var email = "";
   var password = "";
+  var otp = "".obs;
   var signingIn = false.obs;
   var cansigningIn = true.obs;
 
@@ -97,27 +103,73 @@ class SigninController extends GetxController {
       QueryResult result = await _client.mutate(
         MutationOptions(
           document: gql(SigninQueryMutation.signin),
-          variables: <String, dynamic>{'email': email, 'password': password},
+          variables: <String, dynamic>{'username': email, 'password': password},
         ),
       );
 
       if (!result.hasException) {
-        print(result.data);
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setString(
-            'access_token', result.data!["login"]["authorization"]["token"]);
-
-        await prefs.setString(
-            'id', result.data!["login"]["user"]["id"].toString());
-
+        print("45fte 1 ${result.data!["signin"]["email_verified"]}");
         signingIn(false);
-        Get.offNamed(Routes.HOME);
+        if (result.data!["signin"]["email_verified"] == true) {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString(Constants.userAccessTokenKey,
+              result.data!["signin"]["token"]["access_token"]);
+
+          await prefs.setString(
+              Constants.userId, result.data!["signin"]["user_id"]);
+
+          signingIn(false);
+
+          Get.offNamed(Routes.MAIN_PAGE);
+        } else {
+          Get.to(const OtpScreen());
+        }
       } else {
         print(result.exception);
         signingIn(false);
 
         ShowCommonSnackBar.awesomeSnackbarfailure(
             "Error", "Invalid Email or Password", context);
+      }
+    }
+  }
+
+  void verification(BuildContext context) async {
+    if (email.isNotEmpty && password.isNotEmpty) {
+      signingIn(true);
+      // print(int.parse(txtAge.text));
+      GraphQLClient client = graphQLConfiguration.clientToQuery();
+
+      QueryResult result = await client.mutate(
+        MutationOptions(
+          document: gql(OtpMutation.otp),
+          variables: <String, dynamic>{
+            'code': otp.value,
+          },
+        ),
+      );
+
+      if (!result.hasException) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString(Constants.userAccessTokenKey,
+            result.data!["verifyEmail"]["token"]["access_token"]);
+
+        await prefs.setString(
+            Constants.userId, result.data!["verifyEmail"]["user_id"]);
+        await prefs.setString(Constants.verifyEmail, "true");
+
+        print("45fte 1 ${prefs.getString(Constants.userId)}");
+        print("45fte 3${prefs.getString(Constants.verifyEmail)}");
+        print("45fte 2 ${prefs.getString(Constants.userAccessTokenKey)}");
+        signingIn(false);
+
+        Get.offNamed(Routes.MAIN_PAGE);
+      } else {
+        print(result.exception);
+        signingIn(false);
+
+        ShowCommonSnackBar.awesomeSnackbarfailure(
+            "Error", "Invalid OTP", context);
       }
     }
   }

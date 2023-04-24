@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 import '../../../routes/app_pages.dart';
+import '../../../utils/constants.dart';
 
 class SplashController extends GetxController {
   var appName = "SENSELET";
@@ -19,18 +19,19 @@ class SplashController extends GetxController {
   void onClose() {}
 
   void showSplash() async {
- 
 // when
     final prefs = await SharedPreferences.getInstance();
 
-    final acc = prefs.getString('access_token');
-    if (acc == null) {
-      Future.delayed(const Duration(seconds: 4), () {
-        Get.offAndToNamed(Routes.SIGNIN);
+    final acc = prefs.getString(Constants.userAccessTokenKey);
+    final verifyEmail = prefs.getString(Constants.verifyEmail);
+
+    if (acc == null && verifyEmail != null) {
+      Future.delayed(const Duration(seconds: 3), () {
+        Get.offNamed(Routes.MAIN_PAGE);
       });
     } else {
       Future.delayed(const Duration(seconds: 3), () {
-        Get.offNamed(Routes.HOME);
+        Get.offAndToNamed(Routes.SIGNIN);
       });
     }
   }
