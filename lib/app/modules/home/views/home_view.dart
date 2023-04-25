@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../constants/const.dart';
 import '../../../theme/custom_sizes.dart';
 import '../controllers/home_controller.dart';
@@ -218,10 +219,12 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             child: FloatingActionButton(
-              heroTag: "button1",
+              heroTag: "phone",
               isExtended: true,
               elevation: 0,
-              onPressed: () {},
+              onPressed: () async {
+                _makePhoneCall(controller.phoneNumber);
+              },
               backgroundColor: Colors.transparent,
               child: const Icon(Icons.call),
             ),
@@ -329,5 +332,13 @@ class HomeView extends GetView<HomeController> {
             ],
           ),
         ));
+  }
+
+  _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri, mode: LaunchMode.externalApplication);
   }
 }

@@ -37,7 +37,7 @@ class OrderPageView extends GetView<OrderPageController> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 1,
                         blurRadius: 5,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
@@ -66,7 +66,7 @@ class OrderPageView extends GetView<OrderPageController> {
                 SizedBox(height: 2.h),
                 GestureDetector(
                   onTap: () async {
-                    final selectedLocation = await Navigator.of(context).push(
+                    await Navigator.of(context).push(
                       MaterialPageRoute(
                           builder: (context) => MapMyAddressPickers()),
                     );
@@ -118,10 +118,6 @@ class OrderPageView extends GetView<OrderPageController> {
                 SizedBox(height: 2.h),
                 GestureDetector(
                   onTap: () async {
-                    final selectedLocation = await Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) => MapMyAddressPickers()),
-                    );
 
                     //  _pickupLocationController.text = selectedLocation;
                   },

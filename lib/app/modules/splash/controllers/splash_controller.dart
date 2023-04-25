@@ -25,8 +25,10 @@ class SplashController extends GetxController {
     final acc = prefs.getString(Constants.userAccessTokenKey);
     final verifyEmail = prefs.getString(Constants.verifyEmail);
 
-  
     if (acc == null && verifyEmail == null) {
+      print("4f4 ${acc}");
+      print("4f4 ${verifyEmail}");
+
       Future.delayed(const Duration(seconds: 3), () {
         Get.offAndToNamed(Routes.SIGNIN);
       });

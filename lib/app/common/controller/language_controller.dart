@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../utils/constants.dart';
 import '../data/mutations/lang_mutuation.dart';
 import '../graphql_common_api.dart';
 
@@ -21,12 +20,12 @@ class LanguagehController extends GetxController {
     GraphQLCommonApi graphQLCommonApi = GraphQLCommonApi();
 
     try {
-      final result = await graphQLCommonApi.mutation(
+       await graphQLCommonApi.mutation(
         LangMutation.changelang,
         <String, dynamic>{'langCode': lan},
       );
 
-      final prefs = await SharedPreferences.getInstance();
+   await SharedPreferences.getInstance();
       // String encryptToken = EncryptionUtil.encrypt(
       //     result!["changeLang"]["tokens"]["access_token"]);
       // // ENCRYPT REFRESHTOKEN

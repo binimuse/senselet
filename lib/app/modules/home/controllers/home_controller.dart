@@ -8,6 +8,7 @@ import '../../../constants/reusable/reusable.dart';
 class HomeController extends GetxController {
   final count = 0.obs;
   final reusableWidget = ReusableWidget();
+  String phoneNumber = '8989';
 
   static const CameraPosition kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),

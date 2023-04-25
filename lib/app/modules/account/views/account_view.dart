@@ -44,8 +44,8 @@ class AccountView extends GetView<AccountController> {
                       radius: 15.0.w,
                       backgroundColor: Colors.white,
                       child: ClipRRect(
-                        child: Image.asset('assets/images/logo_green.png'),
                         borderRadius: BorderRadius.circular(4.0),
+                        child: Image.asset('assets/images/logo_green.png'),
                       ),
                     ),
                     Container(

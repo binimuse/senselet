@@ -43,4 +43,12 @@
             <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBN5ZplPp-U6GXQW5Kznv6lwvJQdiFagVU"/>
     </application>
+
+        <queries>
+        <!-- If your app opens https URLs -->
+        <intent>
+          <action android:name="android.intent.action.VIEW" />
+          <data android:scheme="tel" />
+        </intent>
+      </queries>
 </manifest>

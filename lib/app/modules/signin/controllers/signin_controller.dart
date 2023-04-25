@@ -108,18 +108,19 @@ class SigninController extends GetxController {
       );
       final prefs = await SharedPreferences.getInstance();
       if (!result.hasException) {
-      
+        
         signingIn(false);
-        if (result.data!["signin"]["email_verified"] == true) {
-          signingIn(false);
+        await prefs.setString(Constants.userAccessTokenKey,
+            result.data!["signin"]["token"]["access_token"]);
 
+        await prefs.setString(
+            Constants.userId, result.data!["signin"]["user_id"]);
+
+
+
+        if (result.data!["signin"]["email_verified"] == true) {
           Get.offNamed(Routes.MAIN_PAGE);
         } else {
-          await prefs.setString(Constants.userAccessTokenKey,
-              result.data!["signin"]["token"]["access_token"]);
-
-          await prefs.setString(
-              Constants.userId, result.data!["signin"]["user_id"]);
           Get.to(const OtpScreen());
         }
       } else {
@@ -134,7 +135,7 @@ class SigninController extends GetxController {
 
   void verification(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
-    print(prefs.getString(Constants.userAccessTokenKey));
+
     signingIn(true);
     // print(int.parse(txtAge.text));
     GraphQLClient client = graphQLConfiguration.clientToQuery();
@@ -158,7 +159,6 @@ class SigninController extends GetxController {
 
       Get.offAllNamed(Routes.MAIN_PAGE);
     } else {
-      print(result.exception);
       signingIn(false);
 
       ShowCommonSnackBar.awesomeSnackbarfailure(

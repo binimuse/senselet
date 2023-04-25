@@ -11,7 +11,6 @@ import '../../utils/constants.dart';
 import '../../utils/lang_util.dart';
 import '../controller/language_controller.dart';
 import 'custom_normal_button.dart';
-import 'custom_normal_button.dart';
 
 class AppLanguagePickerDialog extends StatefulWidget {
   const AppLanguagePickerDialog({
