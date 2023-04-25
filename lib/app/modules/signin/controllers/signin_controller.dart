@@ -12,6 +12,7 @@ import '../../../constants/reusable/reusable.dart';
 import '../../../constants/reusable/shimmer_loading.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/sahred_prefrence.dart';
 import '../data/muation/otp_mutation.dart';
 import '../views/otp_screen.dart';
 import '../data/muation/signin_mutation.dart';
@@ -108,7 +109,6 @@ class SigninController extends GetxController {
       );
       final prefs = await SharedPreferences.getInstance();
       if (!result.hasException) {
-        
         signingIn(false);
         await prefs.setString(Constants.userAccessTokenKey,
             result.data!["signin"]["token"]["access_token"]);
@@ -116,9 +116,8 @@ class SigninController extends GetxController {
         await prefs.setString(
             Constants.userId, result.data!["signin"]["user_id"]);
 
-
-
         if (result.data!["signin"]["email_verified"] == true) {
+          print(PreferenceUtils.getString(Constants.userId));
           Get.offNamed(Routes.MAIN_PAGE);
         } else {
           Get.to(const OtpScreen());
@@ -152,8 +151,9 @@ class SigninController extends GetxController {
     if (!result.hasException) {
       await prefs.setString(Constants.userAccessTokenKey,
           result.data!["verifyEmail"]["token"]["access_token"]);
-
-      await prefs.setString(Constants.userId, "true");
+      await prefs.setString(
+          Constants.userId, result.data!["verifyEmail"]["user"]["id"]);
+      await prefs.setString(Constants.verifyEmail, "true");
 
       signingIn(false);
 

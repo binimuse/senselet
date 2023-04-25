@@ -12,6 +12,7 @@ import '../../../Services/graphql_conf.dart';
 import '../../../common/widgets/custom_snack_bars.dart';
 import '../../../constants/reusable/reusable.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/pages_util.dart';
 import '../data/queryandmutation/signup_mutuation.dart';
 
 class SignupController extends GetxController {
@@ -120,7 +121,7 @@ class SignupController extends GetxController {
   }
 
   String? validatephone(String value) {
-    if (!GetUtils.isPhoneNumber(value)) {
+    if (!PagesUtil.isPhoneValidEthiopian(value)) {
       return "Please Provide valid Phone Number!";
     }
     return null;
@@ -184,8 +185,6 @@ class SignupController extends GetxController {
           signingUp(false);
           Get.toNamed(Routes.SIGNIN);
         } else {
-      
-
           signingUp(false);
 
           for (var element in result.exception!.graphqlErrors) {

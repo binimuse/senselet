@@ -13,7 +13,7 @@ class AccountController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
 
     final acc = await prefs.remove(Constants.userAccessTokenKey);
-    final id = await prefs.remove('userId');
+    final id = await prefs.remove(Constants.userId);
     final refreshTokenKey = await prefs.remove('refreshTokenKey');
     final verifyEmail = await prefs.remove(Constants.verifyEmail);
 

@@ -17,6 +17,7 @@ abstract class Routes {
   static const NOTIFICATION_PAGE = _Paths.NOTIFICATION_PAGE;
   static const ORDER_HISTORY = _Paths.ORDER_HISTORY;
   static const ACCOUNT = _Paths.ACCOUNT;
+  static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
 }
 
 abstract class _Paths {
@@ -33,4 +34,5 @@ abstract class _Paths {
   static const NOTIFICATION_PAGE = '/notification-page';
   static const ORDER_HISTORY = '/order-history';
   static const ACCOUNT = '/account';
+  static const EDIT_PROFILE = '/edit-profile';
 }

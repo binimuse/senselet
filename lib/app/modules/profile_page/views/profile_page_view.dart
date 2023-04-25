@@ -63,7 +63,9 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                 ),
                                 buildMenuItem(
                                     FontAwesomeIcons.user, "Edit Profile".tr,
-                                    onTap: () {}),
+                                    onTap: () {
+                                  Get.toNamed(Routes.EDIT_PROFILE);
+                                }),
                                 SizedBox(
                                   height: 1.h,
                                 ),
