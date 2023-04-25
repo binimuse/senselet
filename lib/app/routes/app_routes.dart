@@ -18,6 +18,7 @@ abstract class Routes {
   static const ORDER_HISTORY = _Paths.ORDER_HISTORY;
   static const ACCOUNT = _Paths.ACCOUNT;
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const SETTING_PAGE = _Paths.SETTING_PAGE;
 }
 
 abstract class _Paths {
@@ -35,4 +36,5 @@ abstract class _Paths {
   static const ORDER_HISTORY = '/order-history';
   static const ACCOUNT = '/account';
   static const EDIT_PROFILE = '/edit-profile';
+  static const SETTING_PAGE = '/setting-page';
 }

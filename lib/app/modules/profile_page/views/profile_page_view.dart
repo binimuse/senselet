@@ -29,21 +29,6 @@ class ProfilePageView extends GetView<ProfilePageController> {
               Expanded(
                 child: Column(
                   children: [
-                    // Subscription(
-                    //     options: SubscriptionOptions(
-                    //       document: controller.subscriptionDocument,
-                    //     ),
-                    //     builder: (dynamic result) {
-                    //       if (result.isLoading) {
-                    //         return const Center(
-                    //           child: CircularProgressIndicator(
-                    //             color: themeColor,
-                    //           ),
-                    //         );
-                    //       }
-
-                    //       return buildUserDetail(result);
-                    //     }),
                     Expanded(
                       child: Container(
                         padding: EdgeInsets.symmetric(
@@ -113,9 +98,9 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                 ),
                                 buildMenuItem(
                                   FontAwesomeIcons.wrench,
-                                  "Account Setting".tr,
+                                  "Setting".tr,
                                   onTap: () {
-                                    //       Get.to(const SettingPageView());
+                                    Get.toNamed(Routes.SETTING_PAGE);
                                   },
                                 ),
                                 SizedBox(

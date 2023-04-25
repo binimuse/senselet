@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -16,7 +18,7 @@ class EditProfileView extends GetView<EditProfileController> {
         key: controller.editprofilekey2,
         child: Scaffold(
             backgroundColor: const Color(0xffEBF5F4),
-            appBar: buildAppBar(),
+            appBar: controller.buildAppforpages(context),
             body: Obx(
               () => controller.hasuserFeched.value != true
                   ? const Center(child: CircularProgressIndicator())
@@ -499,31 +501,5 @@ class EditProfileView extends GetView<EditProfileController> {
     }
     controller.dob.text = formattedDates.toString();
     controller.update();
-  }
-
-  buildAppBar() {
-    return AppBar(
-      elevation: 0,
-      toolbarHeight: 9.h,
-      automaticallyImplyLeading: false,
-      leading: IconButton(
-        onPressed: () {
-          Get.back();
-        },
-        icon: const Icon(
-          Icons.chevron_left,
-          color: Colors.black87,
-          size: 35,
-        ),
-      ),
-      title: Text(
-        "Edit Profile",
-        style: TextStyle(
-            fontWeight: FontWeight.w400, fontSize: 15.sp, color: Colors.black),
-      ),
-      centerTitle: false,
-      backgroundColor: const Color(0xffF6FBFB),
-      shadowColor: Colors.transparent,
-    );
   }
 }
