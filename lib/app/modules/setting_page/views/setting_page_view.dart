@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:senselet/app/constants/const.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../theme/custom_sizes.dart';
 import '../controllers/setting_page_controller.dart';
@@ -15,7 +14,7 @@ class SettingPageView extends GetView<SettingPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: controller.buildAppforpages(context),
+      appBar: controller.reusableWidget.buildAppforpages(context),
       body: Obx(() => Container(
             padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
             child: ListView(
