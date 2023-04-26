@@ -31,6 +31,7 @@ dependencies:
   qr_flutter: ^4.0.0
   jwt_decoder: ^2.0.1
   url_launcher: ^6.0.4
+  google_maps_webservice: ^0.0.14
 
 dev_dependencies: 
   flutter_lints: 2.0.1

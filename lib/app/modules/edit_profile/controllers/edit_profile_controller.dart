@@ -1,16 +1,13 @@
 // ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../Services/graphql_conf.dart';
 import '../../../common/graphql_common_api.dart';
 import '../../../common/widgets/custom_snack_bars.dart';
 import '../../../constants/reusable/reusable.dart';
-import '../../../routes/app_pages.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/pages_util.dart';
 import '../../../utils/sahred_prefrence.dart';
@@ -106,9 +103,9 @@ class EditProfileController extends GetxController {
   updateProfile(BuildContext context) async {
     startupdaeingUser(true);
 
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-    QueryResult result = await _client.mutate(
+    QueryResult result = await client.mutate(
       MutationOptions(
         document: gql(UpdateProfileQueryMutation.updateusers),
         variables: <String, dynamic>{
