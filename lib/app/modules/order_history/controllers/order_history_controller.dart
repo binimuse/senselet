@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:senselet/app/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -50,7 +51,7 @@ class OrderHistoryController extends GetxController {
       toolbarHeight: 8.h,
       leading: IconButton(
         onPressed: () {
-          Get.back();
+          Get.offAllNamed(Routes.MAIN_PAGE);
         },
         icon: const Icon(
           Icons.arrow_back,

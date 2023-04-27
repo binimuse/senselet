@@ -13,6 +13,7 @@ import '../../../routes/app_pages.dart';
 import '../data/Models/vehicletypesmodel.dart';
 import '../data/queryandmutation/add_order_mutation.dart';
 import '../data/queryandmutation/getvehicletypes_query.dart';
+import '../views/widget/order_sucess.dart';
 
 class OrderPageController extends GetxController {
   final GlobalKey<FormState> orderform = GlobalKey<FormState>();
@@ -131,13 +132,13 @@ class OrderPageController extends GetxController {
     if (!result.hasException) {
       startsubmitedorder(false);
       hassubmitedorder(true);
-      ShowCommonSnackBar.awesomeSnackbarSucess(
-          "Sucess", "Address Added", context);
+      Get.to(OrderSuccessView());
     } else {
       hassubmitedorder(false);
       startsubmitedorder(false);
-      ShowCommonSnackBar.awesomeSnackbarSucess(
-          "Sucess", "Address Added", context);
+      Get.back();
+      ShowCommonSnackBar.awesomeSnackbarfailure(
+          "Error", "something went wrong", context);
       print(result.exception);
     }
   }

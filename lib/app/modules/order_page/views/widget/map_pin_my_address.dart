@@ -36,6 +36,7 @@ class MapMyAddressPickers extends GetView<OrderPageController> {
     return WillPopScope(
       onWillPop: () async {
         KeyboardUtil.hideKeyboard(context);
+        KeyboardUtil.hideKeyboard(context);
         return true;
       },
       child: Scaffold(

@@ -280,35 +280,44 @@ class OrderPageView extends GetView<OrderPageController> {
   void _showBottomSheet(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Get.bottomSheet(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          // ignore: prefer_const_literals_to_create_immutables
-          children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Select Vehicle type',
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.normal,
+        Stack(children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            // ignore: prefer_const_literals_to_create_immutables
+            children: <Widget>[
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'Select Vehicle type',
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 1.h),
-            Expanded(
-              child: ListView.builder(
-                itemCount: controller.getVehicleTypesModel.length,
-                physics: const PageScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return cardview(
-                      controller.getVehicleTypesModel[index], context);
-                },
+              SizedBox(height: 1.h),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: controller.getVehicleTypesModel.length,
+                  physics: const PageScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return cardview(
+                        controller.getVehicleTypesModel[index], context);
+                  },
+                ),
               ),
-            ),
-            SizedBox(height: 1.h),
-          ],
-        ),
+              SizedBox(height: 1.h),
+              Obx(() => controller.startsubmitedorder.value
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                      color: themeColor,
+                      strokeWidth: 1,
+                    ))
+                  : const SizedBox.shrink()),
+            ],
+          ),
+        ]),
         backgroundColor: Colors.white,
         elevation: 10.0,
         isDismissible: true,
@@ -329,7 +338,6 @@ class OrderPageView extends GetView<OrderPageController> {
   ) {
     return InkWell(
       onTap: () {
-        Get.back();
         controller.vehicletypeid.value = vehicleTypesModel.id;
 
         if (controller.checkorder()) {
