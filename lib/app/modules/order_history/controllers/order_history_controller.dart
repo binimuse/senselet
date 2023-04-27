@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:senselet/app/routes/app_pages.dart';
+import 'package:senselet/app/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
@@ -18,9 +19,9 @@ class OrderHistoryController extends GetxController {
   final shimmerLoading = ShimmerLoading();
   final reusableWidget = ReusableWidget();
   late final subscriptionDocument;
-  var loading = false.obs;
-
-  var orderData = <OrderHistoryModel>[].obs;
+  var startloadingUser = false.obs;
+  var hasorderfetched = false.obs;
+  var hasorderfetchedsub = false.obs;
 
   final count = 0.obs;
 
@@ -38,9 +39,6 @@ class OrderHistoryController extends GetxController {
   @override
   void onClose() {}
   void increment() => count.value++;
-
-  RxList<OrderHistoryItemsModel> orderHistoryItemsModel =
-      List<OrderHistoryItemsModel>.of([]).obs;
 
   OrderHistoryQueryMutation orderHistoryQueryMutation =
       OrderHistoryQueryMutation();
@@ -101,76 +99,35 @@ class OrderHistoryController extends GetxController {
     );
   }
 
+  RxList<OrderModel> getOrderModel = List<OrderModel>.of([]).obs;
   Future<void> getOrderData() async {
-    loading(true);
+    startloadingUser(true);
     final prefs = await SharedPreferences.getInstance();
-    var id = prefs.getString('id');
+    var id = prefs.getString(Constants.userId);
 
     GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
     GraphQLClient client = graphQLConfiguration.clientToQuery();
 
     if (id != null) {
-      QueryResult result = await client.query(
-        QueryOptions(
-          document:
-              gql(orderHistoryQueryMutation.getMyOrdersHistory(int.parse(id))),
-        ),
-      );
+      QueryResult result = await client.query(QueryOptions(
+          document: gql(
+        orderHistoryQueryMutation
+            .getMyOrdersHistory(prefs.getString(Constants.userId)!),
+      )));
 
       if (!result.hasException) {
-        orderHistoryItemsModel.clear();
-        orderData.clear();
+        getOrderModel.clear();
 
-        loading(false);
+        hasorderfetched(true);
+        startloadingUser(false);
 
-        for (var i = 0; i < result.data!["users_by_pk"]["orders"].length; i++) {
-          orderData.add(OrderHistoryModel(
-            delivery_fee: result.data!["users_by_pk"]["orders"][i]
-                ["delivery_fee"],
-            id: result.data!["users_by_pk"]["orders"][i]["id"],
-            order_total: result.data!["users_by_pk"]["orders"][i]
-                ["order_total"],
-            other_fees: result.data!["users_by_pk"]["orders"][i]["other_fees"],
-            status: result.data!["users_by_pk"]["orders"][i]["status"],
-            total: result.data!["users_by_pk"]["orders"][i]["total"],
-            orderHistoryItemsModel: orderHistoryItemsModel,
-            created_at: result.data!["users_by_pk"]["orders"][i]["created_at"],
-            placeAddress: result.data!["users_by_pk"]["orders"][i]["place"]
-                ["address"],
-            placeName: result.data!["users_by_pk"]["orders"][i]["place"]
-                ["name"],
-            tax: result.data!["users_by_pk"]["orders"][i]["tax"],
-          ));
-
-          for (var j = 0;
-              j <
-                  result
-                      .data!["users_by_pk"]["orders"][i]["order_items"].length;
-              j++) {
-            orderHistoryItemsModel.add(OrderHistoryItemsModel(
-              created_at: result.data!["users_by_pk"]["orders"][i]
-                  ["order_items"][j]["created_at"],
-              id: result.data!["users_by_pk"]["orders"][i]["order_items"][j]
-                  ["id"],
-              quantity: result.data!["users_by_pk"]["orders"][i]["order_items"]
-                  [j]["quantity"],
-              prodact_id: result.data!["users_by_pk"]["orders"][i]
-                  ["order_items"][j]["variant"]["product"]["id"],
-              prodact_name: result.data!["users_by_pk"]["orders"][i]
-                  ["order_items"][j]["variant"]["product"]["name"],
-              variant_Price: result.data!["users_by_pk"]["orders"][i]
-                  ["order_items"][j]["variant"]["price"],
-              variant_id: result.data!["users_by_pk"]["orders"][i]
-                  ["order_items"][j]["variant"]["id"],
-              prodact_images: result.data!["users_by_pk"]["orders"][i]
-                      ["order_items"][j]["variant"]["product"]
-                  ["products_images"][0]["image"],
-            ));
-          }
-        }
+        getOrderModel.value = (result.data!['orders'] as List)
+            .map((e) => OrderModel.fromJson(e))
+            .toList();
       } else {
-        loading(true);
+        hasorderfetched(false);
+        startloadingUser(true);
       }
     }
   }
@@ -184,11 +141,17 @@ class OrderHistoryController extends GetxController {
 
   void getSubscription() async {
     final prefs = await SharedPreferences.getInstance();
-    var id = prefs.getString('id');
 
-    if (id != null) {
-      subscriptionDocument =
-          gql(orderHistoryQueryMutation.getMyOrdersHistorysub(int.parse(id)));
+   
+    if (prefs.getString(Constants.userId) != null) {
+      subscriptionDocument = gql(orderHistoryQueryMutation
+          .getMyOrdersHistorysub(prefs.getString(Constants.userId)!));
+
+      if (subscriptionDocument != null) {
+        hasorderfetchedsub(true);
+      } else {
+        hasorderfetchedsub(false);
+      }
     }
   }
 }

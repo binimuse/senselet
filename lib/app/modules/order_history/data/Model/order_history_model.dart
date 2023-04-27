@@ -1,51 +1,63 @@
-// ignore_for_file: non_constant_identifier_names
+class OrderModel {
+  String detail;
+  dynamic approvedAt;
+  dynamic approved;
+  DateTime createdAt;
+  dynamic delivered;
+  dynamic deliveredAt;
+  dynamic deliveryApproved;
+  String deliveryLocation;
+  String id;
+  dynamic orderStatus;
+  dynamic orderId;
+  String pickupLocation;
 
-class OrderHistoryModel {
-  late int id;
-  late double delivery_fee;
-  late String status;
-  late double other_fees;
-  late double tax;
-  late double order_total;
-  late String created_at;
-  late double total;
-  late String placeName;
-  late String placeAddress;
-  final List<OrderHistoryItemsModel> orderHistoryItemsModel;
-
-  OrderHistoryModel({
+  OrderModel({
+    required this.detail,
+    this.approvedAt,
+    this.approved,
+    required this.createdAt,
+    this.delivered,
+    this.deliveredAt,
+    this.deliveryApproved,
+    required this.deliveryLocation,
     required this.id,
-    required this.delivery_fee,
-    required this.status,
-    required this.other_fees,
-    required this.tax,
-    required this.created_at,
-    required this.order_total,
-    required this.total,
-    required this.placeName,
-    required this.placeAddress,
-    required this.orderHistoryItemsModel,
+    this.orderStatus,
+    this.orderId,
+    required this.pickupLocation,
   });
-}
 
-class OrderHistoryItemsModel {
-  late int id;
-  late String created_at;
-  late int quantity;
-  late int variant_id;
-  late double variant_Price;
-  late int prodact_id;
-  late String prodact_name;
-  late String prodact_images;
+  factory OrderModel.fromJson(Map<String, dynamic> json) {
+    return OrderModel(
+      id: json['id'],
+      detail: json['detail'],
+      approvedAt: json['approvedAt'],
+      approved: json['approved'],
+      createdAt: json['createdAt'],
+      delivered: json['delivered'],
+      deliveredAt: json['deliveredAt'],
+      deliveryApproved: json['deliveryApproved'],
+      deliveryLocation: json['delivery_location'],
+      orderStatus: json['order_status'],
+      orderId: json['order_id'],
+      pickupLocation: json['pickup_location'],
+    );
+  }
 
-  OrderHistoryItemsModel({
-    required this.id,
-    required this.created_at,
-    required this.quantity,
-    required this.variant_id,
-    required this.variant_Price,
-    required this.prodact_id,
-    required this.prodact_name,
-    required this.prodact_images,
-  });
+  get length => null;
+
+  Map<String, dynamic> toJson() => {
+        "detail": detail,
+        "approved_at": approvedAt,
+        "approved": approved,
+        "created_at": createdAt.toIso8601String(),
+        "delivered": delivered,
+        "delivered_at": deliveredAt,
+        "delivery_approved": deliveryApproved,
+        "delivery_location": deliveryLocation,
+        "id": id,
+        "order_status": orderStatus,
+        "order_id": orderId,
+        "pickup_location": pickupLocation,
+      };
 }

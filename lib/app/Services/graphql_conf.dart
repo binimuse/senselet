@@ -24,7 +24,7 @@ class GraphQLConfiguration {
     'ws://159.223.227.87:8888/v1/graphql',
     config: const SocketClientConfig(
       headers: {
-        'x-hasura-role': "user",
+        'x-hasura-admin-secret': "ad8sddi6roXj9tmejrWwX992by5S5Q",
       },
       autoReconnect: true,
       inactivityTimeout: Duration(seconds: 30),

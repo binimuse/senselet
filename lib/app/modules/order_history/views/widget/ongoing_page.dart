@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-
 import '../../controllers/order_history_controller.dart';
 import 'order_item.dart';
 
@@ -12,7 +11,7 @@ class OngoingPage extends GetView<OrderHistoryController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => (controller.loading.value == true)
+      () => (controller.hasorderfetchedsub.value != true)
           ? controller.shimmerLoading.buildShimmerContent()
           : Subscription(
               options: SubscriptionOptions(
@@ -20,6 +19,7 @@ class OngoingPage extends GetView<OrderHistoryController> {
               ),
               builder: (dynamic result) {
                 if (result.hasException) {
+                  print(result.exception);
                   return Text(result.exception.toString());
                 }
 
@@ -30,21 +30,17 @@ class OngoingPage extends GetView<OrderHistoryController> {
                 }
 
                 return ListView.builder(
-                    itemCount: controller.orderData.length,
+                    itemCount: controller.getOrderModel.length,
                     itemBuilder: (context, index) {
-                      if (result.data!["users_by_pk"]["orders"][index]
-                              ["status"] ==
-                          "ORDERED") {
+                      if (result.data!["orders"][index]["order_status"] ==
+                          null) {
                         return OrderItem(
-                          order: controller.orderData.elementAt(index),
-                          history: false,
-                          orderitem: controller.orderData
-                              .elementAt(index)
-                              .orderHistoryItemsModel[index],
-                          controller: controller,
-                          status: result.data!["users_by_pk"]["orders"][index]
-                              ["status"],
-                        );
+                            order: controller.getOrderModel.elementAt(index),
+                            history: false,
+                            index: index,
+                            controller: controller,
+                            status: result.data!["orders"][index]
+                                ["order_status"]);
                       } else {
                         return const SizedBox();
                       }

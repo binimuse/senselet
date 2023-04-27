@@ -1,80 +1,47 @@
 class OrderHistoryQueryMutation {
-  dynamic getMyOrdersHistory(int userId) {
+  dynamic getMyOrdersHistory(String userId) {
     return """
-      query 
-         {
-  users_by_pk(id: $userId) {
-  orders(order_by: {id: desc}) {
-      id
-      created_at
-      delivery_fee
-      status
-      other_fees
-      tax
-      order_total
-      total
-          place
-      {
-        id
-        name
-        address
-        }
-      order_items {
-        created_at
-        id
-        quantity
-        variant {
-          id
-          price
-          product {
-         products_images
-            {
-              image
-            }
-            id
-            name
-          }
-        }
-      }
-    }
+query MyQuery {
+  orders(where: {created_by_id: {_eq: "$userId"}}, order_by: {id: desc}) {
+    id
+    detail
+    approved_at
+    approved
+    created_at
+    delivered
+    delivered_at
+    delivery_approved
+    delivery_location
+    order_status
+    order_id
+    order_status
+    pickup_location
   }
-      }
+}
+
     """;
   }
 
-  dynamic getMyOrdersHistorysub(int userId) {
+  dynamic getMyOrdersHistorysub(String userId) {
     return """
-      subscription 
-         {
-  users_by_pk(id: $userId) {
-    orders(order_by: {id: desc}) {
-      id
-      created_at
-      delivery_fee
-      status
-      other_fees
-      order_total
-      total
-      order_items {
-        created_at
-        id
-        quantity
-        variant {
-          id
-          price
-          product {
-  products_images
-            {
-              image
-            }
-            id
-            name
-          }
-        }
-      }
-    }
+subscription MyQuery {
+  orders(where: {created_by_id: {_eq: "$userId"}}, order_by: {id: desc}) {
+    id
+    detail
+    approved_at
+    approved
+    created_at
+    delivered
+    delivered_at
+    delivery_approved
+    delivery_location
+    order_status
+    order_id
+    order_status
+    pickup_location
   }
-      }
+}
+
     """;
   }
 }

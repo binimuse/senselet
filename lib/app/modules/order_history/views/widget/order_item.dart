@@ -16,16 +16,17 @@ class OrderItem extends StatefulWidget {
   const OrderItem({
     Key? key,
     this.order,
-    required this.orderitem,
     required this.history,
     required this.controller,
     required this.status,
+    required this.index,
   }) : super(key: key);
 
-  final OrderHistoryModel? order;
-  final OrderHistoryItemsModel orderitem;
+  final OrderModel? order;
+
   final bool history;
   final String status;
+  final int index;
 
   final OrderHistoryController controller;
 
@@ -83,9 +84,8 @@ class _OrderItemState extends State<OrderItem> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(18),
                                   child: CachedNetworkImage(
-                                    imageUrl: IMAGE_URL +
-                                        widget.orderitem.prodact_images
-                                            .toString(),
+                                    imageUrl:
+                                        IMAGE_URL + widget.order.toString(),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -177,7 +177,7 @@ class _OrderItemState extends State<OrderItem> {
                                   ),
                                 ),
                                 Text(
-                                  widget.order!.order_total.toString(),
+                                  "09",
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     color: Colors.black87,
@@ -208,7 +208,7 @@ class _OrderItemState extends State<OrderItem> {
                                   ),
                                 ),
                                 Text(
-                                  widget.order!.status.toString(),
+                                  widget.order!.orderStatus.toString(),
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     color: Colors.black87,
@@ -239,7 +239,7 @@ class _OrderItemState extends State<OrderItem> {
                                   ),
                                 ),
                                 Text(
-                                  "${widget.order!.tax.toString()} Birr",
+                                  "2 Birr",
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     color: Colors.black87,
@@ -288,7 +288,7 @@ class _OrderItemState extends State<OrderItem> {
                                   child: SizedBox(),
                                 ),
                                 Text(
-                                  "${widget.order!.delivery_fee.toString()} Birr",
+                                  "2 Birr",
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     color: Colors.black87,
@@ -324,7 +324,7 @@ class _OrderItemState extends State<OrderItem> {
                                   child: SizedBox(),
                                 ),
                                 Text(
-                                  widget.order!.total.toString(),
+                                  "total",
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     color: Colors.black87,
@@ -703,40 +703,20 @@ class _OrderItemState extends State<OrderItem> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(children: [
-            // Icon(
-            //   FontAwesomeIcons.cartPlus,
-            //   color: themeColor,
-            //   size: 4.w,
-            // ),
-            SizedBox(
-              width: 0.5.h,
-            ),
-            Text(
-              "Order Id: : ${widget.order!.id.toString()} ",
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ]),
           SizedBox(
             height: 0.5.h,
           ),
           Row(children: [
-            // Icon(
-            //   FontAwesomeIcons.locationArrow,
-            //   color: themeColor,
-            //   size: 4.w,
-            // ),
+            Icon(
+              FontAwesomeIcons.list,
+              color: themeColor,
+              size: 4.w,
+            ),
             SizedBox(
               width: 0.5.h,
             ),
             Text(
-              "Address: ${widget.order!.placeName.toString()} ",
+              "Order Number: ${widget.index.toString()} ",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
@@ -761,7 +741,8 @@ class _OrderItemState extends State<OrderItem> {
                   width: 0.5.h,
                 ),
                 Text(
-                  timeAgo(),
+                  "23",
+                  //timeAgo(),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -775,7 +756,7 @@ class _OrderItemState extends State<OrderItem> {
                 child: SizedBox(),
               ),
               Text(
-                " ${widget.order!.total.toString()} Birr",
+                " 2 Birr",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -794,7 +775,7 @@ class _OrderItemState extends State<OrderItem> {
   String timeAgo({bool numericDates = true}) {
     var dateFormat = 'MM/dd/yy HH:mm';
     final DateTime docDateTime =
-        DateTime.parse(widget.order!.created_at.toString());
+        DateTime.parse(widget.order!.createdAt.toString());
     DateFormat(dateFormat).format(docDateTime);
 
     // var inputFormat = DateFormat('MM/dd/yy HH:mm');
