@@ -48,3 +48,23 @@ class GraphQLConfiguration {
     );
   }
 }
+
+class GraphQLConfigurationForauth {
+  static HttpLink httpLink = HttpLink("http://159.223.227.87:8888/v1/graphql");
+
+  ValueNotifier<GraphQLClient> client = ValueNotifier(
+    GraphQLClient(
+      link: httpLink,
+      cache: GraphQLCache(),
+    ),
+  );
+
+  final Link link = (httpLink);
+
+  GraphQLClient clientToQuery() {
+    return GraphQLClient(
+      cache: GraphQLCache(),
+      link: link,
+    );
+  }
+}

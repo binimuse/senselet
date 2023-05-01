@@ -6,8 +6,8 @@ mutation SignIn($username: String!, $password: String!){
     password: $password,
   ) {
     email_verified
-    exp
-    token
+    
+    tokens
     {
       access_token
       refresh_token

@@ -368,7 +368,7 @@ class SignupView extends GetView<SignupController> {
                 decoration: TextDecoration.none,
               ),
               decoration: InputDecoration(
-                hintText: "9********".tr,
+                hintText: "09********".tr,
                 hintStyle: TextStyle(
                   color: const Color(0xff757A80),
                   fontSize: 13.sp,
@@ -617,14 +617,19 @@ class SignupView extends GetView<SignupController> {
           if (pickedDate != null) {
             ///DATE HAS BEEN SELECTED
 
-            formattedDates = DateFormat('yyyy-MM-dd').format(pickedDate);
+            formattedDates = DateFormat('dd/MM/yyyy').format(pickedDate);
 
-            //  String timestamp = pickedDate.toUtc().toIso8601String();
-
-            ///SET CHANGED DATE TO TEXT FIELD
             controller.bitrhController.text = formattedDates.toString();
+            // if (controller.isValidAge(pickedDate)) {
+            //       formattedDates = DateFormat('dd/MM/yyyy').format(pickedDate);
 
-            print(controller.bitrhController.text);
+            //       controller.bitrhController.text = formattedDates.toString();
+            //     } else {
+            //       ShowCommonSnackBar.errorSnackBar(
+            //         "Date Not Correct!!!".trArgs(),
+            //         "The user must be 18 years old and above".trArgs(),
+            //       );
+            //     }
           }
         },
         readOnly: true,

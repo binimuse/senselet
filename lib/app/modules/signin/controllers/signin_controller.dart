@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,14 +16,16 @@ import '../../../routes/app_pages.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/sahred_prefrence.dart';
 import '../data/muation/otp_mutation.dart';
-import '../views/otp_screen.dart';
 import '../data/muation/signin_mutation.dart';
+import '../views/otp_screen.dart';
 
 class SigninController extends GetxController {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   late TextEditingController emailController, passwordController;
   final reusableWidget = ReusableWidget();
-  GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+
+  GraphQLConfigurationForauth graphQLConfiguration =
+      GraphQLConfigurationForauth();
   final shimmerLoading = ShimmerLoading();
   var email = "";
   var password = "";
@@ -99,9 +103,9 @@ class SigninController extends GetxController {
     if (email.isNotEmpty && password.isNotEmpty) {
       signingIn(true);
       // print(int.parse(txtAge.text));
-      GraphQLClient _client = graphQLConfiguration.clientToQuery();
+      GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-      QueryResult result = await _client.mutate(
+      QueryResult result = await client.mutate(
         MutationOptions(
           document: gql(SigninQueryMutation.signin),
           variables: <String, dynamic>{'username': email, 'password': password},
@@ -110,33 +114,34 @@ class SigninController extends GetxController {
       final prefs = await SharedPreferences.getInstance();
       if (!result.hasException) {
         signingIn(false);
-        await prefs.setString(Constants.userAccessTokenKey,
-            result.data!["signin"]["token"]["access_token"]);
-
-        await prefs.setString(
-            Constants.userId, result.data!["signin"]["user_id"]);
-
-        if (result.data!["signin"]["email_verified"] == true) {
-          print(PreferenceUtils.getString(Constants.userId));
-          Get.offNamed(Routes.MAIN_PAGE);
+        print(result.data!["signin"]["email_verified"]);
+        if (result.data!["signin"]["email_verified"]
+            .toString()
+            .contains("false")) {
+          Get.to(OtpScreen(
+            email: email,
+          ));
         } else {
-          Get.to(const OtpScreen());
+          await prefs.setString(Constants.userAccessTokenKey,
+              result.data!["signin"]["tokens"]["access_token"]);
+
+          await prefs.setString(
+              Constants.userId, result.data!["signin"]["user_id"]);
+
+          Get.toNamed(Routes.MAIN_PAGE);
         }
       } else {
-        print(result.exception);
         signingIn(false);
-
+        print(result.exception);
         ShowCommonSnackBar.awesomeSnackbarfailure(
             "Error", "Invalid Email or Password", context);
       }
     }
   }
 
-  void verification(BuildContext context) async {
-    final prefs = await SharedPreferences.getInstance();
-
+  void verification(BuildContext context, String email) async {
     signingIn(true);
-    // print(int.parse(txtAge.text));
+
     GraphQLClient client = graphQLConfiguration.clientToQuery();
 
     QueryResult result = await client.mutate(
@@ -144,23 +149,24 @@ class SigninController extends GetxController {
         document: gql(OtpMutation.otp),
         variables: <String, dynamic>{
           'code': otp.value,
+          'email': email.toString(),
         },
       ),
     );
 
     if (!result.hasException) {
-      await prefs.setString(Constants.userAccessTokenKey,
-          result.data!["verifyEmail"]["token"]["access_token"]);
-      await prefs.setString(
-          Constants.userId, result.data!["verifyEmail"]["user"]["id"]);
-      await prefs.setString(Constants.verifyEmail, "true");
+      // await prefs.setString(Constants.userAccessTokenKey,
+      //     result.data!["verifyOTP"]["tokens"]["access_token"]);
+      // await prefs.setString(
+      //     Constants.userId, result.data!["verifyOTP"]["user_id"]);
+      // await prefs.setString(Constants.verifyEmail, "true");
 
       signingIn(false);
 
-      Get.offAllNamed(Routes.MAIN_PAGE);
+      Get.offAllNamed(Routes.SIGNIN);
     } else {
       signingIn(false);
-
+      print(result.exception);
       ShowCommonSnackBar.awesomeSnackbarfailure(
           "Error", "Invalid OTP", context);
     }

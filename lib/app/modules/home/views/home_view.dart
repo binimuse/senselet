@@ -18,7 +18,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: controller.reusableWidget.buildAppforpages(context),
+      appBar: controller.buildAppforpages(context),
       body: Column(
         children: [
           Expanded(

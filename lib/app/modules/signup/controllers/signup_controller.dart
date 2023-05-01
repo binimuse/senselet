@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_cast, prefer_function_declarations_over_variables, use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,12 +15,14 @@ import '../../../common/widgets/custom_snack_bars.dart';
 import '../../../constants/reusable/reusable.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/pages_util.dart';
+import '../../signin/views/otp_screen.dart';
 import '../data/queryandmutation/signup_mutuation.dart';
 
 class SignupController extends GetxController {
   final GlobalKey<FormState> regFormKey = GlobalKey<FormState>();
 
-  GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+  GraphQLConfigurationForauth graphQLConfiguration =
+      GraphQLConfigurationForauth();
   final reusableWidget = ReusableWidget();
   late TextEditingController fnameController,
       lnameController,
@@ -142,6 +146,16 @@ class SignupController extends GetxController {
     return null;
   }
 
+  bool isValidAge(DateTime date) {
+    final now = DateTime.now();
+    var age = now.year - date.year;
+    if (now.month < date.month ||
+        (now.month == date.month && now.day < date.day)) {
+      age--;
+    }
+    return age >= 18;
+  }
+
   void checkReg(BuildContext context) {
     final isValid = regFormKey.currentState!.validate();
     if (!isValid) {
@@ -152,59 +166,50 @@ class SignupController extends GetxController {
   }
 
   void signUp(BuildContext context) async {
-    if (fnameController.text.isNotEmpty &&
-        lnameController.text.isNotEmpty &&
-        emailController.text.isNotEmpty &&
-        phoneController.text.isNotEmpty &&
-        bitrhController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty &&
-        passwordConfirmController.text.isNotEmpty) {
-      if (passwordController.text == passwordConfirmController.text) {
-        signingUp(true);
+    if (passwordController.text == passwordConfirmController.text) {
+      signingUp(true);
 
-        GraphQLClient client = graphQLConfiguration.clientToQuery();
+      GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-        QueryResult result = await client.mutate(
-          MutationOptions(
-            document: gql(SignupQueryMutation.register),
-            variables: <String, dynamic>{
-              'first_name': fnameController.text,
-              'father_name': lnameController.text,
-              'phone_number': phoneController.text,
-              'email': emailController.text,
-              'gender': selectedGender.value,
-              'roles': "user",
-              'birthdate': bitrhController.text,
-              'password': passwordController.text,
-              'password_confirmation': passwordConfirmController.text,
-            },
-          ),
-        );
+      QueryResult result = await client.mutate(
+        MutationOptions(
+          document: gql(SignupQueryMutation.register),
+          variables: <String, dynamic>{
+            'first_name': fnameController.text,
+            'father_name': lnameController.text,
+            'phone_number': "+251${phoneController.text}",
+            'email': emailController.text,
+            'gender': selectedGender.value,
+            'roles': "user",
+            'birthdate': bitrhController.text,
+            'password': passwordController.text,
+            'password_confirmation': passwordConfirmController.text,
+          },
+        ),
+      );
 
-        if (!result.hasException) {
-          signingUp(false);
-          Get.toNamed(Routes.SIGNIN);
-        } else {
-          signingUp(false);
+      if (!result.hasException) {
+        signingUp(false);
 
-          for (var element in result.exception!.graphqlErrors) {
-            if (element.message.contains('Email Address Already Exists!')) {
-              ShowCommonSnackBar.awesomeSnackbarfailure(
-                  "Error", "Email  has already been taken", context);
-            } else if (element.message
-                .contains('Phone Number Already Exists')) {
-              ShowCommonSnackBar.awesomeSnackbarfailure(
-                  "Error", " phone number has already been taken", context);
-            } else {
-              ShowCommonSnackBar.awesomeSnackbarfailure(
-                  "Error", "failed, try again later", context);
-            }
+        Get.to(OtpScreen(
+          email: emailController.text,
+        ));
+      } else {
+        signingUp(false);
+        print(result.exception);
+        for (var element in result.exception!.graphqlErrors) {
+          if (element.message.contains('VALIDATION ERROR')) {
+            ShowCommonSnackBar.awesomeSnackbarfailure("Error",
+                "Email or phone number has already been taken", context);
+          } else {
+            ShowCommonSnackBar.awesomeSnackbarfailure(
+                "Error", "failed, try again later", context);
           }
         }
-      } else {
-        ShowCommonSnackBar.awesomeSnackbarfailure(
-            "Error", "Password Dont Match", context);
       }
+    } else {
+      ShowCommonSnackBar.awesomeSnackbarfailure(
+          "Error", "Password Dont Match", context);
     }
   }
 

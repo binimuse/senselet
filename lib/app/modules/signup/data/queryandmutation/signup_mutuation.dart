@@ -13,14 +13,8 @@ signup(
     birthdate: $birthdate, 
  
   ) {
-    exp
-    token
-    {
-      access_token
-      refresh_token
-    }
-    user_id
-    roles
+    
+message
   }
 }
  ''';

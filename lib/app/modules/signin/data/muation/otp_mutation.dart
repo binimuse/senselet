@@ -1,15 +1,13 @@
 class OtpMutation {
   static const String otp = r'''
-mutation verifyEmail($code: String!){
- verifyEmail(
+mutation verifyOTP($code: String!,$email: String!){
+ verifyOTP(
     code: $code,
+    email: $email,
 
   ) {
-    token {
-      access_token
-      refresh_token
-    }
-    user_id
+    message
+
   }
 }
  ''';

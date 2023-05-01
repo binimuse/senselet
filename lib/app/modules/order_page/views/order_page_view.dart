@@ -363,7 +363,11 @@ class OrderPageView extends GetView<OrderPageController> {
             color: themeColorFaded,
             size: 8.w,
           ),
-          title: Text(vehicleTypesModel.name),
+          title: Text(
+            vehicleTypesModel.name,
+            style: const TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold),
+          ),
           subtitle: Text("${vehicleTypesModel.description} "),
           trailing: Text(
             "${vehicleTypesModel.kg} KG",

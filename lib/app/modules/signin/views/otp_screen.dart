@@ -8,8 +8,11 @@ import '../../../common/widgets/custom_snack_bars.dart';
 import '../../../constants/const.dart';
 
 class OtpScreen extends GetView<SigninController> {
-  const OtpScreen({Key? key}) : super(key: key);
-
+  const OtpScreen({
+    Key? key,
+    required this.email,
+  }) : super(key: key);
+  final String email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +90,7 @@ class OtpScreen extends GetView<SigninController> {
                         child: ElevatedButton(
                             onPressed: () {
                               if (controller.otp.value != "") {
-                                controller.verification(context);
+                                controller.verification(context,email);
                               } else {
                                 ShowCommonSnackBar.awesomeSnackbarfailure(
                                     "Error", "please Enter OTP", context);
