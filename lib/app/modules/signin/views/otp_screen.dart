@@ -90,7 +90,7 @@ class OtpScreen extends GetView<SigninController> {
                         child: ElevatedButton(
                             onPressed: () {
                               if (controller.otp.value != "") {
-                                controller.verification(context,email);
+                                controller.verification(context, email);
                               } else {
                                 ShowCommonSnackBar.awesomeSnackbarfailure(
                                     "Error", "please Enter OTP", context);
@@ -119,7 +119,7 @@ class OtpScreen extends GetView<SigninController> {
                 const SizedBox(height: 15),
                 GestureDetector(
                   onTap: () {
-                    //   controller.sendOtp(context);
+                    controller.resendOtp(context, email);
                   },
                   child: const Text(
                     "Resend New Code",

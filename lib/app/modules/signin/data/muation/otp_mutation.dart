@@ -6,6 +6,21 @@ mutation verifyOTP($code: String!,$email: String!){
     email: $email,
 
   ) {
+    
+user_id
+  }
+}
+ ''';
+}
+
+class ResendOtpMutation {
+  static const String otp = r'''
+mutation verifyOTP($email: String!){
+ resendSignUpOtp(
+   
+    email: $email,
+
+  ) {
     message
 
   }

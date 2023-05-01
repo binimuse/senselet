@@ -31,6 +31,7 @@ class SigninController extends GetxController {
   var password = "";
   var otp = "".obs;
   var signingIn = false.obs;
+  var resendotpstarted = false.obs;
   var cansigningIn = true.obs;
 
   var obscureText = true.obs;
@@ -139,6 +140,31 @@ class SigninController extends GetxController {
     }
   }
 
+  resendOtp(BuildContext context, String email) async {
+    resendotpstarted(true);
+
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
+
+    QueryResult result = await client.mutate(
+      MutationOptions(
+        document: gql(ResendOtpMutation.otp),
+        variables: <String, dynamic>{
+          'email': email.toString(),
+        },
+      ),
+    );
+
+    if (!result.hasException) {
+      resendotpstarted(false);
+      ShowCommonSnackBar.awesomeSnackbarSucess("Sucess", "OTP resent", context);
+    } else {
+      resendotpstarted(false);
+      print(result.exception);
+      ShowCommonSnackBar.awesomeSnackbarfailure(
+          "Error", "somthing went wrong", context);
+    }
+  }
+
   void verification(BuildContext context, String email) async {
     signingIn(true);
 
@@ -155,20 +181,22 @@ class SigninController extends GetxController {
     );
 
     if (!result.hasException) {
-      // await prefs.setString(Constants.userAccessTokenKey,
-      //     result.data!["verifyOTP"]["tokens"]["access_token"]);
-      // await prefs.setString(
-      //     Constants.userId, result.data!["verifyOTP"]["user_id"]);
-      // await prefs.setString(Constants.verifyEmail, "true");
-
       signingIn(false);
 
       Get.offAllNamed(Routes.SIGNIN);
     } else {
       signingIn(false);
       print(result.exception);
-      ShowCommonSnackBar.awesomeSnackbarfailure(
-          "Error", "Invalid OTP", context);
+
+      for (var element in result.exception!.graphqlErrors) {
+        if (element.message.contains('OTP_HAS_EXPIRED')) {
+          ShowCommonSnackBar.awesomeSnackbarfailure(
+              "Error", "OTP HAS EXPIRED please try again", context);
+        } else {
+          ShowCommonSnackBar.awesomeSnackbarfailure(
+              "Error", "Invalid OTP", context);
+        }
+      }
     }
   }
 }
