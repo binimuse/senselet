@@ -3,12 +3,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constants/const.dart';
 import '../../../theme/custom_sizes.dart';
 import '../controllers/notification_page_controller.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class NotificationPageView extends GetView<NotificationPageController> {
   const NotificationPageView({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class NotificationPageView extends GetView<NotificationPageController> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        //  controller.updatenotificationstatus();
+        controller.updatenotificationstatus();
         return true;
       },
       child: Scaffold(
@@ -74,7 +74,7 @@ class NotificationPageView extends GetView<NotificationPageController> {
       leading: IconButton(
         onPressed: () {
           Get.back();
-          //    controller.updatenotificationstatus();
+          controller.updatenotificationstatus();
         },
         icon: const Icon(
           Icons.chevron_left,
@@ -105,7 +105,7 @@ class NotificationPageView extends GetView<NotificationPageController> {
               backgroundColor: Colors.white,
               child: IconButton(
                   onPressed: () {
-                    //  Get.toNamed(Routes.CART);
+                    //   Get.toNamed(Routes.CART);
                   },
                   icon: const Icon(Icons.shopping_cart_outlined,
                       size: 20, color: themeColor))),
@@ -280,7 +280,7 @@ class NotificationPageView extends GetView<NotificationPageController> {
                 height: CustomSizes.mp_v_1 / 2,
               ),
               Text(
-                timeAgo(createdAt),
+                timeago.format(DateTime.parse(createdAt.toString())),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -294,36 +294,5 @@ class NotificationPageView extends GetView<NotificationPageController> {
         ),
       ],
     );
-  }
-
-  String timeAgo(String createdAt, {bool numericDates = true}) {
-    var dateFormat = 'MM/dd/yy HH:mm';
-    final DateTime docDateTime = DateTime.parse(createdAt);
-    DateFormat(dateFormat).format(docDateTime);
-
-    // var inputFormat = DateFormat('MM/dd/yy HH:mm');
-
-    final date2 = DateTime.now();
-    final difference = date2.difference(docDateTime);
-
-    if ((difference.inDays / 7).floor() >= 1) {
-      return (numericDates) ? '1 week ago' : 'Last week';
-    } else if (difference.inDays >= 2) {
-      return '${difference.inDays} days ago';
-    } else if (difference.inDays >= 1) {
-      return (numericDates) ? '1 day ago' : 'Yesterday';
-    } else if (difference.inHours >= 2) {
-      return '${difference.inHours} hours ago';
-    } else if (difference.inHours >= 1) {
-      return (numericDates) ? '1 hour ago' : 'An hour ago';
-    } else if (difference.inMinutes >= 2) {
-      return '${difference.inMinutes} minutes ago';
-    } else if (difference.inMinutes >= 1) {
-      return (numericDates) ? '1 minute ago' : 'A minute ago';
-    } else if (difference.inSeconds >= 3) {
-      return '${difference.inSeconds} seconds ago';
-    } else {
-      return 'Just now';
-    }
   }
 }

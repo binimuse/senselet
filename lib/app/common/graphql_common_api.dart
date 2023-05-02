@@ -1,8 +1,10 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../Services/graphql_conf.dart';
+import '../modules/account/controllers/account_controller.dart';
 
 class GraphQLCommonApi {
   Future<Map<String, dynamic>?> query(
@@ -58,6 +60,14 @@ class GraphQLCommonApi {
       return result.data;
     } else {
       if (result.exception != null) {
+        for (var element in result.exception!.graphqlErrors) {
+          if (element.message.contains('JWTExpired')) {
+            final AccountController accountController =
+                Get.put(AccountController());
+
+            accountController.logout();
+          }
+        }
         throw "API RESPONSE ERROR ${result.exception.toString()}";
       }
     }
