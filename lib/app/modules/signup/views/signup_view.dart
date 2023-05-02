@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../common/widgets/custom_snack_bars.dart';
 import '../../../constants/const.dart';
 import '../../../constants/reusable/keyboard.dart';
 import '../../../routes/app_pages.dart';
@@ -617,19 +618,19 @@ class SignupView extends GetView<SignupController> {
           if (pickedDate != null) {
             ///DATE HAS BEEN SELECTED
 
-            formattedDates = DateFormat('dd/MM/yyyy').format(pickedDate);
+            // formattedDates = DateFormat('dd/MM/yyyy').format(pickedDate);
 
-            controller.bitrhController.text = formattedDates.toString();
-            // if (controller.isValidAge(pickedDate)) {
-            //       formattedDates = DateFormat('dd/MM/yyyy').format(pickedDate);
+            // controller.bitrhController.text = formattedDates.toString();
+            if (controller.isValidAge(pickedDate)) {
+              formattedDates = DateFormat('dd/MM/yyyy').format(pickedDate);
 
-            //       controller.bitrhController.text = formattedDates.toString();
-            //     } else {
-            //       ShowCommonSnackBar.errorSnackBar(
-            //         "Date Not Correct!!!".trArgs(),
-            //         "The user must be 18 years old and above".trArgs(),
-            //       );
-            //     }
+              controller.bitrhController.text = formattedDates.toString();
+            } else {
+              ShowCommonSnackBar.errorSnackBar(
+                "Date Not Correct!!!".trArgs(),
+                "The user must be 18 years old and above".trArgs(),
+              );
+            }
           }
         },
         readOnly: true,

@@ -118,18 +118,19 @@ class OtpScreen extends GetView<SigninController> {
                 ),
                 const SizedBox(height: 15),
                 GestureDetector(
-                  onTap: () {
-                    controller.resendOtp(context, email);
-                  },
-                  child: const Text(
-                    "Resend New Code",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: themeColorFaded,
-                    ),
-                  ),
-                ),
+                    onTap: () {
+                      controller.resendOtp(context, email);
+                    },
+                    child: controller.resendotpstarted.isFalse
+                        ? const Text(
+                            "Resend New Code",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: themeColorFaded,
+                            ),
+                          )
+                        : const Center(child: CircularProgressIndicator())),
               ],
             ),
           ),

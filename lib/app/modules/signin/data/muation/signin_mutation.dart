@@ -13,6 +13,11 @@ mutation SignIn($username: String!, $password: String!){
       refresh_token
     }
     user_id
+       user
+    {
+      email_verified
+      id
+    }
     roles
   }
 }

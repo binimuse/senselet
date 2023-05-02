@@ -115,8 +115,8 @@ class SigninController extends GetxController {
       final prefs = await SharedPreferences.getInstance();
       if (!result.hasException) {
         signingIn(false);
-        print(result.data!["signin"]["email_verified"]);
-        if (result.data!["signin"]["email_verified"]
+
+        if (result.data!["signin"]["user"]["email_verified"]
             .toString()
             .contains("false")) {
           Get.to(OtpScreen(

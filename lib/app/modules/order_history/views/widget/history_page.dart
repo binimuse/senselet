@@ -32,7 +32,7 @@ class HistoryPage extends GetView<OrderHistoryController> {
                     itemCount: controller.getOrderModel.length,
                     itemBuilder: (context, index) {
                       if (result.data!["orders"][index]["order_status"] ==
-                          "DELIVERED") {
+                          "ASSIGNED") {
                         return OrderItem(
                             order: controller.getOrderModel.elementAt(index),
                             history: true,

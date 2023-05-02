@@ -136,6 +136,75 @@ class _OrderItemState extends State<OrderItem> {
                               left: 4.w,
                             ),
                             child: Text(
+                              "Order detail",
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                color: themeColorFaded,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 4.w,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Order description",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 11.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        widget.order!.detail.toString(),
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 11.sp,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            height: 0,
+                            color: Colors.grey[400],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: 4.w,
+                            ),
+                            child: Text(
                               "Address details",
                               textAlign: TextAlign.start,
                               style: TextStyle(
@@ -643,35 +712,5 @@ class _OrderItemState extends State<OrderItem> {
     );
   }
 
-  String timeAgo({bool numericDates = true}) {
-    var dateFormat = 'MM/dd/yy HH:mm';
-    final DateTime docDateTime =
-        DateTime.parse(widget.order!.createdAt.toString());
-    DateFormat(dateFormat).format(docDateTime);
 
-    // var inputFormat = DateFormat('MM/dd/yy HH:mm');
-
-    final date2 = DateTime.now();
-    final difference = date2.difference(docDateTime);
-
-    if ((difference.inDays / 7).floor() >= 1) {
-      return (numericDates) ? '1 week ago' : 'Last week';
-    } else if (difference.inDays >= 2) {
-      return '${difference.inDays} days ago';
-    } else if (difference.inDays >= 1) {
-      return (numericDates) ? '1 day ago' : 'Yesterday';
-    } else if (difference.inHours >= 2) {
-      return '${difference.inHours} hours ago';
-    } else if (difference.inHours >= 1) {
-      return (numericDates) ? '1 hour ago' : 'An hour ago';
-    } else if (difference.inMinutes >= 2) {
-      return '${difference.inMinutes} minutes ago';
-    } else if (difference.inMinutes >= 1) {
-      return (numericDates) ? '1 minute ago' : 'A minute ago';
-    } else if (difference.inSeconds >= 3) {
-      return '${difference.inSeconds} seconds ago';
-    } else {
-      return 'Just now';
-    }
-  }
 }
