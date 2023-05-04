@@ -19,7 +19,6 @@ class OngoingPage extends GetView<OrderHistoryController> {
               ),
               builder: (dynamic result) {
                 if (result.hasException) {
-                  print(result.exception);
                   return Text(result.exception.toString());
                 }
 

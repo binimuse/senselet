@@ -1,13 +1,9 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:senselet/app/routes/app_pages.dart';
 import 'package:senselet/app/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../Services/graphql_conf.dart';
 import '../../../constants/reusable/reusable.dart';
@@ -22,7 +18,8 @@ class OrderHistoryController extends GetxController {
   var startloadingUser = false.obs;
   var hasorderfetched = false.obs;
   var hasorderfetchedsub = false.obs;
-
+  var showError = false.obs;
+  int errorCount = 0;
   final count = 0.obs;
 
   var lname = '';
@@ -92,6 +89,8 @@ class OrderHistoryController extends GetxController {
 
       if (subscriptionDocument != null) {
         hasorderfetchedsub(true);
+
+        
       } else {
         hasorderfetchedsub(false);
       }

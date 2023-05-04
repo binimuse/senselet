@@ -67,16 +67,6 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                   height: 1.h,
                                 ),
                                 buildMenuItem(
-                                  FontAwesomeIcons.mapPin,
-                                  "Delivery Address".tr,
-                                  onTap: () {
-                                    //         Get.toNamed(Routes.DELIVERY_ADDRESS);
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                buildMenuItem(
                                   FontAwesomeIcons.shieldHalved,
                                   "Privacy Policy".tr,
                                   onTap: () {

@@ -58,6 +58,7 @@ class OrderPageView extends GetView<OrderPageController> {
                             'To send'.tr,
                             style: TextStyle(
                               fontSize: 16.0,
+                              fontFamily: "WorkSans",
                               color: Colors.grey[800],
                             ),
                             textAlign: TextAlign.start,

@@ -45,6 +45,7 @@ class OrderPageController extends GetxController {
   bool checkorder() {
     final isValid = orderform.currentState!.validate();
     if (!isValid) {
+      Get.back();
       return false;
     }
 
