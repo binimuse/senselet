@@ -18,7 +18,7 @@ class EditProfileView extends GetView<EditProfileController> {
         key: controller.editprofilekey2,
         child: Scaffold(
             backgroundColor: const Color(0xffEBF5F4),
-            appBar: controller.reusableWidget.buildAppforpages(context),
+            appBar: controller.reusableWidget.buildAppforpages(context, false),
             body: Obx(
               () => controller.hasuserFeched.value != true
                   ? const Center(child: CircularProgressIndicator())

@@ -8,20 +8,20 @@ import 'package:sizer/sizer.dart';
 
 import '../../../common/widgets/app_language_picker_dialog.dart';
 import '../../../constants/const.dart';
-import '../../account/controllers/account_controller.dart';
 import '../../network/controllers/network_controller.dart';
 import '../controllers/profile_page_controller.dart';
 
 class ProfilePageView extends GetView<ProfilePageController> {
   ProfilePageView({Key? key}) : super(key: key);
   final NetworkController networkManager = Get.put(NetworkController());
+  @override
   final ProfilePageController controller = Get.put(ProfilePageController());
   @override
   Widget build(BuildContext context) {
     return Obx(() => networkManager.connectionStatus.value != 0
         ? Scaffold(
             backgroundColor: const Color(0xffEBF5F4),
-            appBar: controller.reusableWidget.buildAppforpages(context),
+            appBar: controller.reusableWidget.buildAppforpages(context, true),
             body: Column(children: [
               ///HEADER SEARCH BAR BUTTON
               // buildHeaderSearchBar(),

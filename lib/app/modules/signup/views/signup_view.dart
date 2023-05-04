@@ -18,7 +18,7 @@ class SignupView extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: controller.reusableWidget.buildAppBarforAll(context),
+        appBar: controller.reusableWidget.buildAppBar(),
         resizeToAvoidBottomInset: true,
         backgroundColor: const Color(0xffF6FBFB),
         body: Container(

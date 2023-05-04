@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constants/const.dart';
@@ -12,7 +13,7 @@ class ForgotpasswordView extends GetView<ForgotpasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: controller.reusableWidget.buildAppBar(),
+      appBar: controller.reusableWidget.buildAppforpages(context, false),
       resizeToAvoidBottomInset: false,
       body: Container(
         color: const Color(0xffF6FBFB),

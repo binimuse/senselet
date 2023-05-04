@@ -19,7 +19,7 @@ class OrderPageView extends GetView<OrderPageController> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: themebackground,
-      appBar: controller.buildAppforpages(context),
+      appBar: controller.reusableWidget.buildAppforpages(context, false),
       body: Form(
         key: controller.orderform,
         child: SingleChildScrollView(

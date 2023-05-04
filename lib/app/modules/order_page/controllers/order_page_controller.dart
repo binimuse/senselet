@@ -1,15 +1,13 @@
 // ignore_for_file: use_build_context_synchronously, equal_keys_in_map
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../Services/graphql_conf.dart';
 import '../../../common/graphql_common_api.dart';
 import '../../../common/widgets/custom_snack_bars.dart';
-import '../../../routes/app_pages.dart';
+import '../../../constants/reusable/reusable.dart';
 import '../data/Models/vehicletypesmodel.dart';
 import '../data/queryandmutation/add_order_mutation.dart';
 import '../data/queryandmutation/getvehicletypes_query.dart';
@@ -42,6 +40,7 @@ class OrderPageController extends GetxController {
   late TextEditingController detail;
   late TextEditingController picklocation;
   late TextEditingController droplocation;
+  final reusableWidget = ReusableWidget();
 
   bool checkorder() {
     final isValid = orderform.currentState!.validate();
@@ -141,71 +140,6 @@ class OrderPageController extends GetxController {
           "Error", "something went wrong", context);
       print(result.exception);
     }
-  }
-
-  buildAppforpages(BuildContext context) {
-    return AppBar(
-      elevation: 1,
-      toolbarHeight: 8.h,
-      leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        icon: const Icon(
-          Icons.arrow_back,
-          color: Colors.black,
-        ),
-      ),
-      title: Padding(
-        padding: const EdgeInsets.only(left: 10.0),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 25.0,
-              backgroundColor: Colors.white,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(4.0),
-                child: Image.asset('assets/images/logo_green.png'),
-              ),
-            ),
-            SizedBox(
-              width: 2.w,
-            ),
-            Text(
-              "SENSELET",
-              style: TextStyle(
-                color: const Color(0xff129797),
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp,
-              ),
-            ),
-          ],
-        ),
-      ),
-      actions: [
-        IconButton(
-            onPressed: () {
-              Get.toNamed(Routes.ORDER_HISTORY);
-            },
-            icon: const Icon(
-              FontAwesomeIcons.clockRotateLeft,
-              size: 20,
-              color: Colors.black,
-            )),
-        IconButton(
-            onPressed: () {
-              //  Get.toNamed(Routes.NOTIFICATION_PAGE);
-            },
-            icon: const Icon(
-              FontAwesomeIcons.bell,
-              size: 20,
-              color: Colors.black,
-            )),
-      ],
-      centerTitle: false,
-      backgroundColor: const Color(0xffF6FBFB),
-      shadowColor: Colors.transparent,
-    );
   }
 
   void increment() => count.value++;

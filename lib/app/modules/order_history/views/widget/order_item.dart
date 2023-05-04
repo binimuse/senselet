@@ -233,13 +233,21 @@ class _OrderItemState extends State<OrderItem> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Text(
-                                  widget.order!.pickupLocation.toString(),
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 11.sp,
-                                    fontWeight: FontWeight.w400,
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        widget.order!.pickupLocation.toString(),
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 11.sp,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -255,22 +263,32 @@ class _OrderItemState extends State<OrderItem> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                const Text(
                                   "Delivery location",
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     color: Colors.black87,
-                                    fontSize: 11.sp,
+                                    fontSize: 12,
+                                    
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Text(
-                                  widget.order!.deliveryLocation.toString(),
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 11.sp,
-                                    fontWeight: FontWeight.w400,
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: Align(
+                                      child: Text(
+                                        widget.order!.deliveryLocation
+                                            .toString()
+                                            .trim(),
+                                        textAlign: TextAlign.start,
+                                        style: const TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -296,7 +314,12 @@ class _OrderItemState extends State<OrderItem> {
                                   ),
                                 ),
                                 Text(
-                                  widget.order!.deliveryApproved.toString(),
+                                  widget.order!.deliveryApproved
+                                          .toString()
+                                          .contains("null")
+                                      ? "Pending"
+                                      : widget.order!.deliveryApproved
+                                          .toString(),
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     color: Colors.black87,
@@ -696,7 +719,9 @@ class _OrderItemState extends State<OrderItem> {
                 child: SizedBox(),
               ),
               Text(
-                widget.order!.orderStatus.toString(),
+                widget.order!.orderStatus.toString().contains("null")
+                    ? "Pending"
+                    : widget.order!.orderStatus.toString(),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -711,6 +736,4 @@ class _OrderItemState extends State<OrderItem> {
       ),
     );
   }
-
-
 }

@@ -43,62 +43,6 @@ class OrderHistoryController extends GetxController {
   OrderHistoryQueryMutation orderHistoryQueryMutation =
       OrderHistoryQueryMutation();
 
-  buildAppforpages(BuildContext context) {
-    return AppBar(
-      elevation: 1,
-      toolbarHeight: 8.h,
-      leading: IconButton(
-        onPressed: () {
-          Get.offAllNamed(Routes.MAIN_PAGE);
-        },
-        icon: const Icon(
-          Icons.arrow_back,
-          color: Colors.black,
-        ),
-      ),
-      title: Padding(
-        padding: const EdgeInsets.only(left: 10.0),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 25.0,
-              backgroundColor: Colors.white,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(4.0),
-                child: Image.asset('assets/images/logo_green.png'),
-              ),
-            ),
-            SizedBox(
-              width: 2.w,
-            ),
-            Text(
-              "SENSELET",
-              style: TextStyle(
-                color: const Color(0xff129797),
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp,
-              ),
-            ),
-          ],
-        ),
-      ),
-      actions: [
-        IconButton(
-            onPressed: () {
-              //     Get.toNamed(Routes.NOTIFICATION_PAGE);
-            },
-            icon: const Icon(
-              FontAwesomeIcons.bell,
-              size: 20,
-              color: Colors.black,
-            )),
-      ],
-      centerTitle: false,
-      backgroundColor: const Color(0xffF6FBFB),
-      shadowColor: Colors.transparent,
-    );
-  }
-
   RxList<OrderModel> getOrderModel = List<OrderModel>.of([]).obs;
   Future<void> getOrderData() async {
     startloadingUser(true);
@@ -142,7 +86,6 @@ class OrderHistoryController extends GetxController {
   void getSubscription() async {
     final prefs = await SharedPreferences.getInstance();
 
-   
     if (prefs.getString(Constants.userId) != null) {
       subscriptionDocument = gql(orderHistoryQueryMutation
           .getMyOrdersHistorysub(prefs.getString(Constants.userId)!));
