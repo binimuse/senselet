@@ -1,19 +1,15 @@
 // ignore_for_file: unnecessary_cast, prefer_function_declarations_over_variables, use_build_context_synchronously
 
-import 'dart:developer';
 
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:senselet/app/routes/app_pages.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Services/graphql_conf.dart';
 import '../../../common/widgets/custom_snack_bars.dart';
 import '../../../constants/reusable/reusable.dart';
-import '../../../utils/constants.dart';
 import '../../../utils/pages_util.dart';
 import '../../signin/views/otp_screen.dart';
 import '../data/queryandmutation/signup_mutuation.dart';

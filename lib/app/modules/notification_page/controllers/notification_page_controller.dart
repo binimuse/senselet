@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Services/graphql_conf.dart';
 import '../../../constants/reusable/shimmer_loading.dart';
+import '../../../utils/constants.dart';
 import '../data/mutation/notification_by_pk_query.dart';
 import '../data/mutation/update_notifications_mutation.dart';
 
@@ -36,12 +37,12 @@ class NotificationPageController extends GetxController {
     //GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
     NotificationbypkQuery notificationbypkQuery = NotificationbypkQuery();
     final prefs = await SharedPreferences.getInstance();
-    var id = prefs.getString('id');
+    var id = prefs.getString(Constants.userId);
     // GraphQLClient _client = graphQLConfiguration.clientToQuery();
 
     if (id != null) {
       subscriptionDocument =
-          gql(notificationbypkQuery.getnotification(int.parse(id)));
+          gql(notificationbypkQuery.getnotification(id.toString()));
       loadingNotification(true);
     }
 

@@ -91,31 +91,35 @@ class HomeView extends GetView<HomeController> {
               child: Row(
                 children: [
                   ///SCHEDULE DATE
-                  Expanded(
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Tone Price".tr,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w800,
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                          Text(
-                            "${23} ETB",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 16.sp,
+                  Obx(
+                    () => controller.constantModel.isNotEmpty
+                        ? Expanded(
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Tone Price".tr,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 16.sp,
+                                    ),
+                                  ),
+                                  Text(
+                                    "${controller.constantModel.first.tonePrice} ETB",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 16.sp,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           )
-                        ],
-                      ),
-                    ),
+                        : const SizedBox(),
                   ),
 
                   ///MIDDLE DIVIDER
@@ -202,33 +206,35 @@ class HomeView extends GetView<HomeController> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  offset: const Offset(0, 1),
-                  blurRadius: 6,
-                ),
-              ],
-              borderRadius: BorderRadius.circular(90),
-              gradient: const LinearGradient(
-                colors: [themeColor, themeColorFaded],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-            ),
-            child: FloatingActionButton(
-              heroTag: "phone",
-              isExtended: true,
-              elevation: 0,
-              onPressed: () async {
-                _makePhoneCall(controller.phoneNumber);
-              },
-              backgroundColor: Colors.transparent,
-              child: const Icon(Icons.call),
-            ),
-          )
+          Obx(() => controller.constantModel.isNotEmpty
+              ? Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        offset: const Offset(0, 1),
+                        blurRadius: 6,
+                      ),
+                    ],
+                    borderRadius: BorderRadius.circular(90),
+                    gradient: const LinearGradient(
+                      colors: [themeColor, themeColorFaded],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                  ),
+                  child: FloatingActionButton(
+                    heroTag: "phone",
+                    isExtended: true,
+                    elevation: 0,
+                    onPressed: () async {
+                      _makePhoneCall(controller.constantModel.first.shortCode);
+                    },
+                    backgroundColor: Colors.transparent,
+                    child: const Icon(Icons.call),
+                  ),
+                )
+              : const SizedBox())
         ],
       ),
     );

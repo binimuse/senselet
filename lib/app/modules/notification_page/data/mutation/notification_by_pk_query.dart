@@ -1,18 +1,16 @@
 class NotificationbypkQuery {
-  dynamic getnotification(int id) {
+  dynamic getnotification(String id) {
     return """
-        subscription {
-  users_by_pk(id: $id) {
-    notifications( order_by: {created_at: desc},where: {read: {_eq: false}}) {
-      body
-      id
-   
-      created_at
-      read
-      title
-    }
+subscription {
+  notifications(order_by: {created_at: desc}, where: {read: {_eq: false}, user_id: {_eq: "$id"}}) {
+    body
+    id
+    created_at
+    read
+    title
   }
-        }
+}
+
     """;
   }
 }

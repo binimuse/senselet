@@ -52,7 +52,7 @@ class NotificationPageView extends GetView<NotificationPageController> {
                     return Expanded(
                       child: buildNotificationsContainer(
                           context,
-                          "${result.data!["users_by_pk"]["notifications"].length}  Notifications",
+                          "${result.data!["notifications"].length}  Notifications",
                           result),
                     );
                   }),
@@ -87,33 +87,6 @@ class NotificationPageView extends GetView<NotificationPageController> {
         style: TextStyle(
             fontWeight: FontWeight.w400, fontSize: 15.sp, color: Colors.black),
       ),
-      actions: [
-        Container(
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(1, 1),
-                  spreadRadius: 1,
-                  blurRadius: 5,
-                  color: Colors.grey.withOpacity(0.9),
-                ),
-              ],
-              color: Colors.white),
-          child: CircleAvatar(
-              radius: 18,
-              backgroundColor: Colors.white,
-              child: IconButton(
-                  onPressed: () {
-                    //   Get.toNamed(Routes.CART);
-                  },
-                  icon: const Icon(Icons.shopping_cart_outlined,
-                      size: 20, color: themeColor))),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-        )
-      ],
       centerTitle: false,
       backgroundColor: Colors.white,
       shadowColor: Colors.transparent,
@@ -172,17 +145,13 @@ class NotificationPageView extends GetView<NotificationPageController> {
               child: controller.loadingNotification.isFalse
                   ? controller.shimmerLoading.buildShimmerContent()
                   : ListView.separated(
-                      itemCount:
-                          result.data!["users_by_pk"]["notifications"].length,
+                      itemCount: result.data!["notifications"].length,
                       itemBuilder: (context, index) {
                         return buildNotificationItem(
                             context,
-                            result.data!["users_by_pk"]["notifications"][index]
-                                ["body"],
-                            result.data!["users_by_pk"]["notifications"][index]
-                                ["title"],
-                            result.data!["users_by_pk"]["notifications"][index]
-                                ["created_at"]);
+                            result.data!["notifications"][index]["body"],
+                            result.data!["notifications"][index]["title"],
+                            result.data!["notifications"][index]["created_at"]);
                       },
                       separatorBuilder: (BuildContext context, int index) {
                         return buildNotifictaionItemSeparator();

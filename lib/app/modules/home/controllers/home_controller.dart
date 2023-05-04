@@ -1,22 +1,24 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:senselet/app/constants/const.dart';
+import 'package:senselet/app/modules/home/data/muation&query/order_history_query_mutation.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:badges/badges.dart' as badges;
+import '../../../common/graphql_common_api.dart';
 import '../../../constants/reusable/reusable.dart';
 import '../../../routes/app_pages.dart';
 import '../../notification_page/controllers/notification_page_controller.dart';
+import '../data/Model/ConstantsModel.dart';
 
 class HomeController extends GetxController {
   final count = 0.obs;
   final reusableWidget = ReusableWidget();
-  String phoneNumber = '8989';
+
 
   static const CameraPosition kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -28,6 +30,13 @@ class HomeController extends GetxController {
   final NotificationPageController notifactionController =
       Get.put(NotificationPageController());
   void increment() => count.value++;
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    getSubscriptionConstats();
+  }
 
   buildAppforpages(BuildContext context) {
     return AppBar(
@@ -114,5 +123,30 @@ class HomeController extends GetxController {
       backgroundColor: const Color(0xffF6FBFB),
       shadowColor: Colors.transparent,
     );
+  }
+
+  RxList<ConstantModel> constantModel = List<ConstantModel>.of([]).obs;
+  GraphQLCommonApi graphQLCommonApi = GraphQLCommonApi();
+  GetConstatsSub getConstatsSub = GetConstatsSub();
+  var startloadingConstat = false.obs;
+  var hasConstatFeched = false.obs;
+  void getSubscriptionConstats() async {
+    try {
+      startloadingConstat(true);
+
+      final result =
+          await graphQLCommonApi.mutation(GetConstatsSub.getConstats(), {});
+
+      if (result != null) {
+        constantModel.value = (result['constants'] as List)
+            .map((e) => ConstantModel.fromJson(e))
+            .toList();
+      }
+
+      startloadingConstat(false);
+    } on Exception catch (e) {
+      hasConstatFeched(false);
+      startloadingConstat(false);
+    }
   }
 }

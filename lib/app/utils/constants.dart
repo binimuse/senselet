@@ -1,7 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages, constant_identifier_names
 
-import 'package:flutter/services.dart';
-
 class Constants {
   //static const String userAccessTokenKey = 'USER_ACCESS_TOKEN';
   static const String userAccessTokenKey = 'access_token';
