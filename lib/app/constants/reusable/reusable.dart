@@ -301,29 +301,38 @@ class ReusableWidget {
   buildAppBar() {
     return AppBar(
       elevation: 0,
-      toolbarHeight: 11.h,
-      title: Row(
-        children: [
-          CircleAvatar(
-            radius: 25.0,
-            backgroundColor: Colors.white,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(4.0),
-              child: Image.asset('assets/images/logo_green.png'),
+      toolbarHeight: 8.h,
+      leadingWidth: 58.w,
+      leading: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 30.0, // increase the radius to make the circle larger
+              backgroundColor: themeColor.withOpacity(0.1),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(4.0),
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  fit: BoxFit.contain,
+                  width: 29.w,
+                  height: 29.h,
+                ),
+              ),
             ),
-          ),
-          SizedBox(
-            width: 3.w,
-          ),
-          Text(
-            "SENSELET",
-            style: TextStyle(
-              color: const Color(0xff129797),
-              fontWeight: FontWeight.w400,
-              fontSize: 20.sp,
+            SizedBox(
+              width: 3.w,
             ),
-          ),
-        ],
+            Text(
+              "SENSELET",
+              style: TextStyle(
+                color: const Color(0xff129797),
+                fontWeight: FontWeight.w400,
+                fontSize: 20.sp,
+              ),
+            ),
+          ],
+        ),
       ),
       centerTitle: false,
       backgroundColor: const Color(0xffF6FBFB),
@@ -344,11 +353,15 @@ class ReusableWidget {
               child: Row(
                 children: [
                   CircleAvatar(
-                    radius: 25.0,
-                    backgroundColor: Colors.white,
+                    radius:
+                        25.0, // increase the radius to make the circle larger
+                    backgroundColor: themeColor.withOpacity(0.1),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(4.0),
-                      child: Image.asset('assets/images/logo_green.png'),
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -445,11 +458,14 @@ class ReusableWidget {
               child: Row(
                 children: [
                   CircleAvatar(
-                    radius: 25.0,
-                    backgroundColor: Colors.white,
+                    radius:
+                        25.0, // increase the radius to make the circle larger
+                    backgroundColor: themeColor.withOpacity(0.1),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(4.0),
-                      child: Image.asset('assets/images/logo_green.png'),
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                      ),
                     ),
                   ),
                   SizedBox(
