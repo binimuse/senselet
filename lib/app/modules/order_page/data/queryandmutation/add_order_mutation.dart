@@ -1,15 +1,21 @@
+import 'dart:developer';
+
 class AddOrderMutation {
+
   static const String addOrder = r'''
-    mutation  insert_orders($pickup_location_lat: float8! $pickup_location_lng:float8!, $delivery_location_lat:float8!, $delivery_location_lng:float8!,
-    $delivery_location: String!,$pickup_location: String!,$vehicle_type_id: uuid!,$detail: String! ){
+    mutation  insert_orders(
+    $delivery_location: geography!,
+      $pickup_location: geography!,
+      $vehicle_type_id: uuid!,
+      $detail: String!,
+      $delivery_location_name: String!,
+      $pickup_location_name:String!){
       action: insert_orders(objects: {
-       
-          pickup_location_lat: $pickup_location_lat,
-          pickup_location_lng: $pickup_location_lng,
-          delivery_location_lat: $delivery_location_lat
-          delivery_location_lng: $delivery_location_lng
+     
           delivery_location: $delivery_location
           pickup_location: $pickup_location
+          delivery_location_name: $delivery_location_name
+          pickup_location_name: $pickup_location_name
           vehicle_type_id: $vehicle_type_id
           detail: $detail
          

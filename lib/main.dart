@@ -45,7 +45,7 @@ void main() async {
   // );
 
   selectedLocale = LanUtil.getSelecctedLanguage();
-  setupLocator();
+//  setupLocator();
   runApp(App());
   //String? fcmToken = await FirebaseMessaging.instance.getToken();
   // print("fcmToken $fcmToken");

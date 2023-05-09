@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, equal_keys_in_map
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -111,20 +113,31 @@ class OrderPageController extends GetxController {
 
   submitorder(BuildContext context) async {
     startsubmitedorder(true);
+
     GraphQLClient client = graphQLConfiguration.clientToQuery();
 
     QueryResult result = await client.mutate(
       MutationOptions(
         document: gql(AddOrderMutation.addOrder),
         variables: <String, dynamic>{
-          'pickup_location_lat': picklat.value,
-          'pickup_location_lng': picklng.value,
-          'delivery_location_lat': droplat.value,
-          'delivery_location_lng': droplng.value,
+          'pickup_location': {
+            "type": "Point",
+            "coordinates": [
+              double.parse(picklat.value),
+              double.parse(picklng.value)
+            ]
+          },
+          'delivery_location': {
+            "type": "Point",
+            "coordinates": [
+              double.parse(droplat.value),
+              double.parse(droplng.value)
+            ]
+          },
+          'pickup_location_name': picklocation.text,
+          'delivery_location_name': droplocation.text,
           'detail': detail.text,
           'vehicle_type_id': vehicletypeid.value,
-          'pickup_location': picklocation.text,
-          'delivery_location': droplocation.text,
         },
       ),
     );

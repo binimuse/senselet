@@ -1,4 +1,4 @@
-class GetConstatsSub {
+class GetConstatsQuery {
   static dynamic getConstats() {
     return """
 {
@@ -8,7 +8,11 @@ class GetConstatsSub {
     phone
     short_code
     tone_price
+    tone_price
+    fb_id
+    telegram_id
     website
+    about_us
   }
 }
 

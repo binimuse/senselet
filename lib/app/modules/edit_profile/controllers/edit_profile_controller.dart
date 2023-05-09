@@ -79,7 +79,6 @@ class EditProfileController extends GetxController {
       startloadingUser(false);
 
       if (result!["credentials"]!.isNotEmpty) {
-        print("34dfe ${result["credentials"]}");
         getUserModel.value = (result["credentials"] as List)
             .map((e) => UserModel.fromJson(e))
             .toList();

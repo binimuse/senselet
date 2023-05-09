@@ -11,7 +11,7 @@ class OngoingPage extends GetView<OrderHistoryController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => (controller.hasorderfetchedsub.value != true)
+      () => controller.hasorderfetchedsub.value != true
           ? controller.shimmerLoading.buildShimmerContent()
           : Subscription(
               options: SubscriptionOptions(

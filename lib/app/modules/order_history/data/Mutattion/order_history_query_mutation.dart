@@ -11,11 +11,11 @@ query MyQuery {
     delivered
     delivered_at
     delivery_approved
-    delivery_location
     order_status
     order_id
     order_status
-    pickup_location
+    pickup_location_name
+    delivery_location_name
   }
 }
 
@@ -34,11 +34,11 @@ subscription MyQuery {
     delivered
     delivered_at
     delivery_approved
-    delivery_location
     order_status
     order_id
     order_status
-    pickup_location
+    pickup_location_name
+    delivery_location_name
   }
 }
 

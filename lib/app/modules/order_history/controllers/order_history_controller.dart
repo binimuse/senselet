@@ -86,11 +86,9 @@ class OrderHistoryController extends GetxController {
     if (prefs.getString(Constants.userId) != null) {
       subscriptionDocument = gql(orderHistoryQueryMutation
           .getMyOrdersHistorysub(prefs.getString(Constants.userId)!));
-
+      hasorderfetchedsub(true);
       if (subscriptionDocument != null) {
         hasorderfetchedsub(true);
-
-        
       } else {
         hasorderfetchedsub(false);
       }

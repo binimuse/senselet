@@ -36,27 +36,43 @@ class HomeView extends GetView<HomeController> {
   }
 
   googlemap() {
-    return GoogleMap(
-      mapType: MapType.terrain,
-      initialCameraPosition: HomeController.kGooglePlex,
-      myLocationEnabled: true,
-      zoomControlsEnabled: false,
-      circles: {
-        Circle(
-          circleId: const CircleId('currentCircle'),
-          center: controller.latLng,
-          radius: 80,
-          fillColor: themeColor.withOpacity(0.5),
-          strokeColor: themeColor.withOpacity(0.2),
+    return Obx(() {
+      return GoogleMap(
+        mapType: MapType.normal,
+        mapToolbarEnabled: true,
+        buildingsEnabled: false,
+        trafficEnabled: false,
+        indoorViewEnabled: false,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(
+            controller.latitude.value,
+            controller.longitude.value,
+          ),
+          zoom: 5.0,
         ),
-      },
-      myLocationButtonEnabled: true,
-      compassEnabled: false,
-      onMapCreated: (GoogleMapController thiscontroller) {
-        controller.gcontroller.complete(thiscontroller);
-        controller.mapController = thiscontroller;
-      },
-    );
+        myLocationEnabled: true,
+        zoomControlsEnabled: false,
+        circles: {
+          Circle(
+            circleId: const CircleId('currentCircle'),
+            center: LatLng(
+              controller.latitude.value,
+              controller.longitude.value,
+            ),
+            radius: 100,
+            fillColor: themebackground,
+            strokeColor: themeColorFaded,
+          ),
+        },
+        myLocationButtonEnabled: true,
+        compassEnabled: false,
+        onMapCreated: (GoogleMapController thiscontroller) {
+          controller.gcontroller.complete(thiscontroller);
+          controller.mapControllers = thiscontroller;
+        },
+        markers: Set<Marker>.of(controller.markers),
+      );
+    });
   }
 
   tonePrice(BuildContext context) {

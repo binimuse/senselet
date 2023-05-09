@@ -6,11 +6,11 @@ class OrderModel {
   dynamic delivered;
   dynamic deliveredAt;
   dynamic deliveryApproved;
-  String deliveryLocation;
   String id;
   dynamic orderStatus;
   dynamic orderId;
-  String pickupLocation;
+  String deliverylocationname;
+  String pickuplocationname;
 
   OrderModel({
     required this.detail,
@@ -20,11 +20,11 @@ class OrderModel {
     this.delivered,
     this.deliveredAt,
     this.deliveryApproved,
-    required this.deliveryLocation,
     required this.id,
     this.orderStatus,
     this.orderId,
-    required this.pickupLocation,
+    required this.deliverylocationname,
+    required this.pickuplocationname,
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
@@ -37,10 +37,10 @@ class OrderModel {
       delivered: json['delivered'],
       deliveredAt: json['delivered_at'],
       deliveryApproved: json['delivery_approved'],
-      deliveryLocation: json['delivery_location'],
+      deliverylocationname: json['delivery_location_name'],
       orderStatus: json['order_status'],
       orderId: json['order_id'],
-      pickupLocation: json['pickup_location'],
+      pickuplocationname: json['pickup_location_name'],
     );
   }
 
@@ -54,10 +54,10 @@ class OrderModel {
         "delivered": delivered,
         "delivered_at": deliveredAt,
         "delivery_approved": deliveryApproved,
-        "delivery_location": deliveryLocation,
+        "delivery_location_name": deliverylocationname,
         "id": id,
         "order_status": orderStatus,
         "order_id": orderId,
-        "pickup_location": pickupLocation,
+        "pickup_location_name": pickuplocationname,
       };
 }

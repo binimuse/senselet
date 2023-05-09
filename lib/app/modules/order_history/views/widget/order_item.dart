@@ -239,11 +239,12 @@ class _OrderItemState extends State<OrderItem> {
                                     child: Align(
                                       alignment: Alignment.centerRight,
                                       child: Text(
-                                        widget.order!.pickupLocation.toString(),
+                                        widget.order!.pickuplocationname
+                                            .toString(),
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                           color: Colors.black87,
-                                          fontSize: 11.sp,
+                                          fontSize: 10.sp,
                                           fontWeight: FontWeight.w400,
                                         ),
                                       ),
@@ -263,13 +264,12 @@ class _OrderItemState extends State<OrderItem> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const Text(
+                                Text(
                                   "Delivery location",
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     color: Colors.black87,
-                                    fontSize: 12,
-                                    
+                                    fontSize: 10.sp,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -278,7 +278,7 @@ class _OrderItemState extends State<OrderItem> {
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: Align(
                                       child: Text(
-                                        widget.order!.deliveryLocation
+                                        widget.order!.deliverylocationname
                                             .toString()
                                             .trim(),
                                         textAlign: TextAlign.start,
