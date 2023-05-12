@@ -43,8 +43,8 @@ class NotificationPageController extends GetxController {
     if (id != null) {
       subscriptionDocument =
           gql(notificationbypkQuery.getnotification(id.toString()));
-      loadingNotification(true);
     }
+    loadingNotification(true);
 
     // Stream<QueryResult> subscription = _client.subscribe(
     //   SubscriptionOptions(document: subscriptionDocument),
@@ -54,9 +54,9 @@ class NotificationPageController extends GetxController {
   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
   updatenotificationstatus() async {
     final prefs = await SharedPreferences.getInstance();
-    var id = prefs.getString('id');
-    GraphQLClient _client = graphQLConfiguration.clientToQuery();
-    QueryResult result = await _client.mutate(
+    var id = prefs.getString(Constants.userId);
+    GraphQLClient client = graphQLConfiguration.clientToQuery();
+    QueryResult result = await client.mutate(
       MutationOptions(
         document: gql(Updatenotificationsbypk.updateNotification),
         variables: <String, dynamic>{

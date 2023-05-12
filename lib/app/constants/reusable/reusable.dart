@@ -413,10 +413,9 @@ class ReusableWidget {
                                 badgeColor: themeColorFaded,
                                 shape: badges.BadgeShape.circle,
                                 borderRadius: BorderRadius.circular(5)),
-                            badgeContent: result.data["users_by_pk"] != null
+                            badgeContent: result.data["notifications"] != null
                                 ? Text(
-                                    result.data!["users_by_pk"]["notifications"]
-                                        .length
+                                    result.data!["notifications"].length
                                         .toString(),
                                     style: const TextStyle(color: Colors.white),
                                   )
