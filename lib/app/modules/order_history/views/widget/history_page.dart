@@ -32,14 +32,14 @@ class HistoryPage extends GetView<OrderHistoryController> {
                     itemCount: controller.getOrderModel.length,
                     itemBuilder: (context, index) {
                       if (result.data!["orders"][index]["order_status"] ==
-                          "ASSIGNED") {
+                          "DELIVERED") {
                         return OrderItem(
                             order: controller.getOrderModel.elementAt(index),
                             history: true,
                             index: index,
                             controller: controller,
-                            status: result.data!["users_by_pk"]["orders"][index]
-                                ["status"]);
+                            status: result.data!["orders"][index]
+                                ["order_status"]);
                       } else {
                         return const SizedBox();
                       }
