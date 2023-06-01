@@ -23,12 +23,6 @@ class NotificationPageController extends GetxController {
 
   void increment() => count.value++;
 
-  @override
-  void onInit() {
-    super.onInit();
-    getNotificationbyPk();
-  }
-
   var function;
   RxList<NotificationtModel> notificationtModel =
       List<NotificationtModel>.of([]).obs;

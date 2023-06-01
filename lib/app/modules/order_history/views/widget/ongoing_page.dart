@@ -32,7 +32,9 @@ class OngoingPage extends GetView<OrderHistoryController> {
                     itemCount: controller.getOrderModel.length,
                     itemBuilder: (context, index) {
                       if (result.data!["orders"][index]["order_status"] ==
-                          null) {
+                              null ||
+                          result.data!["orders"][index]["order_status"] ==
+                              "ASSIGNED") {
                         return OrderItem(
                             order: controller.getOrderModel.elementAt(index),
                             history: false,
