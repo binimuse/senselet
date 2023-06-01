@@ -24,9 +24,9 @@ class HomeView extends GetView<HomeController> {
           Expanded(
             child: Stack(
               children: [
-                googlemap(),
+                googleMap(),
                 tonePrice(context),
-                flotingButoon(),
+                floatingButton(),
               ],
             ),
           ),
@@ -35,47 +35,149 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  googlemap() {
-    return Obx(() {
-      return GoogleMap(
-        mapType: MapType.normal,
-        mapToolbarEnabled: true,
-        buildingsEnabled: false,
-        trafficEnabled: false,
-        indoorViewEnabled: false,
-        initialCameraPosition: CameraPosition(
-          target: LatLng(
-            controller.latitude.value,
-            controller.longitude.value,
-          ),
-          zoom: 5.0,
-        ),
-        myLocationEnabled: true,
-        zoomControlsEnabled: false,
-        circles: {
-          Circle(
-            circleId: const CircleId('currentCircle'),
-            center: LatLng(
-              controller.latitude.value,
-              controller.longitude.value,
-            ),
-            radius: 100,
-            fillColor: themebackground,
-            strokeColor: themeColorFaded,
-          ),
-        },
-        myLocationButtonEnabled: true,
-        compassEnabled: false,
-        onMapCreated: (GoogleMapController thiscontroller) {
-          controller.gcontroller.complete(thiscontroller);
-          controller.mapControllers = thiscontroller;
-        },
-        markers: Set<Marker>.of(controller.markers),
-      );
-    });
+  Widget googleMap() {
+    return GetX<HomeController>(
+      builder: (controller) {
+        return GoogleMap(
+          mapType: MapType.normal,
+          mapToolbarEnabled: true,
+          buildingsEnabled: false,
+          trafficEnabled: false,
+          indoorViewEnabled: false,
+          initialCameraPosition: initialCameraPosition(controller),
+          myLocationEnabled: true,
+          zoomControlsEnabled: false,
+          circles: createCircles(controller),
+          myLocationButtonEnabled: true,
+          compassEnabled: false,
+          onMapCreated: (GoogleMapController thiscontroller) {
+            controller.gcontroller.complete(thiscontroller);
+            controller.mapControllers = thiscontroller;
+          },
+          markers: controller.markers.toSet(),
+        );
+      },
+    );
   }
 
-  tonePrice(BuildContext context) {
+  CameraPosition initialCameraPosition(HomeController controller) {
+    return CameraPosition(
+      target: LatLng(
+        controller.latitude.value,
+        controller.longitude.value,
+      ),
+      zoom: 5.0,
+    );
+  }
+
+  Set<Circle> createCircles(HomeController controller) {
+    return {
+      Circle(
+        circleId: const CircleId('currentCircle'),
+        center: LatLng(
+          controller.latitude.value,
+          controller.longitude.value,
+        ),
+        radius: 100,
+        fillColor: themebackground,
+        strokeColor: themeColorFaded,
+      ),
+    };
+  }
+
+// Separate your widgets into smaller components
+  Widget _buildTonePriceWidget() {
+    return Obx(
+      () => controller.constantModel.isNotEmpty
+          ? Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Tone Price".tr,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                    Text(
+                      "${controller.constantModel.first.tonePrice} ETB",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w300,
+                        fontSize: 16.sp,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          : const SizedBox(),
+    );
+  }
+
+  Widget _buildMiddleDivider() {
+    return Column(
+      children: [
+        SizedBox(
+          height: CustomSizes.icon_size_6 / 2,
+          child: RotatedBox(
+            quarterTurns: 3,
+            child: Icon(
+              FontAwesomeIcons.circleDot,
+              size: CustomSizes.icon_size_6,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        Expanded(
+          child: SizedBox(
+            width: CustomSizes.mp_w_4,
+          ),
+        ),
+        SizedBox(
+          height: CustomSizes.icon_size_6 / 2,
+          child: RotatedBox(
+            quarterTurns: 1,
+            child: Icon(
+              FontAwesomeIcons.circleDot,
+              size: CustomSizes.icon_size_6,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildContener() {
+    return Expanded(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Material(
+              elevation: 2,
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(CustomSizes.radius_4),
+              child: const SizedBox()),
+          SizedBox(
+            width: CustomSizes.mp_w_6,
+          ),
+          Material(
+              elevation: 2,
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(CustomSizes.radius_4),
+              child: const SizedBox()),
+        ],
+      ),
+    );
+  }
+
+// Refactor your main widget to use the smaller components
+  Widget tonePrice(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(45.0),
       child: Column(
@@ -106,94 +208,9 @@ class HomeView extends GetView<HomeController> {
               ),
               child: Row(
                 children: [
-                  ///SCHEDULE DATE
-                  Obx(
-                    () => controller.constantModel.isNotEmpty
-                        ? Expanded(
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Tone Price".tr,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 16.sp,
-                                    ),
-                                  ),
-                                  Text(
-                                    "${controller.constantModel.first.tonePrice} ETB",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 16.sp,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          )
-                        : const SizedBox(),
-                  ),
-
-                  ///MIDDLE DIVIDER
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: CustomSizes.icon_size_6 / 2,
-                        child: RotatedBox(
-                          quarterTurns: 3,
-                          child: Icon(
-                            FontAwesomeIcons.circleDot,
-                            size: CustomSizes.icon_size_6,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: SizedBox(
-                          width: CustomSizes.mp_w_4,
-                        ),
-                      ),
-                      SizedBox(
-                        height: CustomSizes.icon_size_6 / 2,
-                        child: RotatedBox(
-                          quarterTurns: 1,
-                          child: Icon(
-                            FontAwesomeIcons.circleDot,
-                            size: CustomSizes.icon_size_6,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  ///BIO TICKET NUMBER
-                  Expanded(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Material(
-                            elevation: 2,
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.circular(CustomSizes.radius_4),
-                            child: const SizedBox()),
-                        SizedBox(
-                          width: CustomSizes.mp_w_6,
-                        ),
-                        Material(
-                            elevation: 2,
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.circular(CustomSizes.radius_4),
-                            child: const SizedBox()),
-                      ],
-                    ),
-                  ),
+                  _buildTonePriceWidget(),
+                  _buildMiddleDivider(),
+                  _buildContener(),
                 ],
               ),
             ),
@@ -214,7 +231,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  flotingButoon() {
+  floatingButton() {
     return Positioned(
       bottom: 20,
       left: 0,
@@ -223,137 +240,45 @@ class HomeView extends GetView<HomeController> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Obx(() => controller.constantModel.isNotEmpty
-              ? Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        offset: const Offset(0, 1),
-                        blurRadius: 6,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(90),
-                    gradient: const LinearGradient(
-                      colors: [themeColor, themeColorFaded],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
-                  ),
-                  child: FloatingActionButton(
-                    heroTag: "phone",
-                    isExtended: true,
-                    elevation: 0,
-                    onPressed: () async {
-                      _makePhoneCall(controller.constantModel.first.shortCode);
-                    },
-                    backgroundColor: Colors.transparent,
-                    child: const Icon(Icons.call),
-                  ),
-                )
+              ? _buildFloatingActionButton()
               : const SizedBox())
         ],
       ),
     );
   }
 
-  toneprice(BuildContext context) {
+  Widget _buildFloatingActionButton() {
     return Container(
-        height: 9.h,
-        decoration: BoxDecoration(
-          color: themeColor,
-          borderRadius: BorderRadius.circular(CustomSizes.radius_7),
+      decoration: _buildBoxDecoration(),
+      child: FloatingActionButton(
+        heroTag: "phone",
+        isExtended: true,
+        elevation: 0,
+        onPressed: () async {
+          _makePhoneCall(controller.constantModel.first.shortCode);
+        },
+        backgroundColor: Colors.transparent,
+        child: const Icon(Icons.call),
+      ),
+    );
+  }
+
+  BoxDecoration _buildBoxDecoration() {
+    return BoxDecoration(
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.2),
+          offset: const Offset(0, 1),
+          blurRadius: 6,
         ),
-        child: GestureDetector(
-          onTap: (() {
-            // controller.gwtwalletammount();
-            // controller.update();
-          }),
-          child: Row(
-            children: [
-              ///SCHEDULE DATE
-              Expanded(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Wallet Balance",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: themeColorgray,
-                            ),
-                      ),
-                      Text(
-                        "${23} ETB",
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-
-              ///MIDDLE DIVIDER
-              Column(
-                children: [
-                  SizedBox(
-                    height: CustomSizes.icon_size_6 / 2,
-                    child: RotatedBox(
-                      quarterTurns: 3,
-                      child: Icon(
-                        FontAwesomeIcons.circleHalfStroke,
-                        size: CustomSizes.icon_size_6,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: SizedBox(
-                      width: CustomSizes.mp_w_4,
-                    ),
-                  ),
-                  SizedBox(
-                    height: CustomSizes.icon_size_6 / 2,
-                    child: RotatedBox(
-                      quarterTurns: 1,
-                      child: Icon(
-                        FontAwesomeIcons.circleHalfStroke,
-                        size: CustomSizes.icon_size_6,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              ///BIO TICKET NUMBER
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Material(
-                        elevation: 2,
-                        color: Colors.white,
-                        borderRadius:
-                            BorderRadius.circular(CustomSizes.radius_4),
-                        child: const SizedBox()),
-                    SizedBox(
-                      width: CustomSizes.mp_w_6,
-                    ),
-                    Material(
-                        elevation: 2,
-                        color: Colors.white,
-                        borderRadius:
-                            BorderRadius.circular(CustomSizes.radius_4),
-                        child: const SizedBox()),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ));
+      ],
+      borderRadius: BorderRadius.circular(90),
+      gradient: const LinearGradient(
+        colors: [themeColor, themeColorFaded],
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+      ),
+    );
   }
 
   _makePhoneCall(String phoneNumber) async {
