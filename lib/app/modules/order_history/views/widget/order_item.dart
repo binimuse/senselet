@@ -1,10 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:cached_network_image/cached_network_image.dart';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -89,34 +86,7 @@ class _OrderItemState extends State<OrderItem> {
                       SizedBox(
                         width: 4.w,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isExpanded = !isExpanded;
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [themeColor, themeColorFaded],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 0.2.w, horizontal: 0.3.w),
-                            child: Icon(
-                              !isExpanded
-                                  ? Icons.keyboard_arrow_down_rounded
-                                  : Icons.keyboard_arrow_up_rounded,
-                              color: Colors.white,
-                              size: 8.w,
-                            ),
-                          ),
-                        ),
-                      ),
+                      buildbutton(),
                     ],
                   ),
                 ),
@@ -345,16 +315,8 @@ class _OrderItemState extends State<OrderItem> {
                           SizedBox(
                             height: 1.h,
                           ),
-
-                          widget.status == "ORDERED" ||
-                                  widget.status == "ARRIVED"
-                              ? qrCode()
-                              : const SizedBox(),
-
-                          widget.status == "ORDERED" ||
-                                  widget.status == "ARRIVED"
-                              ? trackYourOrderButton()
-                              : const SizedBox(),
+                          builqr(widget.status),
+                          buildtrack(widget.status),
 
                           SizedBox(
                             height: 1.h,
@@ -733,6 +695,48 @@ class _OrderItemState extends State<OrderItem> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget builqr(String orderStatus) {
+    return orderStatus == "ORDERED" || orderStatus == "ARRIVED"
+        ? qrCode()
+        : const SizedBox();
+  }
+
+  buildtrack(String status) {
+    return status == "ORDERED" || status == "ARRIVED"
+        ? trackYourOrderButton()
+        : const SizedBox();
+  }
+
+  buildbutton() {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isExpanded = !isExpanded;
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [themeColor, themeColorFaded],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 0.2.w, horizontal: 0.3.w),
+          child: Icon(
+            !isExpanded
+                ? Icons.keyboard_arrow_down_rounded
+                : Icons.keyboard_arrow_up_rounded,
+            color: Colors.white,
+            size: 8.w,
+          ),
+        ),
       ),
     );
   }

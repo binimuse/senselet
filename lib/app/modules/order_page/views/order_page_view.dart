@@ -68,123 +68,20 @@ class OrderPageView extends GetView<OrderPageController> {
                     ),
                   ),
                   SizedBox(height: 2.h),
-                  TextFormField(
-                    controller: controller.picklocation,
-                    validator: (value) {
-                      return controller.validatelocation(value!);
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Pick up location'.tr,
-                      labelStyle: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          color: Colors.grey,
-                          width: 2.0,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          color: Colors.grey,
-                          width: 2.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          color: themeColor,
-                          width: 2.0,
-                        ),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 12.0,
-                      ),
-                      prefixIcon: GestureDetector(
-                        onTap: () async {
-                          KeyboardUtil.hideKeyboard(context);
-                          await Get.to(MapMyAddressPickers(
-                            formindex: 1,
-                          ));
-                        },
-                        child: const Icon(
-                          Icons.location_pin,
-                          color: themeColorFaded,
-                          size: 28.0,
-                        ),
-                      ),
-                    ),
-                    onTap: () async {
-                      KeyboardUtil.hideKeyboard(context);
-                      await Get.to(MapMyAddressPickers(
-                        formindex: 1,
-                      ));
-                    },
+                  buildLocationTextField(
+                    tcontroller: controller.picklocation,
+                    labelText: 'Pick up location',
+                    icon: Icons.location_pin,
+                    formindex: 1,
+                    context: context,
                   ),
                   SizedBox(height: 2.h),
-                  TextFormField(
-                    controller: controller.droplocation,
-                    validator: (value) {
-                      return controller.validatelocation(value!);
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Drop off location'.tr,
-                      labelStyle: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          color: Colors.grey,
-                          width: 2.0,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          color: Colors.grey,
-                          width: 2.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          color: themeColor,
-                          width: 2.0,
-                        ),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 12.0,
-                      ),
-                      prefixIcon: GestureDetector(
-                        onTap: () async {
-                          KeyboardUtil.hideKeyboard(context);
-                          await Get.to(MapMyAddressPickers(
-                            formindex: 2,
-                          ));
-                        },
-                        child: const Icon(
-                          Icons.location_pin,
-                          color: themeColorFaded,
-                          size: 28.0,
-                        ),
-                      ),
-                    ),
-                    onTap: () async {
-                      KeyboardUtil.hideKeyboard(context);
-                      await Get.to(MapMyAddressPickers(
-                        formindex: 2,
-                      ));
-                    },
-                  ),
+                  buildLocationTextField(
+                      tcontroller: controller.droplocation,
+                      labelText: 'Drop off location',
+                      icon: Icons.location_pin,
+                      formindex: 2,
+                      context: context),
                   SizedBox(height: 2.h),
                   SizedBox(
                     height: 20.h,
@@ -237,6 +134,73 @@ class OrderPageView extends GetView<OrderPageController> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildLocationTextField({
+    required TextEditingController tcontroller,
+    required String labelText,
+    required IconData icon,
+    required int formindex,
+    required BuildContext context,
+  }) {
+    return TextFormField(
+      controller: tcontroller,
+      validator: (value) {
+        return controller.validatelocation(value!);
+      },
+      decoration: InputDecoration(
+        labelText: labelText.tr,
+        labelStyle: TextStyle(
+          color: Colors.grey[800],
+          fontSize: 16.0,
+          fontWeight: FontWeight.bold,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
+            color: Colors.grey,
+            width: 2.0,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
+            color: Colors.grey,
+            width: 2.0,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
+            color: themeColor,
+            width: 2.0,
+          ),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16.0,
+          vertical: 12.0,
+        ),
+        prefixIcon: GestureDetector(
+          onTap: () async {
+            KeyboardUtil.hideKeyboard(context);
+            await Get.to(MapMyAddressPickers(
+              formindex: formindex,
+            ));
+          },
+          child: Icon(
+            icon,
+            color: themeColorFaded,
+            size: 28.0,
+          ),
+        ),
+      ),
+      onTap: () async {
+        KeyboardUtil.hideKeyboard(context);
+        await Get.to(MapMyAddressPickers(
+          formindex: formindex,
+        ));
+      },
     );
   }
 

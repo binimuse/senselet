@@ -43,117 +43,117 @@ class MapMyAddressPickers extends GetView<OrderPageController> {
         body: Stack(
           alignment: Alignment.topCenter,
           children: [
-            MapPicker(
-              // pass icon widget
-              iconWidget: const Icon(
-                Icons.location_pin,
-                color: themeColorFaded,
-                size: 50,
-              ),
-              //add map picker controller
-              mapPickerController: mapPickerController,
-              child: GoogleMap(
-                myLocationEnabled: true,
-                zoomControlsEnabled: false,
-                // hide location button
-                myLocationButtonEnabled: false,
-                mapType: MapType.normal,
-                //  camera position
-                initialCameraPosition: cameraPosition,
-                onMapCreated: (GoogleMapController controller) {
-                  _controller.complete(controller);
-                },
-                onCameraMoveStarted: () {
-                  // notify map is moving
-                  mapPickerController.mapMoving!();
-                  controller.textController.text = "checking ...";
-                },
-                onCameraMove: (cameraPosition) {
-                  this.cameraPosition = cameraPosition;
-                },
-                onCameraIdle: () async {
-                  // notify map stopped moving
-                  mapPickerController.mapFinishedMoving!();
-                  //get address name from camera position
-                  List<Placemark> placemarks = await placemarkFromCoordinates(
-                    cameraPosition.target.latitude,
-                    cameraPosition.target.longitude,
-                  );
-
-                  controller.location.value =
-                      'Lat: ${cameraPosition.target.latitude} , Long: ${cameraPosition.target.longitude}';
-                  controller.address.value =
-                      '${placemarks.first.street}, ${placemarks.first.subLocality}, ${placemarks.first.locality}, ${placemarks.first.postalCode}, ${placemarks.first.country}';
-                  // update the ui with the address
-                  controller.textController.text =
-                      '${placemarks.first.name}, ${placemarks.first.administrativeArea}, ${placemarks.first.country}';
-                },
-              ),
-            ),
-            Positioned(
-              top: MediaQuery.of(context).viewPadding.top + 20,
-              width: MediaQuery.of(context).size.width - 50,
-              height: 50,
-              child: TextFormField(
-                maxLines: 3,
-                textAlign: TextAlign.center,
-                readOnly: true,
-                decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.zero, border: InputBorder.none),
-                controller: controller.textController,
-              ),
-            ),
-            Positioned(
-              bottom: 24,
-              left: 24,
-              right: 24,
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [themeColor, themeColorFaded],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: TextButton(
-                  child: const Text(
-                    "Submit",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      color: Color(0xFFFFFFFF),
-                      fontSize: 19,
-                      // height: 19/19,
-                    ),
-                  ),
-                  onPressed: () {
-                    List<String> latLong = controller.location.split(', ');
-
-// Extract latitude and longitude from the splitted string
-                    String lat = latLong[0].split(': ')[1].trim();
-                    String long = latLong[1].split(': ')[1].trim();
-                    if (controller.textController.text != "checking ...") {
-                      if (formindex == 1) {
-                        controller.picklocation.text =
-                            controller.textController.text;
-
-                        controller.picklat.value = lat;
-                        controller.picklng.value = long;
-                      } else {
-                        controller.droplocation.text =
-                            controller.textController.text;
-
-                        controller.droplat.value = lat;
-                        controller.droplng.value = long;
-                      }
-                      Get.back();
-                    }
-                  },
-                ),
-              ),
-            )
+            _buildMapPicker(),
+            _buildAddressTextField(context),
+            _buildSubmitButton(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMapPicker() {
+    return MapPicker(
+      iconWidget: const Icon(
+        Icons.location_pin,
+        color: themeColorFaded,
+        size: 50,
+      ),
+      mapPickerController: mapPickerController,
+      child: GoogleMap(
+        myLocationEnabled: true,
+        zoomControlsEnabled: false,
+        myLocationButtonEnabled: false,
+        mapType: MapType.normal,
+        initialCameraPosition: cameraPosition,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+        onCameraMoveStarted: () {
+          mapPickerController.mapMoving!();
+          controller.textController.text = "checking ...";
+        },
+        onCameraMove: (cameraPosition) {
+          this.cameraPosition = cameraPosition;
+        },
+        onCameraIdle: () async {
+          mapPickerController.mapFinishedMoving!();
+          List<Placemark> placemarks = await placemarkFromCoordinates(
+            cameraPosition.target.latitude,
+            cameraPosition.target.longitude,
+          );
+
+          controller.location.value =
+              'Lat: ${cameraPosition.target.latitude} , Long: ${cameraPosition.target.longitude}';
+          controller.address.value =
+              '${placemarks.first.street}, ${placemarks.first.subLocality}, ${placemarks.first.locality}, ${placemarks.first.postalCode}, ${placemarks.first.country}';
+          controller.textController.text =
+              '${placemarks.first.name}, ${placemarks.first.administrativeArea}, ${placemarks.first.country}';
+        },
+      ),
+    );
+  }
+
+  Widget _buildAddressTextField(BuildContext context) {
+    return Positioned(
+      top: MediaQuery.of(context).viewPadding.top + 20,
+      width: MediaQuery.of(context).size.width - 50,
+      height: 50,
+      child: TextFormField(
+        maxLines: 3,
+        textAlign: TextAlign.center,
+        readOnly: true,
+        decoration: const InputDecoration(
+            contentPadding: EdgeInsets.zero, border: InputBorder.none),
+        controller: controller.textController,
+      ),
+    );
+  }
+
+  Widget _buildSubmitButton() {
+    return Positioned(
+      bottom: 24,
+      left: 24,
+      right: 24,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [themeColor, themeColorFaded],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: TextButton(
+          child: const Text(
+            "Submit",
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontStyle: FontStyle.normal,
+              color: Color(0xFFFFFFFF),
+              fontSize: 19,
+            ),
+          ),
+          onPressed: () {
+            List<String> latLong = controller.location.split(', ');
+
+            String lat = latLong[0].split(': ')[1].trim();
+            String long = latLong[1].split(': ')[1].trim();
+            if (controller.textController.text != "checking ...") {
+              if (formindex == 1) {
+                controller.picklocation.text = controller.textController.text;
+
+                controller.picklat.value = lat;
+                controller.picklng.value = long;
+              } else {
+                controller.droplocation.text = controller.textController.text;
+
+                controller.droplat.value = lat;
+                controller.droplng.value = long;
+              }
+              Get.back();
+            }
+          },
         ),
       ),
     );

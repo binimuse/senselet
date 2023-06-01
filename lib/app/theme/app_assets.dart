@@ -2,9 +2,6 @@ class AppAssets {
   ///images
   static const String splashBg = "assets/images/splash-bg.png";
 
-
-
-
   ///LOTTIE ANIMATION FILES
   static const String successLottie = "assets/lottie/success.json";
   static const String correctFaceLottie = "assets/lottie/correct_face.json";
@@ -23,5 +20,6 @@ class AppAssets {
   static const String faceScanBlueLottie = "assets/lottie/face_scan_blue.json";
   static const String pulse = "assets/lottie/pulse.json";
   static const String errorCancelLottie = "assets/lottie/error_cancel.json";
+  static const String error = "assets/lottie/error.json";
   static const String loadingLottie = "assets/lottie/loading.json";
 }
