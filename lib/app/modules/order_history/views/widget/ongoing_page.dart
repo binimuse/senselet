@@ -8,6 +8,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../theme/app_assets.dart';
 import '../../../../theme/custom_sizes.dart';
 import '../../controllers/order_history_controller.dart';
+import '../../data/Model/order_history_model.dart';
 import 'order_item.dart';
 
 class OngoingPage extends GetView<OrderHistoryController> {
@@ -31,8 +32,10 @@ class OngoingPage extends GetView<OrderHistoryController> {
               }
 
               // Filter the orders based on the condition
-              List assignedOrders =
-                  _filterAssignedOrders(result.data!["orders"]);
+              List<OrderModel> assignedOrders =
+                  _filterAssignedOrders(result.data!["orders"])
+                      .map<OrderModel>((order) => convertToOrderModel(order))
+                      .toList();
 
               // If there are no "ASSIGNED" orders, display the Lottie animation
               if (assignedOrders.isEmpty) {
@@ -42,18 +45,23 @@ class OngoingPage extends GetView<OrderHistoryController> {
                 return ListView.builder(
                   itemCount: assignedOrders.length,
                   itemBuilder: (context, index) {
+                    controller.getOrderModel.assign(assignedOrders[index]);
+
                     return OrderItem(
-                      order: controller.getOrderModel.elementAt(index),
+                      order: assignedOrders[index],
                       history: false,
                       index: index,
                       controller: controller,
-                      status: assignedOrders[index]["order_status"],
                     );
                   },
                 );
               }
             },
           ));
+  }
+
+  OrderModel convertToOrderModel(dynamic data) {
+    return OrderModel.fromMap(data);
   }
 
   Widget _buildLoadingWidget() {

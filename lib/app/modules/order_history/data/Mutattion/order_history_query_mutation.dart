@@ -13,7 +13,6 @@ query MyQuery {
     delivery_approved
     order_status
     order_id
-    order_status
     pickup_location_name
     delivery_location_name
   }
@@ -25,7 +24,7 @@ query MyQuery {
   dynamic getMyOrdersHistorysub(String userId) {
     return """
 subscription MyQuery {
-  orders(where: {created_by_id: {_eq: "$userId"}}, order_by: {id: desc}) {
+  orders(where: {created_by_id: {_eq: "$userId"}}, order_by: {id: desc, created_at: desc}) {
     id
     detail
     approved_at
@@ -36,7 +35,6 @@ subscription MyQuery {
     delivery_approved
     order_status
     order_id
-    order_status
     pickup_location_name
     delivery_location_name
   }

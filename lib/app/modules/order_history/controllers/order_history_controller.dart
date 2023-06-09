@@ -29,7 +29,7 @@ class OrderHistoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getOrderData();
+    //   getOrderData();
     getSubscription();
   }
 
@@ -41,37 +41,38 @@ class OrderHistoryController extends GetxController {
       OrderHistoryQueryMutation();
 
   RxList<OrderModel> getOrderModel = List<OrderModel>.of([]).obs;
-  Future<void> getOrderData() async {
-    startloadingUser(true);
-    final prefs = await SharedPreferences.getInstance();
-    var id = prefs.getString(Constants.userId);
+  // Future<void> getOrderData() async {
+  //   startloadingUser(true);
+  //   final prefs = await SharedPreferences.getInstance();
+  //   var id = prefs.getString(Constants.userId);
 
-    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+  //   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
-    GraphQLClient client = graphQLConfiguration.clientToQuery();
+  //   GraphQLClient client = graphQLConfiguration.clientToQuery();
 
-    if (id != null) {
-      QueryResult result = await client.query(QueryOptions(
-          document: gql(
-        orderHistoryQueryMutation
-            .getMyOrdersHistory(prefs.getString(Constants.userId)!),
-      )));
+  //   if (id != null) {
+  //     print(id);
+  //     QueryResult result = await client.query(QueryOptions(
+  //         document: gql(
+  //       orderHistoryQueryMutation
+  //           .getMyOrdersHistory(prefs.getString(Constants.userId)!),
+  //     )));
 
-      if (!result.hasException) {
-        getOrderModel.clear();
+  //     if (!result.hasException) {
+  //       getOrderModel.clear();
 
-        hasorderfetched(true);
-        startloadingUser(false);
+  //       hasorderfetched(true);
+  //       startloadingUser(false);
 
-        getOrderModel.value = (result.data!['orders'] as List)
-            .map((e) => OrderModel.fromJson(e))
-            .toList();
-      } else {
-        hasorderfetched(false);
-        startloadingUser(true);
-      }
-    }
-  }
+  //       getOrderModel.value = (result.data!['orders'] as List)
+  //           .map((e) => OrderModel.fromJson(e))
+  //           .toList();
+  //     } else {
+  //       hasorderfetched(false);
+  //       startloadingUser(true);
+  //     }
+  //   }
+  // }
 
   final Rx<CurrentOrderPage> currentOrderPage =
       Rx<CurrentOrderPage>(CurrentOrderPage.ON_GOING);

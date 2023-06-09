@@ -60,4 +60,21 @@ class OrderModel {
         "order_id": orderId,
         "pickup_location_name": pickuplocationname,
       };
+
+  factory OrderModel.fromMap(Map<String, dynamic> map) {
+    return OrderModel(
+      detail: map['detail'],
+      approvedAt: map['approved_at'],
+      approved: map['approved'],
+      createdAt: map['created_at'],
+      delivered: map['delivered'],
+      deliveredAt: map['delivered_at'],
+      deliveryApproved: map['delivery_approved'],
+      id: map['id'],
+      orderStatus: map['order_status'],
+      orderId: map['order_id'],
+      deliverylocationname: map['delivery_location_name'],
+      pickuplocationname: map['pickup_location_name'],
+    );
+  }
 }
