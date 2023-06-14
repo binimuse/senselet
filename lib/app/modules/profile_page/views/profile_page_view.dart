@@ -22,9 +22,6 @@ class ProfilePageView extends GetView<ProfilePageController> {
             backgroundColor: const Color(0xffEBF5F4),
             appBar: controller.reusableWidget.buildAppforpages(context, true),
             body: Column(children: [
-              ///HEADER SEARCH BAR BUTTON
-              // buildHeaderSearchBar(),
-
               Expanded(
                 child: Column(
                   children: [
@@ -70,7 +67,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                 ),
                                 buildMenuItem(
                                   FontAwesomeIcons.wrench,
-                                  "Setting".tr,
+                                  "Settings".tr,
                                   onTap: () {
                                     Get.toNamed(Routes.SETTING_PAGE);
                                   },
@@ -138,7 +135,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
   }
 
   Future<void> _showProgressBar() async {
-    return await Future.delayed(Duration(seconds: 2));
+    return await Future.delayed(const Duration(seconds: 2));
 //
   }
 
@@ -251,7 +248,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                   children: [
                     result.data["users_by_pk"] != null
                         ? Text(
-                            "${result.data["users_by_pk"]["first_name"].toString() + " " + result.data!["users_by_pk"]["last_name"].toString()} ",
+                            "${"${result.data["users_by_pk"]["first_name"]} ${result.data!["users_by_pk"]["last_name"]}"} ",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 18.sp,
