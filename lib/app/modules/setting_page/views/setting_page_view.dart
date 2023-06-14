@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:senselet/app/constants/const.dart';
 
+import '../../../common/widgets/warning_dialog.dart';
 import '../../../theme/custom_sizes.dart';
 import '../controllers/setting_page_controller.dart';
 
@@ -55,7 +56,24 @@ class SettingPageView extends GetView<SettingPageController> {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: InkWell(
                       onTap: () {
-                        // Get.toNamed(Routes.JOB_NOTIFICATION);
+                        Get.dialog(
+                          WarningDialog(
+                            leftButtonText: 'No'.tr,
+                            rightButtonText: 'Yes'.tr,
+                            title: 'Remove Account'.tr,
+                            description:
+                                'Are you sure you want to  Remove this account?'
+                                    .tr,
+                            onLeftButtonTap: () {
+                              Get.back();
+                            },
+                            onRightButtonTap: () {
+                              ///POP DIALOG
+                              //  logout();
+                              Get.back();
+                            },
+                          ),
+                        );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

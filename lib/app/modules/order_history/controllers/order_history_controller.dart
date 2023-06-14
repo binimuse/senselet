@@ -1,15 +1,21 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, use_build_context_synchronously
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:senselet/app/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Services/graphql_conf.dart';
+import '../../../common/graphql_common_api.dart';
+import '../../../common/widgets/custom_snack_bars.dart';
 import '../../../constants/reusable/reusable.dart';
 import '../../../constants/reusable/shimmer_loading.dart';
 import '../data/Model/order_history_model.dart';
+import '../data/Mutattion/cancelorder.dart';
+import '../data/Mutattion/getcanclereson_query.dart';
 import '../data/Mutattion/order_history_query_mutation.dart';
+import 'cancellationreason.dart';
 
 class OrderHistoryController extends GetxController {
   final shimmerLoading = ShimmerLoading();
@@ -29,7 +35,7 @@ class OrderHistoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    //   getOrderData();
+    getcancellationreasons();
     getSubscription();
   }
 
@@ -41,44 +47,63 @@ class OrderHistoryController extends GetxController {
       OrderHistoryQueryMutation();
 
   RxList<OrderModel> getOrderModel = List<OrderModel>.of([]).obs;
-  // Future<void> getOrderData() async {
-  //   startloadingUser(true);
-  //   final prefs = await SharedPreferences.getInstance();
-  //   var id = prefs.getString(Constants.userId);
-
-  //   GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-
-  //   GraphQLClient client = graphQLConfiguration.clientToQuery();
-
-  //   if (id != null) {
-  //     print(id);
-  //     QueryResult result = await client.query(QueryOptions(
-  //         document: gql(
-  //       orderHistoryQueryMutation
-  //           .getMyOrdersHistory(prefs.getString(Constants.userId)!),
-  //     )));
-
-  //     if (!result.hasException) {
-  //       getOrderModel.clear();
-
-  //       hasorderfetched(true);
-  //       startloadingUser(false);
-
-  //       getOrderModel.value = (result.data!['orders'] as List)
-  //           .map((e) => OrderModel.fromJson(e))
-  //           .toList();
-  //     } else {
-  //       hasorderfetched(false);
-  //       startloadingUser(true);
-  //     }
-  //   }
-  // }
 
   final Rx<CurrentOrderPage> currentOrderPage =
       Rx<CurrentOrderPage>(CurrentOrderPage.ON_GOING);
 
   void changePage(CurrentOrderPage page) {
     currentOrderPage(page);
+  }
+
+  RxList<CancellationReasonModel> cancellationReasonModel =
+      List<CancellationReasonModel>.of([]).obs;
+
+  GraphQLCommonApi graphQLCommonApi = GraphQLCommonApi();
+  void getcancellationreasons() async {
+    try {
+      final result = await graphQLCommonApi
+          .mutation(GetCancellationreasonsQuery.getcancellationreasons(), {});
+
+      if (result != null) {
+        cancellationReasonModel.value = (result['cancellation_reasons'] as List)
+            .map((e) => CancellationReasonModel.fromJson(e))
+            .toList();
+      }
+    } on Exception {}
+  }
+
+  var startcancelOrder = false.obs;
+  var isOrdercanceled = false.obs;
+  GraphQLCommonApi graphQLCommonApiordercancel =
+      GraphQLCommonApi(configurationRole: ConfigurationRole.Canceller);
+  cancelOrder(
+    BuildContext context,
+    String cancellationReason,
+    String orderAssignId,
+    String orderId,
+  ) async {
+    startcancelOrder(true);
+
+    try {
+      await graphQLCommonApiordercancel.mutation(
+        CancleOrdermuatation.cancleOrdermuatation,
+        <String, dynamic>{
+          'id': orderAssignId,
+          'oid': orderId,
+          'cancellation_reason': cancellationReason,
+        },
+      );
+
+      isOrdercanceled(true);
+      ShowCommonSnackBar.awesomeSnackbarSucess(
+          "Sucess", "Order canceled", context);
+    } on Exception catch (e) {
+      print(e);
+      isOrdercanceled(false);
+      startcancelOrder(false);
+      ShowCommonSnackBar.awesomeSnackbarfailure(
+          "Error", "something went wrong", context);
+    }
   }
 
   void getSubscription() async {

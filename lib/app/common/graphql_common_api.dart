@@ -1,78 +1,95 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, depend_on_referenced_packages
 
-import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-
+import 'package:connectivity_plus/connectivity_plus.dart';
 import '../Services/graphql_conf.dart';
-import '../modules/account/controllers/account_controller.dart';
+import 'widgets/custom_snack_bars.dart';
 
 class GraphQLCommonApi {
+  final ConfigurationRole configurationRole;
+
+  GraphQLCommonApi({
+    this.configurationRole = ConfigurationRole.USER,
+  });
+
+  Future<bool> isInternetConnected() async {
+    final ConnectivityResult connectivityResult =
+        await Connectivity().checkConnectivity();
+    return connectivityResult != ConnectivityResult.none;
+  }
+
   Future<Map<String, dynamic>?> query(
       String queryStr, Map<String, dynamic> variables) async {
-    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
+    /// CHECK INTERNET CONNECTIVITY
+    final bool isConnected = await isInternetConnected();
 
-    GraphQLClient client = graphQLConfiguration.clientToQuery();
-
-    QueryResult result = await client.query(
-      QueryOptions(
-        document: gql(queryStr),
-        variables: variables,
-      ),
-    );
-
-    if (!result.hasException) {
-      // print("API RESPONSE => CALLED ${result.data}");
-
-      return result.data;
+    if (!isConnected) {
+      ShowCommonSnackBar.warningSnackBar(
+          "No internet", "Please connect to internet and retry");
     } else {
-      // UserTokenCheckerResponse userTokenCheckerResponse =
-      //     await UserTokenChecker.checkTokenNew(result.exception);
+      /// GET GRAPHQL CLIENT
+      GraphQLClient graphQLClient;
 
-      if (result.exception != null) {
-        throw "API RESPONSE ERROR ${result.exception.toString()}";
+      if (configurationRole == ConfigurationRole.Canceller) {
+        graphQLClient = GraphQLConfiguration().orderCancller();
+      } else {
+        graphQLClient = GraphQLConfiguration().clientToQuery();
       }
 
-      // if (userTokenCheckerResponse ==
-      //     UserTokenCheckerResponse.TOKEN_REFRESHED_SUCCESS) {
-      //   ///CALL FUNCTION AGAIN
-      //   query(queryStr, variables);
-      // }
+      QueryResult result = await graphQLClient.query(
+        QueryOptions(
+          document: gql(queryStr),
+          variables: variables,
+        ),
+      );
+
+      if (!result.hasException) {
+        // print("API RESPONSE => CALLED ${result.data}");
+
+        return result.data;
+      } else {
+        print("API RESPONSE => CALLED ${result.exception}");
+      }
     }
+
     return null;
   }
 
   Future<Map<String, dynamic>?> mutation(
       String queryStr, Map<String, dynamic> variables) async {
-    GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
-
-    GraphQLClient client = graphQLConfiguration.clientToQuery();
-
-    QueryResult result = await client.mutate(
-      MutationOptions(
-        document: gql(queryStr),
-        variables: variables,
-      ),
-    );
-
-    if (!result.hasException) {
-      // print("API RESPONSE => CALLED ${result.data}");
-
-      return result.data;
+    /// CHECK INTERNET CONNECTIVITY
+    final bool isConnected = await isInternetConnected();
+    if (!isConnected) {
     } else {
-      if (result.exception != null) {
-        for (var element in result.exception!.graphqlErrors) {
-          if (element.message.contains('JWTExpired')) {
-            final AccountController accountController =
-                Get.put(AccountController());
+      /// GET GRAPHQL CLIENT
+      GraphQLClient graphQLClient;
 
-            accountController.logout();
-          }
-        }
-        throw "API RESPONSE ERROR ${result.exception.toString()}";
+      if (configurationRole == ConfigurationRole.Canceller) {
+        graphQLClient = GraphQLConfiguration().orderCancller();
+      } else {
+        graphQLClient = GraphQLConfiguration().clientToQuery();
+      }
+
+      QueryResult result = await graphQLClient.mutate(
+        MutationOptions(
+          document: gql(queryStr),
+          variables: variables,
+        ),
+      );
+
+      if (!result.hasException) {
+        // print("API RESPONSE => CALLED ${result.data}");
+
+        return result.data;
+      } else {
+        print("API RESPONSE => CALLED ${result.exception}");
       }
     }
+
     return null;
   }
 }
 
 enum GraphQLCommonStatus { LOADING, ERROR }
+
+enum ConfigurationRole { USER, Vehicle, Canceller }

@@ -24,6 +24,7 @@ class OngoingPage extends GetView<OrderHistoryController> {
             ),
             builder: (dynamic result) {
               if (result.hasException) {
+                print(result.exception.toString());
                 return _buildErrorWidget(result.exception.toString());
               }
 
@@ -101,6 +102,7 @@ class OngoingPage extends GetView<OrderHistoryController> {
 
   List _filterAssignedOrders(List orders) {
     return orders.where((order) {
+      print(order);
       return order["order_status"] == null ||
           order["order_status"] == "ASSIGNED";
     }).toList();

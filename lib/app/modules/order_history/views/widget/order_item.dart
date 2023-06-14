@@ -8,6 +8,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../constants/const.dart';
 import '../../../../constants/reusable/keyboard.dart';
+import '../../controllers/cancellationreason.dart';
 import '../../controllers/order_history_controller.dart';
 import '../../data/Model/order_history_model.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -795,14 +796,25 @@ class _OrderItemState extends State<OrderItem> {
   }
 
   void _showCancelReasonsDialog() {
+    List<Widget> reasonButtons = widget.controller.cancellationReasonModel
+        .map((reason) =>
+            _cancelReasonButton(reason, (String cancellationReason) {
+              // Handle the button press here, using the passed id
+              print("Button pressed with id: $widget.order!.id.toString()");
+
+              widget.controller.cancelOrder(context, cancellationReason,
+                  widget.order!.id.toString(), widget.order!.orderId);
+              Get.back(); // Close the dialog
+            }))
+        .toList();
+
     Get.defaultDialog(
       title: 'Cancel Order',
-      content: Column(
-        children: <Widget>[
-          _cancelReasonButton('Reason 1'),
-          _cancelReasonButton('Reason 2'),
-          _cancelReasonButton('Reason 3'),
-        ],
+      content: SingleChildScrollView(
+        // Wrap the Column with SingleChildScrollView
+        child: Column(
+          children: reasonButtons,
+        ),
       ),
       actions: [
         IconButton(
@@ -816,36 +828,42 @@ class _OrderItemState extends State<OrderItem> {
     );
   }
 
-  Widget _cancelReasonButton(String reason) {
+  Widget _cancelReasonButton(
+      CancellationReasonModel reason, Function(String) onPressedCallback) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-        child: SizedBox(
-          width: 50.w,
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [themeColor, themeColorFaded],
-              ),
-              borderRadius: BorderRadius.circular(8.0),
+      padding: const EdgeInsets.symmetric(
+          vertical: 4.0, horizontal: 8.0), // update padding values
+      child: SizedBox(
+        width: 40.w,
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [themeColor, themeColorFaded],
             ),
-            child: ElevatedButton(
-                onPressed: () {
-                  KeyboardUtil.hideKeyboard(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.transparent,
-                  shadowColor: Colors.transparent,
-                  padding: EdgeInsets.symmetric(vertical: 2.3.h),
-                ),
-                child: Text(
-                  'Select Vehicle'.tr,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )),
+            borderRadius: BorderRadius.circular(8.0),
           ),
-        ));
+          child: ElevatedButton(
+            onPressed: () {
+              onPressedCallback(
+                  reason.name); // Pass the reason.id to the callback function
+              KeyboardUtil.hideKeyboard(context);
+            },
+            style: ElevatedButton.styleFrom(
+              primary: Colors.transparent,
+              shadowColor: Colors.transparent,
+              padding: EdgeInsets.symmetric(vertical: 2.0.h),
+            ),
+            child: Text(
+              reason.name,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

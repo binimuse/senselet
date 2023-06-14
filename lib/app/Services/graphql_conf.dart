@@ -6,12 +6,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/constants.dart';
 
-const bool ENABLE_WEBSOCKETS = false;
-
 class GraphQLConfiguration {
-  static HttpLink httpLink =
-      HttpLink("http://159.223.227.87:8888/v1/graphql", defaultHeaders: {
-    'x-hasura-role': "user",
+  static const String _baseUrl = "http://159.223.227.87:8888/v1/graphql";
+  static const String _websocketUrl = "ws://159.223.227.87:8888/v1/graphql";
+  static const String xhasurarole = "user";
+
+  static HttpLink httpLink = HttpLink(_baseUrl, defaultHeaders: {
+    'x-hasura-role': xhasurarole,
   });
 
   static AuthLink authLink = AuthLink(getToken: () async {
@@ -21,18 +22,29 @@ class GraphQLConfiguration {
   });
 
   static WebSocketLink websocketLink = WebSocketLink(
-    'ws://159.223.227.87:8888/v1/graphql',
-    config: const SocketClientConfig(
-      headers: {
-        'x-hasura-admin-secret': "ad8sddi6roXj9tmejrWwX992by5S5Q",
-      },
+    _websocketUrl,
+    config: SocketClientConfig(
       autoReconnect: true,
-      inactivityTimeout: Duration(seconds: 30),
+      inactivityTimeout: const Duration(seconds: 30),
+      initialPayload: () async {
+        final prefs = await SharedPreferences.getInstance();
+        late String token;
+        if (prefs.getString('access_token')!.isNotEmpty) {
+          token = prefs.getString('access_token').toString();
+        }
+        return {
+          'headers': {'Authorization': 'Bearer $token'},
+        };
+      },
     ),
   );
 
   static Link websoket = authLink.concat(websocketLink).concat(httpLink);
-  final Link links = authLink.concat(httpLink);
+  final Link links = Link.split(
+    (request) => request.isSubscription,
+    websocketLink,
+    authLink.concat(httpLink),
+  );
 
   final ValueNotifier<GraphQLClient> client = ValueNotifier(
     GraphQLClient(
@@ -43,8 +55,28 @@ class GraphQLConfiguration {
 
   GraphQLClient clientToQuery() {
     return GraphQLClient(
-      cache: GraphQLCache(),
       link: links,
+      cache: GraphQLCache(),
+    );
+  }
+
+  GraphQLClient orderCancller() {
+    String accessToken = '';
+    return GraphQLClient(
+      cache: GraphQLCache(),
+      link: AuthLink(getToken: () async {
+        final prefs = await SharedPreferences.getInstance();
+        accessToken = "Bearer ${prefs.getString(Constants.userAccessTokenKey)}";
+        return accessToken;
+      }).concat(
+        HttpLink(
+          _baseUrl,
+          defaultHeaders: {
+            'x-hasura-role': "order:cancel",
+            'Authorization': accessToken,
+          },
+        ),
+      ),
     );
   }
 }
