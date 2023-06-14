@@ -1,9 +1,15 @@
 import 'package:get/get.dart';
 
+import '../modules/Privacy/bindings/privacy_binding.dart';
+import '../modules/Privacy/views/privacy_view.dart';
+import '../modules/aboutus/bindings/aboutus_binding.dart';
+import '../modules/aboutus/views/aboutus_view.dart';
 import '../modules/account/bindings/account_binding.dart';
 import '../modules/account/views/account_view.dart';
+
 import '../modules/edit_profile/bindings/edit_profile_binding.dart';
 import '../modules/edit_profile/views/edit_profile_view.dart';
+
 import '../modules/forgotpassword/bindings/forgotpassword_binding.dart';
 import '../modules/forgotpassword/views/forgotpassword_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -26,6 +32,8 @@ import '../modules/signup/bindings/signup_binding.dart';
 import '../modules/signup/views/signup_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/terms/bindings/terms_binding.dart';
+import '../modules/terms/views/terms_view.dart';
 
 // ignore_for_file: constant_identifier_names
 
@@ -101,6 +109,21 @@ class AppPages {
       name: _Paths.SETTING_PAGE,
       page: () => const SettingPageView(),
       binding: SettingPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRIVACY,
+      page: () => const PrivacyView(),
+      binding: PrivacyBinding(),
+    ),
+    GetPage(
+      name: _Paths.TERMS,
+      page: () => const TermsView(),
+      binding: TermsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ABOUTUS,
+      page: () => const AboutusView(),
+      binding: AboutusBinding(),
     ),
   ];
 }

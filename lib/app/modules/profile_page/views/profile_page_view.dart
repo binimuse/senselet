@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:senselet/app/routes/app_pages.dart';
 import 'package:sizer/sizer.dart';
 
@@ -66,23 +65,6 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                 SizedBox(
                                   height: 1.h,
                                 ),
-                                buildMenuItem(
-                                  FontAwesomeIcons.shieldHalved,
-                                  "Privacy Policy".tr,
-                                  onTap: () {
-                                    //            Get.to(const PrivacyPage());
-                                  },
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                buildMenuItem(
-                                  FontAwesomeIcons.file,
-                                  "Terms and Conditions".tr,
-                                  onTap: () {
-                                    //         Get.to(const TermsPage());
-                                  },
-                                ),
                                 SizedBox(
                                   height: 1.h,
                                 ),
@@ -100,27 +82,27 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                   FontAwesomeIcons.info,
                                   "About us".tr,
                                   onTap: () {
-                                    //      Get.to(const AboutView());
+                                    Get.toNamed(Routes.ABOUTUS);
                                   },
                                 ),
                                 SizedBox(
                                   height: 1.h,
                                 ),
                                 buildMenuItem(
-                                  FontAwesomeIcons.question,
-                                  "FAQ".tr,
+                                  FontAwesomeIcons.shieldHalved,
+                                  "Privacy Policy".tr,
                                   onTap: () {
-                                    //    Get.to(const FaQPgae());
+                                    Get.toNamed(Routes.PRIVACY);
                                   },
                                 ),
                                 SizedBox(
                                   height: 1.h,
                                 ),
                                 buildMenuItem(
-                                  FontAwesomeIcons.circleQuestion,
-                                  "Contact".tr,
+                                  FontAwesomeIcons.file,
+                                  "Terms and Conditions".tr,
                                   onTap: () {
-                                    //    Get.to(const ContactView());
+                                    Get.toNamed(Routes.TERMS);
                                   },
                                 ),
                                 SizedBox(
