@@ -1,8 +1,10 @@
 // ignore_for_file: constant_identifier_names, depend_on_referenced_packages
 
+import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import '../Services/graphql_conf.dart';
+import '../modules/account/controllers/account_controller.dart';
 import 'widgets/custom_snack_bars.dart';
 
 class GraphQLCommonApi {
@@ -49,6 +51,12 @@ class GraphQLCommonApi {
         return result.data;
       } else {
         print("API RESPONSE => CALLED ${result.exception}");
+        if (result.exception.toString().contains('JWTExpired')) {
+          final AccountController accountController =
+              Get.put(AccountController());
+
+          accountController.logout();
+        }
       }
     }
 
@@ -83,6 +91,12 @@ class GraphQLCommonApi {
         return result.data;
       } else {
         print("API RESPONSE => CALLED ${result.exception}");
+        if (result.exception.toString().contains('JWTExpired')) {
+          final AccountController accountController =
+              Get.put(AccountController());
+
+          accountController.logout();
+        }
       }
     }
 

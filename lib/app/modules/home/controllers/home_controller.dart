@@ -98,6 +98,8 @@ class HomeController extends GetxController {
 
       startloadingConstat(false);
     } on Exception catch (e) {
+      print(e);
+
       hasConstatFeched(false);
       startloadingConstat(false);
     }
