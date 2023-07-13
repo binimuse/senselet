@@ -63,8 +63,10 @@ class OrderPageController extends GetxController {
   }
 
   String? validatedetail(String value) {
-    if (value.isEmpty) {
-      return "Please provide Detail information";
+    if (value == null || value.isEmpty) {
+      return null;
+    } else if (value.length <= 2) {
+      return "Detail must be longer than 2 characters";
     }
     return null;
   }

@@ -20,7 +20,8 @@ class ProfilePageView extends GetView<ProfilePageController> {
     return Obx(() => networkManager.connectionStatus.value != 0
         ? Scaffold(
             backgroundColor: const Color(0xffEBF5F4),
-            appBar: controller.reusableWidget.buildAppforpages(context, true),
+            appBar: controller.reusableWidget
+                .buildAppforpages(context, true, false),
             body: Column(children: [
               Expanded(
                 child: Column(

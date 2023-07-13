@@ -15,7 +15,7 @@ class SettingPageView extends GetView<SettingPageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: controller.reusableWidget.buildAppforpages(context, false),
+      appBar: controller.reusableWidget.buildAppforpages(context, false, false),
       body: Obx(() => Container(
             padding: const EdgeInsets.only(left: 16, top: 25, right: 16),
             child: ListView(

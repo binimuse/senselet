@@ -684,20 +684,33 @@ class _OrderItemState extends State<OrderItem> {
               const Expanded(
                 child: SizedBox(),
               ),
-              Text(
-                widget.order!.orderStatus.toString().contains("null")
-                    ? "Pending"
-                    : widget.order!.orderStatus.toString(),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  color: themeColor,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              )
             ],
           ),
+          SizedBox(
+            height: 1.h,
+          ),
+          Row(children: [
+            Icon(
+              FontAwesomeIcons.paperclip,
+              color: themeColor,
+              size: 4.w,
+            ),
+            SizedBox(
+              width: 1.h,
+            ),
+            Text(
+              widget.order!.orderStatus.toString().contains("null")
+                  ? "Pending"
+                  : widget.order!.orderStatus.toString(),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: themeColor,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w400,
+              ),
+            )
+          ]),
         ],
       ),
     );
@@ -800,7 +813,6 @@ class _OrderItemState extends State<OrderItem> {
         .map((reason) =>
             _cancelReasonButton(reason, (String cancellationReason) {
               // Handle the button press here, using the passed id
-              print("Button pressed with id: $widget.order!.id.toString()");
 
               widget.controller.cancelOrder(context, cancellationReason,
                   widget.order!.id.toString(), widget.order!.orderId);

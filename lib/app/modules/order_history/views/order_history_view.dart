@@ -24,7 +24,8 @@ class OrderHistoryView extends GetView<OrderHistoryController> {
               body: Column(
                 children: [
                   ///HEADER SEARCH BAR BUTTON
-                  controller.reusableWidget.buildAppforpages(context, false),
+                  controller.reusableWidget
+                      .buildAppforpages(context, false, true),
 
                   Expanded(
                     child: Column(

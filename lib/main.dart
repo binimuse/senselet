@@ -8,11 +8,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sizer/sizer.dart';
 import 'app/Services/graphql_conf.dart';
 
-import 'app/Services/locator.dart';
 import 'app/app_language/translations.dart';
 import 'app/modules/network/bindings/network_binding.dart';
 import 'app/routes/app_pages.dart';
-import 'app/utils/constants.dart';
 import 'app/utils/lang_util.dart';
 import 'app/utils/sahred_prefrence.dart';
 

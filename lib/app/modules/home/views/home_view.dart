@@ -18,7 +18,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: controller.reusableWidget.buildAppforpages(context, true),
+      appBar: controller.reusableWidget.buildAppforpages(context, true, false),
       body: Column(
         children: [
           Expanded(
@@ -88,8 +88,14 @@ class HomeView extends GetView<HomeController> {
 // Separate your widgets into smaller components
   Widget _buildTonePriceWidget() {
     return Obx(
-      () => controller.constantModel.isNotEmpty
+      () => !controller.startloadingConstat.isTrue
           ? Expanded(
+              child: GestureDetector(
+              // GestureDetector is added here
+              onTap: () {
+                // Call your method here
+                controller.getConstats();
+              },
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -114,8 +120,14 @@ class HomeView extends GetView<HomeController> {
                   ],
                 ),
               ),
-            )
-          : const SizedBox(),
+            ))
+          : const Expanded(
+              child: Center(
+                  child: CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 1,
+              )),
+            ),
     );
   }
 

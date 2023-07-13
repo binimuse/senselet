@@ -342,7 +342,8 @@ class ReusableWidget {
 
   final NotificationPageController notifactionController =
       Get.put(NotificationPageController());
-  buildAppforpages(BuildContext context, bool isfrommainPage) {
+  buildAppforpages(
+      BuildContext context, bool isfrommainPage, bool isfromorder) {
     return isfrommainPage == true
         ? AppBar(
             elevation: 0,
@@ -447,7 +448,11 @@ class ReusableWidget {
             toolbarHeight: 8.h,
             leading: IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                if (isfromorder == true) {
+                  Get.offAllNamed(Routes.MAIN_PAGE);
+                } else {
+                  Navigator.pop(context);
+                }
               },
               icon: const Icon(
                 Icons.arrow_back,

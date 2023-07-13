@@ -12,7 +12,7 @@ class PrivacyView extends GetView<PrivacyController> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: controller.reusableWidget.buildAppforpages(context, false),
+      appBar: controller.reusableWidget.buildAppforpages(context, false, false),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

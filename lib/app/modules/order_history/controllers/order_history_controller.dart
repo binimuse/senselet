@@ -6,7 +6,6 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:senselet/app/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../Services/graphql_conf.dart';
 import '../../../common/graphql_common_api.dart';
 import '../../../common/widgets/custom_snack_bars.dart';
 import '../../../constants/reusable/reusable.dart';
