@@ -18,14 +18,12 @@ class VehicleTypesModel {
 
   factory VehicleTypesModel.fromJson(Map<String, dynamic> json) {
     return VehicleTypesModel(
-      createdAt: json['createdAt'],
+      createdAt: json['createdAt'] ?? "",
       description: json['description'],
       id: json['id'],
       kg: json['kg'],
       name: json['name'],
-      prefix: json['prefix'],
+      prefix: json['prefix'] ?? "",
     );
   }
 }
-
-

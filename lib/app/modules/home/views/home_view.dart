@@ -109,14 +109,16 @@ class HomeView extends GetView<HomeController> {
                         fontSize: 16.sp,
                       ),
                     ),
-                    Text(
-                      "${controller.constantModel.first.tonePrice} ETB",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w300,
-                        fontSize: 16.sp,
-                      ),
-                    )
+                    controller.constantModel.isNotEmpty
+                        ? Text(
+                            "${controller.constantModel.first.tonePrice} ETB",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 16.sp,
+                            ),
+                          )
+                        : SizedBox()
                   ],
                 ),
               ),
