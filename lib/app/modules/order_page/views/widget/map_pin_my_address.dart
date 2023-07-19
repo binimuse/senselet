@@ -93,6 +93,7 @@ class MapMyAddressPickers extends GetView<OrderPageController> {
                 '${placemarks.first.name}, ${placemarks.first.administrativeArea}, ${placemarks.first.country}';
           } catch (e) {
             if (e is PlatformException) {
+              print(e);
               ShowCommonSnackBar.awesomeSnackbarfailure(
                   "Error", e.toString(), context);
               // Handle the network error here, e.g., show an error message or retry the request

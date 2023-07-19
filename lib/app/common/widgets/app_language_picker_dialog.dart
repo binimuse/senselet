@@ -182,7 +182,7 @@ class _AppLanguagePickerDialogState extends State<AppLanguagePickerDialog> {
                   LanUtil.saveLanguage(
                     Constants.lanAm,
                   );
-                  languagehController.changeLang(Constants.lanAm);
+                  // languagehController.changeLang(Constants.lanAm);
 
                   ///REBUILD
                   setState(() => {});
@@ -206,7 +206,7 @@ class _AppLanguagePickerDialogState extends State<AppLanguagePickerDialog> {
                   LanUtil.saveLanguage(
                     Constants.lanEn,
                   );
-                  languagehController.changeLang(Constants.lanEn);
+                  // languagehController.changeLang(Constants.lanEn);
 
                   ///REBUILD
                   setState(() => {});
