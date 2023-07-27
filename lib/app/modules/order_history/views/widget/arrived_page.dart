@@ -7,6 +7,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../../constants/const.dart';
 import '../../../../theme/custom_sizes.dart';
+import '../../../account/controllers/account_controller.dart';
 import '../../controllers/order_history_controller.dart';
 import '../../data/Model/order_history_model.dart';
 import 'order_item.dart';
@@ -24,7 +25,16 @@ class ArrivedWay extends GetView<OrderHistoryController> {
             ),
             builder: (dynamic result) {
               if (result.hasException) {
-                return _buildErrorWidget(result.exception.toString());
+                LinkException linkException = result.exception?.linkException;
+                if (linkException is UnknownException &&
+                    linkException.message.contains('JWTExpired')) {
+                  final AccountController accountController =
+                      Get.put(AccountController());
+                  accountController.logout();
+                  return SizedBox();
+                } else {
+                  return Text(result.exception.toString());
+                }
               }
 
               if (result.isLoading) {

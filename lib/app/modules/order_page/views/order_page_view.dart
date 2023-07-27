@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
@@ -19,7 +20,7 @@ class OrderPageView extends GetView<OrderPageController> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: themebackground,
-      appBar: controller.reusableWidget.buildAppforpages(context, false,false),
+      appBar: controller.reusableWidget.buildAppforpages(context, false, false),
       body: Form(
         key: controller.orderform,
         child: SingleChildScrollView(
@@ -83,6 +84,13 @@ class OrderPageView extends GetView<OrderPageController> {
                       formindex: 2,
                       context: context),
                   SizedBox(height: 2.h),
+                  buildTextField(
+                      tcontroller: controller.expectedprice,
+                      labelText: 'Expected price (ETB)',
+                      icon: Icons.price_change,
+                      formindex: 2,
+                      context: context),
+                  SizedBox(height: 2.h),
                   SizedBox(
                     height: 20.h,
                     child: TextFormField(
@@ -132,6 +140,64 @@ class OrderPageView extends GetView<OrderPageController> {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildTextField({
+    required TextEditingController tcontroller,
+    required String labelText,
+    required IconData icon,
+    required int formindex,
+    required BuildContext context,
+  }) {
+    return TextFormField(
+      controller: tcontroller,
+      validator: (value) {
+        return controller.validatelocation(value!);
+      },
+      keyboardType: TextInputType.number, // Add this line
+      inputFormatters: <TextInputFormatter>[
+        // Add this line
+        FilteringTextInputFormatter.digitsOnly // Add this line
+      ], // Add this line
+      decoration: InputDecoration(
+        labelText: labelText.tr,
+        labelStyle: TextStyle(
+          color: Colors.grey[800],
+          fontSize: 16.0,
+          fontWeight: FontWeight.bold,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
+            color: Colors.grey,
+            width: 2.0,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
+            color: Colors.grey,
+            width: 2.0,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
+            color: themeColor,
+            width: 2.0,
+          ),
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16.0,
+          vertical: 12.0,
+        ),
+        prefixIcon: Icon(
+          icon,
+          color: themeColorFaded,
+          size: 28.0,
         ),
       ),
     );

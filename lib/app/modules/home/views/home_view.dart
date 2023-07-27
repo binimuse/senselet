@@ -102,7 +102,7 @@ class HomeView extends GetView<HomeController> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "Tone Price".tr,
+                      "Kuntal Price".tr,
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w800,

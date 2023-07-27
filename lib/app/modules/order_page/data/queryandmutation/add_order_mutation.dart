@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 class AddOrderMutation {
-
   static const String addOrder = r'''
     mutation  insert_orders(
     $delivery_location: geography!,

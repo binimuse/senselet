@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:senselet/app/constants/const.dart';
+import 'package:senselet/app/modules/account/controllers/account_controller.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../theme/app_assets.dart';
@@ -24,8 +25,16 @@ class OngoingPage extends GetView<OrderHistoryController> {
             ),
             builder: (dynamic result) {
               if (result.hasException) {
-                print(result.exception.toString());
-                return _buildErrorWidget(result.exception.toString());
+                LinkException linkException = result.exception?.linkException;
+                if (linkException is UnknownException &&
+                    linkException.message.contains('JWTExpired')) {
+                  final AccountController accountController =
+                      Get.put(AccountController());
+                  accountController.logout();
+                  return SizedBox();
+                } else {
+                  return Text(result.exception.toString());
+                }
               }
 
               if (result.isLoading) {

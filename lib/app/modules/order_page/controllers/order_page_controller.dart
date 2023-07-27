@@ -42,6 +42,7 @@ class OrderPageController extends GetxController {
   late TextEditingController detail;
   late TextEditingController picklocation;
   late TextEditingController droplocation;
+  late TextEditingController expectedprice;
   final reusableWidget = ReusableWidget();
 
   bool checkorder() {
@@ -78,6 +79,7 @@ class OrderPageController extends GetxController {
     picklocation = TextEditingController();
     droplocation = TextEditingController();
     textController = TextEditingController();
+    expectedprice = TextEditingController();
     getvehicletypes();
   }
 

@@ -29,7 +29,7 @@ class MainTranslations extends Translations {
           "Create an Account": "Create an Account",
 
           // Home Page
-          "Tone Price": "Tone Price",
+          "Kuntal Price": "Kuntal Price",
           "Home": "Home",
           "Profile": "Profile",
           "Order": "Order",
@@ -83,7 +83,7 @@ class MainTranslations extends Translations {
           //sign UP
 
           //HOME
-          "Tone Price": "የቶን ዋጋ",
+          "Kuntal Price": "የቶን ዋጋ",
           "Home": "ዋናው ገፅ",
           "Profile": "ፕሮፋይል",
           "Order": "ለማዘዝ",
