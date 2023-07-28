@@ -84,7 +84,12 @@ class MapMyAddressPickers extends GetView<OrderPageController> {
             List<Placemark> placemarks = await placemarkFromCoordinates(
               cameraPosition.target.latitude,
               cameraPosition.target.longitude,
-            );
+            ).catchError((onError) {
+              print("Error $onError");
+              ShowCommonSnackBar.awesomeSnackbarfailure(
+                  "Error", onError.toString(), context);
+            });
+
             controller.location.value =
                 'Lat: ${cameraPosition.target.latitude} , Long: ${cameraPosition.target.longitude}';
             controller.address.value =
