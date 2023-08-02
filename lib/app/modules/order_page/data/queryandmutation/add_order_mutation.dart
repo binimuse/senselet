@@ -5,6 +5,7 @@ class AddOrderMutation {
       $pickup_location: geography!,
       $vehicle_type_id: uuid!,
       $detail: String!,
+      $expected_price: float8!,
       $delivery_location_name: String!,
       $pickup_location_name:String!){
       action: insert_orders(objects: {
@@ -12,6 +13,7 @@ class AddOrderMutation {
           delivery_location: $delivery_location
           pickup_location: $pickup_location
           delivery_location_name: $delivery_location_name
+          expected_price: $expected_price
           pickup_location_name: $pickup_location_name
           vehicle_type_id: $vehicle_type_id
           detail: $detail

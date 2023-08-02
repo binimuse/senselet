@@ -63,6 +63,13 @@ class OrderPageController extends GetxController {
     return null;
   }
 
+  String? validateExpected(String value) {
+    if (value.isEmpty) {
+      return "Please provide Price";
+    }
+    return null;
+  }
+
   String? validatedetail(String value) {
     if (value == null || value.isEmpty) {
       return null;
@@ -141,6 +148,7 @@ class OrderPageController extends GetxController {
           'pickup_location_name': picklocation.text,
           'delivery_location_name': droplocation.text,
           'detail': detail.text,
+          'expected_price': expectedprice.text,
           'vehicle_type_id': vehicletypeid.value,
         },
       ),

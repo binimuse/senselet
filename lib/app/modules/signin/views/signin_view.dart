@@ -10,7 +10,9 @@ import '../../../routes/app_pages.dart';
 import '../controllers/signin_controller.dart';
 
 class SigninView extends GetView<SigninController> {
-  const SigninView({Key? key}) : super(key: key);
+  SigninView({Key? key}) : super(key: key);
+
+  final SigninController controller = Get.put(SigninController());
 
   @override
   Widget build(BuildContext context) {
